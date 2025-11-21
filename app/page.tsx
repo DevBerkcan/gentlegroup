@@ -10,14 +10,10 @@ import Blog from '@/components/Blog'
 import CustomerCarousel from '@/components/CustomerCarousel'
 import Footer from '@/components/Footer'
 import Navigation from '@/components/Navigation'
-import Analytics from '@/components/Analytics'
-import CookieConsent from '@/components/CookieConsent'
 
 export default function Home() {
   return (
     <>
-      <Analytics />
-      <CookieConsent />
       <Navigation />
       <main className="relative">
         <Hero />
