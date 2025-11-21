@@ -1,8 +1,9 @@
 'use client'
 
+import clarity from '@microsoft/clarity'
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
-import { clarity } from '@microsoft/clarity'
+
 
 // Analytics IDs
 const GTM_ID = 'GTM-NVTSGS3W'
