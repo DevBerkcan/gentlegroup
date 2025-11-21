@@ -21,15 +21,31 @@ const content = {
         description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
         expertise: ['React', '.NET Core', 'Azure Cloud', 'AI Integration'],
         initialX: -600,
-        image: '/berkcan.jpg'
+        image: '/berkcan.png'
       },
       {
-        name: 'Medin Turkes',
+        name: 'Medin',
         role: 'Backend Specialist',
         description: 'Experte für skalierbare Backend-Architekturen und Datenbank-Design.',
         expertise: ['C# .NET', 'SQL', 'API Design', 'DevOps', "NoSQL"],
         initialX: 600,
         image: '/medin.png'
+      },
+      {
+        name: 'Moritz',
+        role: 'Marketing & Sales',
+        description: 'Spezialist für digitales Marketing, Kundenakquise und strategische Geschäftsentwicklung.',
+        expertise: ['Digital Marketing', 'Sales Strategy', 'Customer Relations', 'Brand Development'],
+        initialX: -600,
+        image: '/moritz.png'
+      },
+      {
+        name: 'Alanur',
+        role: 'Backoffice & Administration',
+        description: 'Organisationstalent für Verwaltung, Angebotserstellung und interne Prozesse.',
+        expertise: ['Angebotserstellung', 'Onboarding', 'Rechnungswesen', 'Projektkoordination'],
+        initialX: 600,
+        image: '/alanur.png'
       },
     ]
   }
@@ -199,7 +215,7 @@ const Team = () => {
                   times: [0, 0.4, 0.7, 1],
                   ease: "easeOut"
                 }}
-                className="relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-8 lg:p-10 hover:border-aquamarine/50 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-2xl backdrop-blur-sm"
+                className="relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-10 lg:p-12 hover:border-aquamarine/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl backdrop-blur-sm"
               >
                 {/* Background shine effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
@@ -225,108 +241,113 @@ const Team = () => {
                 />
                 
                 <div className="relative z-10">
-                  {/* Profile Image with Enhanced Animation */}
+                  {/* Large Profile Image with Modern Shape */}
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.6, 
+                    transition={{
+                      duration: 0.7,
                       delay: index * 0.2,
                       type: "spring",
-                      stiffness: 200
+                      stiffness: 150
                     }}
-                    whileHover={{ 
-                      scale: 1.1, 
-                      rotate: 5,
-                      y: -5 
+                    whileHover={{
+                      scale: 1.05,
+                      rotate: [0, -2, 2, 0],
+                      y: -8,
+                      transition: { duration: 0.5 }
                     }}
-                    className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300 relative"
+                    className="w-full aspect-square max-w-[280px] mx-auto mb-8 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-aquamarine/40 transition-all duration-500 relative"
                   >
                     <Image
                       src={member.image}
                       alt={member.name}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 280px, 280px"
                       onError={(e) => {
                         // Fallback to initial if image fails to load
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
-                        target.nextElementSibling?.classList.remove('hidden');
+                        const fallback = target.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.classList.remove('hidden');
                       }}
                     />
-                    {/* Fallback initial display */}
-                    <div className={`hidden absolute inset-0 rounded-full items-center justify-center text-oxford-blue font-bold text-5xl ${
-                      index === 0
+                    {/* Fallback Gradient with Initial */}
+                    <div className={`hidden absolute inset-0 rounded-3xl flex items-center justify-center text-white font-bold text-8xl ${
+                      index % 2 === 0
                         ? 'bg-gradient-to-br from-aquamarine to-tropical-indigo'
                         : 'bg-gradient-to-br from-tropical-indigo to-aquamarine'
                     }`}>
                       {member.name.charAt(0)}
                     </div>
-                    
-                    {/* Pulsing effect */}
+
+                    {/* Animated Border Effect */}
                     <motion.div
-                      className="absolute inset-0 rounded-full border-2 border-aquamarine/30"
+                      className="absolute inset-0 rounded-3xl border-4 border-aquamarine/30"
                       animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0, 0.5],
+                        scale: [1, 1.02, 1],
+                        opacity: [0.4, 0.7, 0.4],
                       }}
                       transition={{
-                        duration: 2,
+                        duration: 3,
                         repeat: Infinity,
                         ease: "easeInOut",
+                        delay: index * 0.3
                       }}
                     />
+
+                    {/* Gradient Overlay on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-aquamarine/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Glowing Ring Effect */}
+                    <div className="absolute inset-0 rounded-3xl ring-2 ring-aquamarine/0 group-hover:ring-aquamarine/60 transition-all duration-500" />
                   </motion.div>
 
                   {/* Name & Role with Enhanced Typography */}
-                  <motion.h3 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
-                    className="text-2xl lg:text-3xl font-bold mb-3 text-center text-gray-900 group-hover:text-aquamarine transition-colors duration-300"
+                    className="text-center mb-6"
                   >
-                    {member.name}
-                  </motion.h3>
-                  
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-                    className="text-tropical-indigo text-lg font-semibold mb-6 text-center"
-                  >
-                    {member.role}
-                  </motion.p>
+                    <h3 className="text-3xl lg:text-4xl font-bold mb-3 text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aquamarine group-hover:to-tropical-indigo transition-all duration-300">
+                      {member.name}
+                    </h3>
+                    <p className="text-tropical-indigo text-lg lg:text-xl font-semibold">
+                      {member.role}
+                    </p>
+                  </motion.div>
 
                   {/* Description */}
                   <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
-                    className="text-gray-600 text-lg mb-8 leading-relaxed"
+                    transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
+                    className="text-gray-600 text-base lg:text-lg text-center mb-8 leading-relaxed"
                   >
                     {member.description}
                   </motion.p>
 
                   {/* Expertise Tags with Staggered Animation */}
-                  <div className="flex flex-wrap gap-3 mb-8">
+                  <div className="flex flex-wrap justify-center gap-2.5 mb-8">
                     {member.expertise.map((skill, i) => (
                       <motion.span
                         key={skill}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ 
-                          duration: 0.4, 
-                          delay: index * 0.1 + i * 0.1,
+                        transition={{
+                          duration: 0.4,
+                          delay: index * 0.1 + i * 0.08,
                           type: "spring",
                           stiffness: 200
                         }}
-                        className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-full text-gray-700 text-sm font-medium hover:border-aquamarine/30 transition-colors duration-300"
+                        whileHover={{ scale: 1.08, y: -2 }}
+                        className="px-4 py-2 bg-gradient-to-r from-gray-100 to-gray-50 border border-gray-300 rounded-full text-gray-700 text-sm font-medium hover:border-aquamarine hover:text-aquamarine transition-all duration-300 cursor-default"
                       >
                         {skill}
                       </motion.span>
@@ -334,36 +355,36 @@ const Team = () => {
                   </div>
 
                   {/* Social Links with Enhanced Animation */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 + 0.6 }}
-                    className="flex justify-center gap-6"
+                    className="flex justify-center gap-4"
                   >
                     <motion.a
                       href="#"
-                      whileHover={{ scale: 1.2, y: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-600 hover:text-aquamarine transition-colors duration-300"
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      <HiMail className="text-2xl" />
+                      <HiMail className="text-xl" />
                     </motion.a>
                     <motion.a
                       href="#"
-                      whileHover={{ scale: 1.2, y: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-600 hover:text-aquamarine transition-colors duration-300"
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      <FaLinkedin className="text-2xl" />
+                      <FaLinkedin className="text-xl" />
                     </motion.a>
                     <motion.a
                       href="#"
-                      whileHover={{ scale: 1.2, y: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-600 hover:text-aquamarine transition-colors duration-300"
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      <FaGithub className="text-2xl" />
+                      <FaGithub className="text-xl" />
                     </motion.a>
                   </motion.div>
                 </div>
