@@ -1,7 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Analytics from '@/components/Analytics'
+import AccessibilityTool from '@/components/AccessibilityTool'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -63,13 +65,9 @@ export default function RootLayout({
   return (
     <html lang="de" className={inter.variable}>
       <head>
-        {/* Favicon - SVG (modern browsers) */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        {/* Favicon - ICO fallback (older browsers) */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        {/* Web App Manifest */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#010A30" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -82,6 +80,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <AccessibilityTool />
         <Analytics />
       </body>
     </html>
