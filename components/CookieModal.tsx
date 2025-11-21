@@ -10,27 +10,22 @@ const CookieModal = () => {
   const [showDetails, setShowDetails] = useState(false)
 
   useEffect(() => {
-    const cookieConsent = localStorage.getItem('cookieConsent')
+    const cookieConsent = localStorage.getItem('cookie-consent')
     if (!cookieConsent) {
       setTimeout(() => setIsOpen(true), 1000)
     }
   }, [])
 
   const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'accepted')
-    // Initialize analytics tools if needed
-    initializeAnalyticsTools()
+    localStorage.setItem('cookie-consent', 'accepted')
+    // Trigger Analytics initialization event
+    window.dispatchEvent(new Event('cookie-consent-given'))
     setIsOpen(false)
   }
 
   const rejectCookies = () => {
-    localStorage.setItem('cookieConsent', 'rejected')
+    localStorage.setItem('cookie-consent', 'rejected')
     setIsOpen(false)
-  }
-
-  const initializeAnalyticsTools = () => {
-    // You can add your analytics initialization here
-    console.log('Analytics tools initialized')
   }
 
   return (
@@ -80,19 +75,19 @@ const CookieModal = () => {
                       <ul className="text-ghost-white/70 text-sm space-y-2">
                         <li className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-aquamarine rounded-full" />
-                          <span>Google Tag Manager</span>
+                          <span>Google Tag Manager - Website-Analytics und Conversion-Tracking</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-aquamarine rounded-full" />
-                          <span>LinkedIn Insight Tag</span>
+                          <span>Google Analytics 4 - Nutzerverhalten und Traffic-Analyse</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-aquamarine rounded-full" />
-                          <span>Klaviyo</span>
+                          <span>Meta Pixel - Social Media Marketing und Retargeting</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-aquamarine rounded-full" />
-                          <span>Cookiebot</span>
+                          <span>Microsoft Clarity - Heatmaps und Session-Aufzeichnungen</span>
                         </li>
                       </ul>
                     </motion.div>
