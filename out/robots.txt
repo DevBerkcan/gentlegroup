@@ -1,0 +1,14 @@
+# robots.txt - Gentle Webdesign
+# Optimiert für SEO und Award 2026
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /_next/
+
+# Sitemap
+Sitemap: https://gentle-webdesign.com/sitemap.xml
+
+# Crawl-delay für bessere Server-Performance
+Crawl-delay: 0.5

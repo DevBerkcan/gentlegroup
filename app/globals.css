@@ -1,0 +1,557 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    @apply bg-black text-ghost-white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  /* Skip to content link for accessibility */
+  .skip-to-content {
+    @apply absolute -top-full left-0 bg-aquamarine text-oxford-blue px-6 py-3 font-semibold z-50;
+    transition: top 0.3s;
+  }
+
+  .skip-to-content:focus {
+    @apply top-0;
+  }
+
+  /* Enhanced focus styles for accessibility (WCAG 2.1) */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-aquamarine;
+    outline-style: solid;
+  }
+
+  /* Remove default focus for mouse users, keep for keyboard */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  
+  h1 {
+    font-size: 80px;
+    margin: 20px 0px 10px;
+  }
+  
+  h2 {
+    font-size: 60px;
+    margin: 20px 0px 10px;
+  }
+  
+  h3 {
+    font-size: 48px;
+    margin: 15px 0px 10px;
+  }
+  
+  h4 {
+    font-size: 36px;
+    margin: 15px 0px 10px;
+  }
+  
+  h5 {
+    font-size: 24px;
+    margin: 10px 0px 8px;
+  }
+  
+  h6 {
+    font-size: 20px;
+    margin: 10px 0px 8px;
+  }
+  
+  p, span, div {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #01FFA9 0%, #A97AFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glow-aquamarine {
+    box-shadow: 0 0 20px rgba(1, 255, 169, 0.3);
+  }
+  
+  .glow-indigo {
+    box-shadow: 0 0 20px rgba(169, 122, 255, 0.3);
+  }
+  
+  .clip-hexagon {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  
+  .font-helvetica-bold {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+  }
+  
+  .big-title {
+    font-size: 80px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 20px 0px 10px;
+  }
+  
+  video {
+    object-fit: cover;
+  }
+  
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Prose styling for legal pages (Legal Cockpit content) */
+@layer components {
+  .prose {
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .prose h1 {
+    @apply text-3xl lg:text-4xl font-bold text-gray-900 mt-8 mb-4;
+    color: #1a202c;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .prose h2 {
+    @apply text-2xl lg:text-3xl font-bold text-gray-900 mt-8 mb-4;
+    color: #1a202c;
+    font-weight: 700;
+  }
+
+  .prose h3 {
+    @apply text-xl lg:text-2xl font-semibold text-gray-900 mt-6 mb-3;
+    color: #2d3748;
+  }
+
+  .prose h4 {
+    @apply text-lg lg:text-xl font-semibold text-gray-800 mt-6 mb-3;
+  }
+
+  .prose h5 {
+    @apply text-base lg:text-lg font-semibold text-gray-800 mt-4 mb-2;
+  }
+
+  .prose h6 {
+    @apply text-base font-semibold text-gray-800 mt-4 mb-2;
+  }
+
+  .prose p {
+    @apply mb-4 text-base lg:text-lg text-gray-700 leading-relaxed;
+  }
+
+  .prose a {
+    @apply text-aquamarine hover:text-tropical-indigo underline transition-colors duration-300;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .prose strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 ml-6 text-gray-700;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply mb-2 text-base lg:text-lg leading-relaxed;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-aquamarine pl-4 italic my-6 text-gray-600;
+  }
+
+  .prose code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800;
+  }
+
+  .prose pre {
+    @apply bg-gray-100 p-4 rounded-lg overflow-x-auto mb-4;
+  }
+
+  .prose table {
+    @apply w-full border-collapse mb-6;
+  }
+
+  .prose th {
+    @apply bg-gray-100 px-4 py-2 text-left font-semibold text-gray-900 border border-gray-300;
+  }
+
+  .prose td {
+    @apply px-4 py-2 border border-gray-300 text-gray-700;
+  }
+
+  .prose hr {
+    @apply my-8 border-t-2 border-gray-200;
+  }
+
+  .prose img {
+    @apply rounded-lg shadow-lg my-6;
+  }
+
+  /* Responsive text sizing */
+  @media (max-width: 640px) {
+    .prose {
+      @apply text-base;
+    }
+
+    .prose h1 {
+      @apply text-2xl;
+    }
+
+    .prose h2 {
+      @apply text-xl;
+    }
+
+    .prose h3 {
+      @apply text-lg;
+    }
+  }
+}
+
+/* Cookie Consent Styling - harmonized with Gentle Group */
+@layer utilities {
+  /* Cookie Consent Modal Overlay */
+  #cc-modal {
+    backdrop-filter: blur(12px) !important;
+    background: rgba(1, 10, 48, 0.90) !important;
+  }
+
+  /* Cookie Consent Container - Schmaler und eleganter */
+  .cc-window,
+  .cc-modal .cc-box {
+    background: linear-gradient(135deg, #010A30 0%, #020D3D 100%) !important;
+    border: 1.5px solid rgba(1, 255, 169, 0.25) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(1, 255, 169, 0.08),
+                inset 0 1px 0 rgba(1, 255, 169, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+    padding: 28px 32px !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Cookie Banner at bottom - Schmaler */
+  .cc-window.cc-banner {
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 auto 0 auto !important;
+    max-width: 560px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 0 !important;
+  }
+
+  /* Modal zentriert */
+  .cc-modal .cc-box {
+    margin: 40px auto !important;
+  }
+
+  /* Cookie Consent Headings - Eleganter */
+  .cc-window h2,
+  .cc-window h3,
+  .cc-modal h2,
+  .cc-modal h3 {
+    color: #F0EFF4 !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 12px !important;
+    font-size: 20px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Cookie Consent Text - Kompakter */
+  .cc-window p,
+  .cc-window span,
+  .cc-modal p,
+  .cc-modal span,
+  .cc-window .cc-message {
+    color: rgba(240, 239, 244, 0.95) !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    line-height: 1.5 !important;
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Cookie Consent Links */
+  .cc-window a,
+  .cc-modal a {
+    color: #01FFA9 !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 2px !important;
+    transition: color 0.3s ease !important;
+  }
+
+  .cc-window a:hover,
+  .cc-modal a:hover {
+    color: #A97AFF !important;
+  }
+
+  /* Primary Button (Accept All / Save) - Eleganter und kompakter */
+  .cc-window .cc-btn.cc-allow,
+  .cc-window .cc-btn.cc-save,
+  .cc-modal .cc-btn.cc-allow,
+  .cc-modal .cc-btn.cc-save,
+  button[data-cc-action="accept"] {
+    background: linear-gradient(135deg, #01FFA9 0%, #A97AFF 100%) !important;
+    color: #010A30 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 12px 28px !important;
+    font-weight: 700 !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 3px 15px rgba(1, 255, 169, 0.25),
+                0 0 20px rgba(169, 122, 255, 0.15) !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-window .cc-btn.cc-allow:hover,
+  .cc-window .cc-btn.cc-save:hover,
+  .cc-modal .cc-btn.cc-allow:hover,
+  .cc-modal .cc-btn.cc-save:hover,
+  button[data-cc-action="accept"]:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 6px 25px rgba(1, 255, 169, 0.4),
+                0 0 35px rgba(169, 122, 255, 0.25) !important;
+  }
+
+  /* Secondary Buttons (Deny / Settings) - Schlanker */
+  .cc-window .cc-btn.cc-deny,
+  .cc-window .cc-btn.cc-settings,
+  .cc-modal .cc-btn.cc-deny,
+  .cc-modal .cc-btn.cc-settings,
+  button[data-cc-action="deny"],
+  button[data-cc="c-settings"] {
+    background: rgba(240, 239, 244, 0.08) !important;
+    color: rgba(240, 239, 244, 0.95) !important;
+    border: 1.5px solid rgba(1, 255, 169, 0.25) !important;
+    border-radius: 10px !important;
+    padding: 11px 24px !important;
+    font-weight: 600 !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(10px) !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-window .cc-btn.cc-deny:hover,
+  .cc-window .cc-btn.cc-settings:hover,
+  .cc-modal .cc-btn.cc-deny:hover,
+  .cc-modal .cc-btn.cc-settings:hover,
+  button[data-cc-action="deny"]:hover,
+  button[data-cc="c-settings"]:hover {
+    background: rgba(1, 255, 169, 0.15) !important;
+    border-color: rgba(1, 255, 169, 0.5) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    color: #F0EFF4 !important;
+  }
+
+  /* Cookie Categories/Switches */
+  .cc-modal .cc-switch {
+    background: rgba(240, 239, 244, 0.2) !important;
+    border-radius: 20px !important;
+  }
+
+  .cc-modal .cc-switch input:checked + .cc-slider {
+    background: linear-gradient(135deg, #01FFA9 0%, #A97AFF 100%) !important;
+  }
+
+  .cc-modal .cc-slider {
+    background: rgba(240, 239, 244, 0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Cookie Category Labels - Kompakter */
+  .cc-modal .cc-category {
+    background: rgba(240, 239, 244, 0.04) !important;
+    border: 1px solid rgba(1, 255, 169, 0.15) !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 10px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .cc-modal .cc-category:hover {
+    border-color: rgba(1, 255, 169, 0.35) !important;
+    background: rgba(240, 239, 244, 0.08) !important;
+  }
+
+  /* Button Container - Kompakter Abstand */
+  .cc-window .cc-buttons,
+  .cc-modal .cc-buttons {
+    display: flex !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+    margin-top: 20px !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Close Button */
+  .cc-modal .cc-close,
+  .cc-window .cc-close {
+    color: #F0EFF4 !important;
+    opacity: 0.7 !important;
+    transition: all 0.3s ease !important;
+    font-size: 28px !important;
+  }
+
+  .cc-modal .cc-close:hover,
+  .cc-window .cc-close:hover {
+    opacity: 1 !important;
+    color: #01FFA9 !important;
+    transform: rotate(90deg) !important;
+  }
+
+  /* Scrollbar in Cookie Settings */
+  .cc-modal .cc-categories::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  .cc-modal .cc-categories::-webkit-scrollbar-track {
+    background: rgba(240, 239, 244, 0.1) !important;
+    border-radius: 10px !important;
+  }
+
+  .cc-modal .cc-categories::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #01FFA9 0%, #A97AFF 100%) !important;
+    border-radius: 10px !important;
+  }
+
+  .cc-modal .cc-categories::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #A97AFF 0%, #01FFA9 100%) !important;
+  }
+
+  /* Responsive Design - Mobile optimiert */
+  @media (max-width: 640px) {
+    .cc-window,
+    .cc-modal .cc-box {
+      border-radius: 18px 18px 0 0 !important;
+      padding: 24px 20px !important;
+      margin: 0 !important;
+      max-width: 100% !important;
+    }
+
+    .cc-window h2,
+    .cc-window h3,
+    .cc-modal h2,
+    .cc-modal h3 {
+      font-size: 18px !important;
+    }
+
+    .cc-window p,
+    .cc-window span,
+    .cc-modal p,
+    .cc-modal span {
+      font-size: 13px !important;
+    }
+
+    .cc-window .cc-buttons,
+    .cc-modal .cc-buttons {
+      flex-direction: column !important;
+      gap: 8px !important;
+    }
+
+    .cc-window .cc-btn,
+    .cc-modal .cc-btn {
+      width: 100% !important;
+      justify-content: center !important;
+      padding: 12px 20px !important;
+    }
+  }
+
+  /* Tablet optimiert */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .cc-window,
+    .cc-modal .cc-box {
+      max-width: 480px !important;
+    }
+
+    .cc-window.cc-banner {
+      max-width: 540px !important;
+    }
+  }
+
+  /* Animation for Cookie Banner */
+  @keyframes slideUpFade {
+    from {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cc-window,
+  .cc-modal {
+    animation: slideUpFade 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* Tab Focus Styles for Accessibility */
+  .cc-window *:focus-visible,
+  .cc-modal *:focus-visible {
+    outline: 2px solid #01FFA9 !important;
+    outline-offset: 2px !important;
+    border-radius: 8px !important;
+  }
+}

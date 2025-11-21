@@ -1,0 +1,29 @@
+{
+  "name": "Gentle Webdesign - Professionelle Webentwicklung & KI-Lösungen",
+  "short_name": "Gentle Webdesign",
+  "description": "Innovative Softwarelösungen, modernes Webdesign und KI-Integration aus Düsseldorf",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#513A2A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "technology"],
+  "lang": "de-DE",
+  "dir": "ltr",
+  "scope": "/",
+  "iarc_rating_id": ""
+}
