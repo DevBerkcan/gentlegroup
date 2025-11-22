@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { HiMail } from 'react-icons/hi'
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import { useRef, useState } from 'react'
-import Image from 'next/image'
+import OptimizedImage from '@/components/OptimizedImage'
 
 // Text content configuration for consistency
 const content = {
@@ -258,15 +258,16 @@ const Team = () => {
                       y: -8,
                       transition: { duration: 0.5 }
                     }}
-                    className="w-full aspect-square max-w-[280px] mx-auto mb-8 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-aquamarine/40 transition-all duration-500 relative"
+                    className={`w-full aspect-square max-w-[280px] mx-auto mb-8 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-aquamarine/40 transition-all duration-500 relative ${index === 3 ? 'mt-16' : ''}`}
                   >
-                    <Image
+                    <OptimizedImage
                       src={member.image}
                       alt={member.name}
                       fill
+                      priority={index < 2}
                       className="object-cover"
                       sizes="(max-width: 768px) 280px, 280px"
-                      onError={(e) => {
+                      onError={(e: any) => {
                         // Fallback to initial if image fails to load
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';

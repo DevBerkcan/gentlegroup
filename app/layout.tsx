@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Analytics from '@/components/Analytics'
+import StructuredData from '@/components/StructuredData'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,37 +11,80 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen aus Düsseldorf',
-  description: 'Gentle Group bietet innovative Softwarelösungen, modernes Group, KI-Integration und Cloud-Services. Ihr Partner für digitale Transformation in Düsseldorf und deutschlandweit.',
-  keywords: ['Group Düsseldorf', 'Softwareentwicklung', 'KI-Integration', 'Azure Cloud', 'Full-Stack Development', 'Web-Apps', 'Digital Solutions'],
-  authors: [{ name: 'Berk-Can Atesoglu', url: 'https://gentle-Group.com' }],
+  title: {
+    default: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen aus Düsseldorf',
+    template: '%s | Gentle Group'
+  },
+  description: 'Gentle Group - Dachmarke für innovative Software-Lösungen der GentleSuite. Professionelle Webentwicklung, KI-Integration, Cloud Services & SaaS-Produkte (Gentle Access, GentleCalc, GentleTrack) aus Düsseldorf.',
+  keywords: [
+    // Lokale Keywords
+    'Webentwicklung Düsseldorf',
+    'Software Entwicklung Düsseldorf',
+    'KI-Integration Düsseldorf',
+    // Service Keywords
+    'Softwareentwicklung',
+    'KI-Lösungen',
+    'Azure Cloud',
+    'Full-Stack Development',
+    'Web-Apps',
+    'SaaS',
+    // Product Keywords
+    'Gentle Access',
+    'GentleCalc',
+    'GentleTrack',
+    'GentleSuite',
+    'Barrierefreiheit Software',
+    'Projekt Tracking',
+    // General
+    'Digital Solutions',
+    'Cloud Services',
+    'React Entwicklung',
+    '.NET Entwicklung'
+  ],
+  authors: [{ name: 'Berk-Can Atesoglu', url: 'https://gentle-group.com' }],
   creator: 'Gentle Group',
   publisher: 'Gentle Group',
-  metadataBase: new URL('https://gentle-Group.com'),
+  metadataBase: new URL('https://gentle-group.com'),
   alternates: {
     canonical: '/',
+    languages: {
+      'de-DE': '/',
+    }
   },
+  category: 'technology',
+  classification: 'Software Development, SaaS, Web Development',
   openGraph: {
-    title: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen',
-    description: 'Innovative Softwarelösungen, modernes Group und KI-Integration aus Düsseldorf.',
-    url: 'https://gentle-Group.com',
+    title: 'Gentle Group - Dachmarke für innovative Software-Lösungen der GentleSuite',
+    description: 'Professionelle Webentwicklung, KI-Integration, Cloud Services & SaaS-Produkte (Gentle Access, GentleCalc, GentleTrack) aus Düsseldorf. Ihr Partner für digitale Transformation.',
+    url: 'https://gentle-group.com',
     siteName: 'Gentle Group',
     locale: 'de_DE',
     type: 'website',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Gentle Group',
+        alt: 'Gentle Group - Dachmarke für innovative Software-Lösungen der GentleSuite',
+        type: 'image/svg+xml',
       },
     ],
+    countryName: 'Deutschland',
+    emails: ['info@gentle-group.com'],
+    phoneNumbers: ['+49-XXX-XXXXXX'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen',
-    description: 'Innovative Softwarelösungen, modernes Group und KI-Integration aus Düsseldorf.',
-    images: ['/og-image.jpg'],
+    title: 'Gentle Group - Innovative Software-Lösungen der GentleSuite',
+    description: 'Professionelle Webentwicklung, KI-Integration & SaaS aus Düsseldorf. Gentle Access, GentleCalc, GentleTrack.',
+    images: ['/og-image.svg'],
+    creator: '@gentlegroup',
+    site: '@gentlegroup',
+  },
+  verification: {
+    google: 'GOOGLE_SEARCH_CONSOLE_CODE_HIER_EINTRAGEN',
+    // yandex: 'YANDEX_CODE',
+    // other: 'OTHER_VERIFICATION_CODE',
   },
   robots: {
     index: true,
@@ -81,6 +125,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body>
+        <StructuredData />
         {children}
         <Analytics />
       </body>

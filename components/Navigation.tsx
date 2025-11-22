@@ -35,7 +35,7 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Top Navigation - Hidden Logo/Desktop for reference */}
+      {/* Top Navigation - Mobile Hamburger Menu */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -44,6 +44,25 @@ const Navigation = () => {
           isScrolled ? 'bg-oxford-blue/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
         }`}
       >
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex justify-between items-center lg:hidden">
+          {/* Mobile Logo */}
+          <div className="text-ghost-white text-xl font-bold">Gentle Group</div>
+
+          {/* Mobile Hamburger Button */}
+          <motion.button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="p-2 text-ghost-white hover:text-aquamarine transition-colors"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <HiX className="text-3xl" />
+            ) : (
+              <HiMenu className="text-3xl" />
+            )}
+          </motion.button>
+        </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>

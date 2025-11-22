@@ -1,44 +1,64 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gentle-Group.com'
+  const baseUrl = 'https://gentle-group.com'
+  const currentDate = new Date()
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
     {
-      url: `${baseUrl}/datenschutzerklaerung`,
-      lastModified: new Date(),
+      url: `${baseUrl}/impressum`,
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/impressum`,
-      lastModified: new Date(),
+      url: `${baseUrl}/datenschutzerklaerung`,
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/agb`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/barrierefreiheit`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/project-questionnaire`,
-      lastModified: new Date(),
+      url: `${baseUrl}/kontakt`,
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    // GentleSuite Products (future product pages)
+    {
+      url: `${baseUrl}/products/gentleaccess`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/products/gentlecalc`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/products/gentletrack`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
   ]
 }
