@@ -19,6 +19,10 @@ interface AccessibilitySettings {
   largePointer: boolean;
   muteSound: boolean;
   saturationMode: boolean;
+  focusIndicators: boolean;
+  textSpacing: boolean;
+  stopAnimations: boolean;
+  readingGuide: boolean;
 }
 
 type ColorBlindMode = 'none' | 'protanopia' | 'protanomaly' | 'deuteranopia' | 'deuteranomaly' | 'tritanopia' | 'tritanomaly' | 'achromatopsia';
@@ -43,7 +47,8 @@ const translations = {
     close: 'Schließen',
     settings: 'Einstellungen',
     language: 'Sprache',
-    quickView: '⚡ Sofortansicht',
+    reset: 'Zurücksetzen',
+    quickView: 'Schnellansicht',
     elderly: '👴 Senioren',
     lowVision: '👁️ Sehschwäche',
     colorBlind: '🎨 Farbschwäche',
@@ -62,19 +67,25 @@ const translations = {
     textToSpeech: '🔊 Vorlesefunktion',
     readWebsite: '▶️ Webseite vorlesen',
     stopReading: '⏸️ Vorlesen stoppen',
+    pauseReading: '⏸️ Pause',
+    resumeReading: '▶️ Fortsetzen',
     normal: 'Normal',
     colorBlindModeLabel: 'Farbsehschwäche-Modus',
-    protanopia: 'Rotschwäche-Modus (Protanopie)',
-    protanomaly: 'Rotschwäche-Modus (Protanomalie)',
-    deuteranopia: 'Grünschwäche-Modus (Deuteranopie)',
-    deuteranomaly: 'Grünschwäche-Modus (Deuteranomalie)',
-    tritanopia: 'Blauschwäche-Modus (Tritanopie)',
-    tritanomaly: 'Blauschwäche-Modus (Tritanomalie)',
-    achromatopsia: 'Graustufen-Modus',
+    protanopia: 'Rotschwäche (Protanopie)',
+    protanomaly: 'Rotschwäche (Protanomalie)',
+    deuteranopia: 'Grünschwäche (Deuteranopie)',
+    deuteranomaly: 'Grünschwäche (Deuteranomalie)',
+    tritanopia: 'Blauschwäche (Tritanopie)',
+    tritanomaly: 'Blauschwäche (Tritanomalie)',
+    achromatopsia: 'Farbenblindheit',
     saturationMode: 'Sättigungs-Modus',
-    moreFeatures: '➕ Mehr Funktionen',
-    largePointer: 'Größerer Mauszeiger aktivieren',
+    moreFeatures: '➕ Weitere Funktionen',
+    largePointer: 'Größerer Mauszeiger',
     muteSound: 'Ton ausschalten',
+    focusIndicators: 'Verbesserte Fokus-Anzeige',
+    textSpacing: 'Optimierter Textabstand',
+    stopAnimations: 'Animationen stoppen',
+    readingGuide: 'Lesehilfe aktivieren',
     resetAll: '🔄 Alles zurücksetzen',
   },
   en: {
@@ -82,7 +93,8 @@ const translations = {
     close: 'Close',
     settings: 'Settings',
     language: 'Language',
-    quickView: '⚡ Quick View',
+    reset: 'Reset',
+    quickView: 'Quick View',
     elderly: '👴 Elderly',
     lowVision: '👁️ Low Vision',
     colorBlind: '🎨 Color Blind',
@@ -101,6 +113,8 @@ const translations = {
     textToSpeech: '🔊 Text to Speech',
     readWebsite: '▶️ Read Website',
     stopReading: '⏸️ Stop Reading',
+    pauseReading: '⏸️ Pause',
+    resumeReading: '▶️ Resume',
     normal: 'Normal',
     colorBlindModeLabel: 'Color Blind Mode',
     protanopia: 'Red Weakness (Protanopia)',
@@ -109,11 +123,15 @@ const translations = {
     deuteranomaly: 'Green Weakness (Deuteranomaly)',
     tritanopia: 'Blue Weakness (Tritanopia)',
     tritanomaly: 'Blue Weakness (Tritanomaly)',
-    achromatopsia: 'Grayscale Mode',
+    achromatopsia: 'Color Blindness',
     saturationMode: 'Saturation Mode',
     moreFeatures: '➕ More Features',
-    largePointer: 'Enable Large Pointer',
+    largePointer: 'Large Mouse Pointer',
     muteSound: 'Mute Sound',
+    focusIndicators: 'Enhanced Focus Indicators',
+    textSpacing: 'Optimized Text Spacing',
+    stopAnimations: 'Stop Animations',
+    readingGuide: 'Enable Reading Guide',
     resetAll: '🔄 Reset All',
   }
 };
@@ -143,9 +161,15 @@ const AccessibilityTool: React.FC = () => {
     colorBlindMode: 'none',
     largePointer: false,
     muteSound: false,
-    saturationMode: false
+    saturationMode: false,
+    focusIndicators: false,
+    textSpacing: false,
+    stopAnimations: false,
+    readingGuide: false,
   });
   const [isReading, setIsReading] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const t = translations[language];
 
@@ -249,6 +273,10 @@ const applySettings = (): void => {
   body.classList.toggle('hide-images', settings.hideImages)
   body.classList.toggle('large-pointer', settings.largePointer)
   body.classList.toggle('mute-sound', settings.muteSound)
+  body.classList.toggle('focus-indicators', settings.focusIndicators)
+  body.classList.toggle('text-spacing', settings.textSpacing)
+  body.classList.toggle('stop-animations', settings.stopAnimations)
+  body.classList.toggle('reading-guide', settings.readingGuide)
 
   // ✅ COLOR FILTERS (APPLY ONLY TO PAGE CONTENT)
   const filters: string[] = []
@@ -305,18 +333,57 @@ const toggleSetting = (setting: SettingKey): void => {
   };
 
   const toggleTextToSpeech = (): void => {
-    if (isReading) {
-      window.speechSynthesis.cancel();
-      setIsReading(false);
+    if (isReading && !isPaused) {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
+    } else if (isReading && isPaused) {
+      window.speechSynthesis.resume();
+      setIsPaused(false);
     } else {
-      const text = document.body.innerText;
+      // Get all text from page-root, excluding navigation and accessibility panel
+      const pageRoot = document.getElementById('page-root');
+      let text = '';
+      
+      if (pageRoot) {
+        // Clone the element to avoid modifying the DOM
+        const clone = pageRoot.cloneNode(true) as HTMLElement;
+        
+        // Remove script and style tags
+        clone.querySelectorAll('script, style, nav, header, .navigation').forEach(el => el.remove());
+        
+        text = clone.innerText;
+      } else {
+        text = document.body.innerText;
+      }
+      
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = language === 'de' ? 'de-DE' : 'en-US';
       utterance.rate = 0.9;
-      utterance.onend = () => setIsReading(false);
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      
+      utterance.onend = () => {
+        setIsReading(false);
+        setIsPaused(false);
+      };
+      
+      utterance.onerror = () => {
+        setIsReading(false);
+        setIsPaused(false);
+      };
+      
+      utteranceRef.current = utterance;
+      window.speechSynthesis.cancel(); // Clear any previous speech
       window.speechSynthesis.speak(utterance);
       setIsReading(true);
+      setIsPaused(false);
     }
+  };
+
+  const stopTextToSpeech = (): void => {
+    window.speechSynthesis.cancel();
+    setIsReading(false);
+    setIsPaused(false);
   };
 
   const quickSettings = (preset: QuickPreset): void => {
@@ -327,7 +394,9 @@ const toggleSetting = (setting: SettingKey): void => {
           ...prev,
           readableFont: true,
           increasedSpacing: true,
-          underlineLinks: true
+          underlineLinks: true,
+          textSpacing: true,
+          focusIndicators: true,
         }));
         break;
       case 'lowVision':
@@ -336,13 +405,16 @@ const toggleSetting = (setting: SettingKey): void => {
           ...prev,
           highContrast: true,
           underlineLinks: true,
-          cursorHighlight: true
+          cursorHighlight: true,
+          focusIndicators: true,
+          largePointer: true,
         }));
         break;
       case 'colorBlind':
         setSettings(prev => ({
           ...prev,
-          colorBlindMode: 'deuteranomaly'
+          colorBlindMode: 'deuteranomaly',
+          underlineLinks: true,
         }));
         break;
     }
@@ -359,6 +431,7 @@ const toggleSetting = (setting: SettingKey): void => {
   const resetAll = (): void => {
     window.speechSynthesis.cancel();
     setIsReading(false);
+    setIsPaused(false);
     setFontSize(100);
     setSettings({
       highContrast: false,
@@ -374,7 +447,11 @@ const toggleSetting = (setting: SettingKey): void => {
       colorBlindMode: 'none',
       largePointer: false,
       muteSound: false,
-      saturationMode: false
+      saturationMode: false,
+      focusIndicators: false,
+      textSpacing: false,
+      stopAnimations: false,
+      readingGuide: false,
     });
     localStorage.removeItem('accessibilitySettings');
   };
@@ -419,6 +496,14 @@ const toggleSetting = (setting: SettingKey): void => {
           >
             <h2>{t.title}</h2>
             <div className="header-buttons">
+              <button
+                className="reset-header-button"
+                onClick={resetAll}
+                aria-label={t.reset}
+                title={t.reset}
+              >
+                🔄
+              </button>
               <button
                 className="settings-button"
                 onClick={() => setShowSettings(!showSettings)}
@@ -629,12 +714,24 @@ const toggleSetting = (setting: SettingKey): void => {
 
             <div className="control-group">
               <h3>{t.textToSpeech}</h3>
-              <button 
-                className={`feature-button ${isReading ? 'active' : ''}`}
-                onClick={toggleTextToSpeech}
-              >
-                {isReading ? t.stopReading : t.readWebsite}
-              </button>
+              <div className="tts-controls">
+                <button 
+                  className={`feature-button ${isReading && !isPaused ? 'active' : ''}`}
+                  onClick={toggleTextToSpeech}
+                >
+                  {isReading && !isPaused ? t.pauseReading : 
+                   isReading && isPaused ? t.resumeReading : 
+                   t.readWebsite}
+                </button>
+                {isReading && (
+                  <button 
+                    className="feature-button stop-button"
+                    onClick={stopTextToSpeech}
+                  >
+                    {t.stopReading}
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="control-group">
@@ -666,14 +763,48 @@ const toggleSetting = (setting: SettingKey): void => {
                     />
                     <span>{t.muteSound}</span>
                   </label>
+
+                  <label className="toggle-option">
+                    <span className="option-icon">🎯</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.focusIndicators}
+                      onChange={() => toggleSetting('focusIndicators')}
+                    />
+                    <span>{t.focusIndicators}</span>
+                  </label>
+
+                  <label className="toggle-option">
+                    <span className="option-icon">📏</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.textSpacing}
+                      onChange={() => toggleSetting('textSpacing')}
+                    />
+                    <span>{t.textSpacing}</span>
+                  </label>
+
+                  <label className="toggle-option">
+                    <span className="option-icon">⏸️</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.stopAnimations}
+                      onChange={() => toggleSetting('stopAnimations')}
+                    />
+                    <span>{t.stopAnimations}</span>
+                  </label>
+
+                  <label className="toggle-option">
+                    <span className="option-icon">📍</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.readingGuide}
+                      onChange={() => toggleSetting('readingGuide')}
+                    />
+                    <span>{t.readingGuide}</span>
+                  </label>
                 </div>
               )}
-            </div>
-
-            <div className="control-group">
-              <button className="reset-button" onClick={resetAll}>
-                {t.resetAll}
-              </button>
             </div>
           </div>
         </div>
