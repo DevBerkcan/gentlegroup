@@ -49,7 +49,7 @@ const translations = {
     language: 'Sprache',
     reset: 'Zurücksetzen',
     quickView: 'Schnellansicht',
-    elderly: '👴 Senioren',
+    elderly: '👴 Seniorenansicht',
     lowVision: '👁️ Sehschwäche',
     colorBlind: '🎨 Farbschwäche',
     fontSize: '🔤 Schriftgröße',
