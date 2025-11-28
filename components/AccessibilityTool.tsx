@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import '../sytles/AccessibilityTool.css';
+import '../styles/AccessibilityTool.css';
 
 interface AccessibilitySettings {
   highContrast: boolean;
@@ -17,7 +17,6 @@ interface AccessibilitySettings {
   hideImages: boolean;
   colorBlindMode: ColorBlindMode;
   largePointer: boolean;
-  disableAnimations: boolean;
   muteSound: boolean;
   saturationMode: boolean;
 }
@@ -63,8 +62,8 @@ const translations = {
     textToSpeech: '🔊 Vorlesefunktion',
     readWebsite: '▶️ Webseite vorlesen',
     stopReading: '⏸️ Vorlesen stoppen',
-    colorCorrection: '🎨 Farbkorrektur',
     normal: 'Normal',
+    colorBlindModeLabel: 'Farbsehschwäche-Modus',
     protanopia: 'Rotschwäche-Modus (Protanopie)',
     protanomaly: 'Rotschwäche-Modus (Protanomalie)',
     deuteranopia: 'Grünschwäche-Modus (Deuteranopie)',
@@ -75,7 +74,6 @@ const translations = {
     saturationMode: 'Sättigungs-Modus',
     moreFeatures: '➕ Mehr Funktionen',
     largePointer: 'Größerer Mauszeiger aktivieren',
-    disableAnimations: 'Ausblendung von Animationen',
     muteSound: 'Ton ausschalten',
     resetAll: '🔄 Alles zurücksetzen',
   },
@@ -103,8 +101,8 @@ const translations = {
     textToSpeech: '🔊 Text to Speech',
     readWebsite: '▶️ Read Website',
     stopReading: '⏸️ Stop Reading',
-    colorCorrection: '🎨 Color Correction',
     normal: 'Normal',
+    colorBlindModeLabel: 'Color Blind Mode',
     protanopia: 'Red Weakness (Protanopia)',
     protanomaly: 'Red Weakness (Protanomaly)',
     deuteranopia: 'Green Weakness (Deuteranopia)',
@@ -115,7 +113,6 @@ const translations = {
     saturationMode: 'Saturation Mode',
     moreFeatures: '➕ More Features',
     largePointer: 'Enable Large Pointer',
-    disableAnimations: 'Disable Animations',
     muteSound: 'Mute Sound',
     resetAll: '🔄 Reset All',
   }
@@ -145,7 +142,6 @@ const AccessibilityTool: React.FC = () => {
     hideImages: false,
     colorBlindMode: 'none',
     largePointer: false,
-    disableAnimations: false,
     muteSound: false,
     saturationMode: false
   });
@@ -232,38 +228,74 @@ const AccessibilityTool: React.FC = () => {
     }
   };
 
-  const applySettings = (): void => {
-    const root = document.documentElement;
-    const body = document.body;
+const applySettings = (): void => {
+  const root = document.documentElement
+  const body = document.body
+  const pageRoot = document.getElementById('page-root')
 
-    root.style.setProperty('--base-font-size', `${fontSize}%`);
+  // ✅ Font size
+  root.style.fontSize = `${fontSize}%`
 
-    body.classList.toggle('high-contrast', settings.highContrast);
-    body.classList.toggle('grayscale', settings.grayscale);
-    body.classList.toggle('underline-links', settings.underlineLinks);
-    body.classList.toggle('readable-font', settings.readableFont);
-    body.classList.toggle('increased-spacing', settings.increasedSpacing);
-    body.classList.toggle('cursor-highlight', settings.cursorHighlight);
-    body.classList.toggle('blue-filter', settings.blueFilter);
-    body.classList.toggle('night-mode', settings.nightMode);
-    body.classList.toggle('hide-images', settings.hideImages);
-    body.classList.toggle('large-pointer', settings.largePointer);
-    body.classList.toggle('disable-animations', settings.disableAnimations);
-    body.classList.toggle('mute-sound', settings.muteSound);
-    body.classList.toggle('saturation-mode', settings.saturationMode);
+  // ✅ Remove old page filters
+  if (pageRoot) pageRoot.style.filter = ''
 
-    body.classList.remove('protanopia', 'protanomaly', 'deuteranopia', 'deuteranomaly', 'tritanopia', 'tritanomaly', 'achromatopsia');
-    if (settings.colorBlindMode !== 'none') {
-      body.classList.add(settings.colorBlindMode);
+  // ✅ Toggle classes
+  body.classList.toggle('high-contrast', settings.highContrast)
+  body.classList.toggle('underline-links', settings.underlineLinks)
+  body.classList.toggle('readable-font', settings.readableFont)
+  body.classList.toggle('increased-spacing', settings.increasedSpacing)
+  body.classList.toggle('cursor-highlight', settings.cursorHighlight)
+  body.classList.toggle('night-mode', settings.nightMode)
+  body.classList.toggle('hide-images', settings.hideImages)
+  body.classList.toggle('large-pointer', settings.largePointer)
+  body.classList.toggle('mute-sound', settings.muteSound)
+
+  // ✅ COLOR FILTERS (APPLY ONLY TO PAGE CONTENT)
+  const filters: string[] = []
+
+  if (settings.grayscale) filters.push('grayscale(100%)')
+  if (settings.blueFilter) filters.push('sepia(20%) saturate(70%)')
+  if (settings.saturationMode) filters.push('saturate(150%)')
+
+  if (filters.length && pageRoot) {
+    pageRoot.style.filter = filters.join(' ')
+  }
+
+  // ✅ REMOVE OLD COLOR MODES
+  pageRoot?.classList.remove(
+    'protanopia', 'protanomaly', 'deuteranopia',
+    'deuteranomaly', 'tritanopia', 'tritanomaly', 'achromatopsia'
+  )
+
+  // ✅ APPLY COLOR MODE
+  if (settings.colorBlindMode !== 'none') {
+    pageRoot?.classList.add(settings.colorBlindMode)
+  }
+
+  // ✅ FORCE PANEL POSITION STABILITY
+  if (panelRef.current) {
+    panelRef.current.style.left = `${position.x}px`
+    panelRef.current.style.top = `${position.y}px`
+  }
+}
+
+
+const toggleSetting = (setting: SettingKey): void => {
+  setSettings(prev => ({
+    ...prev,
+    [setting]: !prev[setting]
+  }));
+  
+  // Force position preservation after state update
+  setTimeout(() => {
+    if (panelRef.current) {
+      const panel = panelRef.current;
+      panel.style.left = `${position.x}px`;
+      panel.style.top = `${position.y}px`;
+      panel.style.transform = 'none';
     }
-  };
-
-  const toggleSetting = (setting: SettingKey): void => {
-    setSettings(prev => ({
-      ...prev,
-      [setting]: !prev[setting]
-    }));
-  };
+  }, 0);
+};
 
   const setColorBlindMode = (mode: ColorBlindMode): void => {
     setSettings(prev => ({
@@ -341,7 +373,6 @@ const AccessibilityTool: React.FC = () => {
       hideImages: false,
       colorBlindMode: 'none',
       largePointer: false,
-      disableAnimations: false,
       muteSound: false,
       saturationMode: false
     });
@@ -359,8 +390,11 @@ const AccessibilityTool: React.FC = () => {
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="10"/>
-          <circle cx="12" cy="8" r="1" fill="currentColor"/>
-          <path d="M12 12v4"/>
+          <path d="M12 6v2"/>
+          <path d="M12 10v2"/>
+          <path d="M12 14v2"/>
+          <path d="M12 18v.01"/>
+          <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
           <path d="M8 14h8"/>
         </svg>
       </button>
@@ -569,6 +603,28 @@ const AccessibilityTool: React.FC = () => {
                 />
                 <span>{t.hideImages}</span>
               </label>
+
+              <div className="color-blind-mode-selector">
+                <label htmlFor="color-blind-select" className="color-blind-label">
+                  <span className="option-icon">🎨</span>
+                  <span>{t.colorBlindModeLabel}:</span>
+                </label>
+                <select
+                  id="color-blind-select"
+                  className="color-blind-select"
+                  value={settings.colorBlindMode}
+                  onChange={(e) => setColorBlindMode(e.target.value as ColorBlindMode)}
+                >
+                  <option value="none">{t.normal}</option>
+                  <option value="protanopia">{t.protanopia}</option>
+                  <option value="protanomaly">{t.protanomaly}</option>
+                  <option value="deuteranopia">{t.deuteranopia}</option>
+                  <option value="deuteranomaly">{t.deuteranomaly}</option>
+                  <option value="tritanopia">{t.tritanopia}</option>
+                  <option value="tritanomaly">{t.tritanomaly}</option>
+                  <option value="achromatopsia">{t.achromatopsia}</option>
+                </select>
+              </div>
             </div>
 
             <div className="control-group">
@@ -579,24 +635,6 @@ const AccessibilityTool: React.FC = () => {
               >
                 {isReading ? t.stopReading : t.readWebsite}
               </button>
-            </div>
-
-            <div className="control-group">
-              <h3>{t.colorCorrection}</h3>
-              <select 
-                value={settings.colorBlindMode}
-                onChange={(e) => setColorBlindMode(e.target.value as ColorBlindMode)}
-                className="color-blind-select"
-              >
-                <option value="none">{t.normal}</option>
-                <option value="protanopia">{t.protanopia}</option>
-                <option value="protanomaly">{t.protanomaly}</option>
-                <option value="deuteranopia">{t.deuteranopia}</option>
-                <option value="deuteranomaly">{t.deuteranomaly}</option>
-                <option value="tritanopia">{t.tritanopia}</option>
-                <option value="tritanomaly">{t.tritanomaly}</option>
-                <option value="achromatopsia">{t.achromatopsia}</option>
-              </select>
             </div>
 
             <div className="control-group">
@@ -617,16 +655,6 @@ const AccessibilityTool: React.FC = () => {
                       onChange={() => toggleSetting('largePointer')}
                     />
                     <span>{t.largePointer}</span>
-                  </label>
-
-                  <label className="toggle-option">
-                    <span className="option-icon">🎬</span>
-                    <input
-                      type="checkbox"
-                      checked={settings.disableAnimations}
-                      onChange={() => toggleSetting('disableAnimations')}
-                    />
-                    <span>{t.disableAnimations}</span>
                   </label>
 
                   <label className="toggle-option">
