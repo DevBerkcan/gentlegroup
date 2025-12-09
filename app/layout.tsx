@@ -100,8 +100,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  title: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen aus Düsseldorf',
-  description: 'Gentle Group bietet innovative Softwarelösungen, modernes Design, KI-Integration und Cloud-Services.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
