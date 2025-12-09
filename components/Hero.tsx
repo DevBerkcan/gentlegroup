@@ -244,6 +244,18 @@ const Hero = () => {
               </motion.div>
             </div>
 
+            {/* Subtitle - GentleSuite Brand */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={contentControls}
+              className="mb-6 sm:mb-8 px-4"
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-ghost-white/80 text-center font-medium">
+                Dachmarke für innovative Software-Lösungen der{" "}
+                <span className="text-aquamarine font-semibold">GentleSuite</span>
+              </p>
+            </motion.div>
+
             {/* Rotating Text - Responsive */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}

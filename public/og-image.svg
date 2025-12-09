@@ -1,0 +1,50 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#010A30"/>
+  
+  <!-- Gradient Blobs -->
+  <defs>
+    <radialGradient id="blob1" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#01FFA9;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#01FFA9;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="blob2" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#A97AFF;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#A97AFF;stop-opacity:0" />
+    </radialGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#01FFA9" />
+      <stop offset="50%" style="stop-color:#A97AFF" />
+      <stop offset="100%" style="stop-color:#01FFA9" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="300" cy="200" r="300" fill="url(#blob1)"/>
+  <circle cx="900" cy="430" r="350" fill="url(#blob2)"/>
+  
+  <!-- Grid Pattern -->
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#F8F9FA" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Main Title -->
+  <text x="600" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="120" font-weight="800" text-anchor="middle" fill="url(#textGradient)">
+    GENTLE GROUP
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="500" text-anchor="middle" fill="#F8F9FA" opacity="0.8">
+    Dachmarke für innovative Software-Lösungen der GentleSuite
+  </text>
+  
+  <!-- Products -->
+  <text x="600" y="450" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="600" text-anchor="middle" fill="#01FFA9">
+    Gentle Access · GentleCalc · GentleTrack
+  </text>
+  
+  <!-- Location & Services -->
+  <text x="600" y="550" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#F8F9FA" opacity="0.6">
+    Webentwicklung · KI-Lösungen · Cloud Services · Düsseldorf
+  </text>
+</svg>

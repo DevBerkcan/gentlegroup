@@ -72,10 +72,22 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-gray-600 text-lg mb-8 max-w-md leading-relaxed"
+                className="text-gray-600 text-lg mb-6 max-w-md leading-relaxed"
               >
                 {content.footer.description}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="mb-8 p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
+              >
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  <strong className="text-gray-900">Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
+                  <strong className="text-aquamarine">GentleSuite</strong> (Gentle Access, GentleCalc, GentleTrack).
+                </p>
+              </motion.div>
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

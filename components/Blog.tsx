@@ -7,6 +7,51 @@ import { HiClock, HiArrowRight } from 'react-icons/hi'
 const BLOG_POSTS = [
   {
     id: '1',
+    title: '.NET Core Best Practices: Enterprise-Architektur für skalierbare Anwendungen',
+    excerpt:
+      'Erfahren Sie, wie Sie mit .NET Core robuste, skalierbare Enterprise-Anwendungen entwickeln. Best Practices, Architektur-Patterns und Performance-Tipps.',
+    category: 'Backend Development',
+    categoryColor: 'from-purple-500 to-indigo-600',
+    author: {
+      name: 'Berk-Can Atesoglu',
+      role: 'Lead Developer',
+    },
+    publishDate: '22. November 2024',
+    readTime: '12 min',
+    slug: 'dotnet-core-enterprise-best-practices',
+  },
+  {
+    id: '2',
+    title: 'Wartungsverträge für Webseiten: Warum sie unverzichtbar sind',
+    excerpt:
+      'Website-Wartung ist mehr als Updates installieren. Erfahren Sie, was ein professioneller Wartungsvertrag umfasst und warum Ihre Website regelmäßige Pflege braucht.',
+    category: 'Business & Strategy',
+    categoryColor: 'from-emerald-500 to-teal-600',
+    author: {
+      name: 'Berk-Can Atesoglu',
+      role: 'Founder & Lead Developer',
+    },
+    publishDate: '22. November 2024',
+    readTime: '10 min',
+    slug: 'wartungsvertraege-webseiten',
+  },
+  {
+    id: '3',
+    title: 'Webseiten-Sicherheit 2024: Best Practices für Unternehmen',
+    excerpt:
+      'Schützen Sie Ihre Website vor Hackern! Die wichtigsten Sicherheitsmaßnahmen: SSL, Firewalls, Updates, Backups und mehr. Praktischer Leitfaden mit Checkliste.',
+    category: 'Security & Compliance',
+    categoryColor: 'from-red-500 to-orange-600',
+    author: {
+      name: 'Berk-Can Atesoglu',
+      role: 'Security & Architecture',
+    },
+    publishDate: '22. November 2024',
+    readTime: '15 min',
+    slug: 'webseiten-sicherheit-best-practices',
+  },
+  {
+    id: '4',
     title: 'Next.js 15 & React 19: Performance-Boost für moderne Web-Apps',
     excerpt:
       'Entdecken Sie die neuesten Features von Next.js 15 und React 19. Server Components, Streaming und App Router für blitzschnelle Performance.',
@@ -21,7 +66,7 @@ const BLOG_POSTS = [
     slug: 'nextjs-15-react-19-performance',
   },
   {
-    id: '2',
+    id: '5',
     title: 'KI-Integration in Business-Prozesse: Praxisleitfaden 2024',
     excerpt:
       'Von ChatGPT über Azure OpenAI bis zu Custom AI-Lösungen: Wie Sie KI gewinnbringend in Ihre Geschäftsprozesse integrieren.',
@@ -36,22 +81,7 @@ const BLOG_POSTS = [
     slug: 'ki-integration-business-prozesse',
   },
   {
-    id: '3',
-    title: 'KI-Chatbot Integration: Der komplette Leitfaden 2024',
-    excerpt:
-      'Von der Planung bis zum Go-Live: Wie Sie intelligente Chatbots erfolgreich in Ihre Website integrieren und Kundenservice automatisieren.',
-    category: 'KI & Automatisierung',
-    categoryColor: 'from-aquamarine to-tropical-indigo',
-    author: {
-      name: 'Berk-Can Atesoglu',
-      role: 'Full-Stack Developer',
-    },
-    publishDate: '5. März 2024',
-    readTime: '10 min',
-    slug: 'ki-chatbot-integration-guide',
-  },
-  {
-    id: '4',
+    id: '6',
     title: 'TypeScript Best Practices: Type-Safety für Enterprise-Apps',
     excerpt:
       'Fortgeschrittene TypeScript-Patterns für sichere und wartbare Enterprise-Anwendungen. Generics, Utility Types und mehr.',
