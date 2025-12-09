@@ -1,8 +1,11 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Analytics from '@/components/Analytics'
 import StructuredData from '@/components/StructuredData'
+import AccessibilityTool from '@/components/AccessibilityTool'
+import Navigation from '@/components/Navigation'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -97,36 +100,31 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  title: 'Gentle Group - Professionelle Webentwicklung & KI-Lösungen aus Düsseldorf',
+  description: 'Gentle Group bietet innovative Softwarelösungen, modernes Design, KI-Integration und Cloud-Services.',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className={inter.variable}>
       <head>
-        {/* Favicon - SVG (modern browsers) */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        {/* Favicon - ICO fallback (older browsers) */}
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        {/* Apple Touch Icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        {/* Web App Manifest */}
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#010A30" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="application-name" content="Gentle Group" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Gentle Group" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="mobile-web-app-capable" content="yes" />
       </head>
+
       <body>
         <StructuredData />
         {children}
+        {/* ✅ NAVIGATION - ALWAYS OUTSIDE FILTER ZONE */}
+        <Navigation />
+
+        {/* ✅ FILTER CONTAINER - ONLY MAIN CONTENT */}
+        <div id="page-root">
+          {children}
+        </div>
+
+        {/* ✅ ACCESSIBILITY TOOLS - ALWAYS OUTSIDE FILTER ZONE */}
+        <AccessibilityTool />
         <Analytics />
       </body>
     </html>
