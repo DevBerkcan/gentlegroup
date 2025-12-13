@@ -7,9 +7,11 @@ import {
   HiLightningBolt,
   HiCloud,
   HiCube,
-  HiSparkles,
+  HiChip,
+  HiDeviceMobile,
+  HiTerminal,
 } from "react-icons/hi";
-import { FaAndroid } from "react-icons/fa";
+import { FaAndroid, FaRobot } from "react-icons/fa";
 
 // Text content configuration for consistency
 const content = {
@@ -33,7 +35,7 @@ const content = {
         ],
       },
       {
-        icon: HiSparkles,
+        icon: FaRobot,
         title: "KI-Lösungen",
         description:
           "Intelligente Automatisierung und KI-Integration für Ihr Business der Zukunft.",
@@ -45,7 +47,7 @@ const content = {
         ],
       },
       {
-        icon: HiCube,
+        icon: HiDeviceMobile,
         title: "Web-Apps",
         description:
           "Leistungsstarke Progressive Web Apps mit nativer Performance und Offline-Funktionalität.",
@@ -59,7 +61,7 @@ const content = {
         features: ["Cloud Migration", "DevOps", "Skalierung", "Monitoring"],
       },
       {
-        icon: HiLightningBolt,
+        icon: HiTerminal,
         title: "Full-Stack Development",
         description:
           "Komplette Software-Entwicklung von Frontend über Backend bis zur Datenbank.",

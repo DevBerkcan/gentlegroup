@@ -43,7 +43,7 @@ const Footer = () => {
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16 pt-32 lg:pt-40 pb-12">
         {/* Footer Main Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12 border-b border-gray-200">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12 pb-12 border-b border-gray-200">
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <motion.div
@@ -81,7 +81,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.25 }}
-                className="mb-8 p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
+                className="p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
               >
                 <p className="text-sm text-gray-600 leading-relaxed">
                   <strong className="text-gray-900">Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
@@ -130,6 +130,38 @@ const Footer = () => {
               </motion.div>
             </motion.div>
           </div>
+
+          {/* Legal Cockpit Seal - Centered */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.15, type: "spring", stiffness: 100 }}
+            className="flex items-center justify-center"
+          >
+            <a
+              href="https://cockpit.legal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-block"
+              title="Legal Cockpit - Agentur-Partner Rechtssicherheit"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400 }}
+                className="relative"
+              >
+                <Image
+                  src="/legal-cockpit-seal.svg"
+                  alt="Legal Cockpit Seal"
+                  width={140}
+                  height={140}
+                  className="w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/0 to-tropical-indigo/0 group-hover:from-aquamarine/10 group-hover:to-tropical-indigo/10 rounded-lg transition-all duration-300" />
+              </motion.div>
+            </a>
+          </motion.div>
 
           {/* Quick Links */}
           <motion.div
@@ -214,34 +246,6 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
           className="flex flex-col gap-8"
         >
-          {/* Legal Cockpit Seal - Centered and Compact */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex justify-center"
-          >
-            <a
-              href="https://cockpit.legal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-block"
-            >
-              <div className="relative w-32 sm:w-40 transition-transform duration-300 group-hover:scale-105">
-                <Image
-                  src="/legal-cockpit-seal.svg"
-                  alt="Legal Cockpit - Agentur-Partner Rechtssicherheit"
-                  width={160}
-                  height={160}
-                  className="w-full h-auto"
-                  priority={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/0 to-tropical-indigo/0 group-hover:from-aquamarine/5 group-hover:to-tropical-indigo/5 rounded-lg transition-all duration-300" />
-              </div>
-            </a>
-          </motion.div>
-
           {/* Copyright and Legal Links */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-base">
             <motion.div
