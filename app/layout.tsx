@@ -112,16 +112,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body>
         <StructuredData />
-        {children}
-        {/* ✅ NAVIGATION - ALWAYS OUTSIDE FILTER ZONE */}
         <Navigation />
 
-        {/* ✅ FILTER CONTAINER - ONLY MAIN CONTENT */}
+        {/* Main content - wrapped for accessibility filters */}
         <div id="page-root">
           {children}
         </div>
 
-        {/* ✅ ACCESSIBILITY TOOLS - ALWAYS OUTSIDE FILTER ZONE */}
         <AccessibilityTool />
         <Analytics />
       </body>
