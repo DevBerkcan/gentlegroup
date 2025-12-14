@@ -341,7 +341,7 @@ useEffect(() => {
                     {/* Background shine effect on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
                     
-                    <div className="relative h-[650px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
+                    <div className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[650px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
                       {/* Background Gradient */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
                       

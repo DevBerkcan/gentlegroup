@@ -259,7 +259,7 @@ const Footer = () => {
               <p className="text-sm text-gray-500">
                 Entwickelt von{' '}
                 <a
-                  href="https://gentle-Group.com"
+                  href="https://gentle-group.com"
                   className="text-aquamarine hover:text-tropical-indigo transition-colors duration-300"
                 >
                   Gentle Group

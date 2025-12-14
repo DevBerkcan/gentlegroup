@@ -79,8 +79,6 @@ const ProjectInquiryModal = ({ onClose }: ProjectInquiryModalProps) => {
 
   const submitForm = async () => {
     // Handle form submission
-    console.log('Form submitted:', formData)
-    
     // Create email content
     const subject = encodeURIComponent(`Neue Projektanfrage von ${formData.name} - ${formData.company}`)
     const body = encodeURIComponent(`
@@ -109,7 +107,7 @@ Gentle Group Team
     `.trim())
 
     // Open email client
-    window.open(`mailto:info@gentle-Group.com?subject=${subject}&body=${body}`, '_blank')
+    window.open(`mailto:info@gentle-group.com?subject=${subject}&body=${body}`, '_blank')
     
     closeModal()
   }

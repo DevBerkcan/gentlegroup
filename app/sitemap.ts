@@ -53,24 +53,60 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // GentleSuite Products (future product pages)
     {
-      url: `${baseUrl}/products/gentleaccess`,
+      url: `${baseUrl}/blog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/products/gentlecalc`,
+      url: `${baseUrl}/opportunity`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    // Blog Posts
+    {
+      url: `${baseUrl}/blog/ki-chatbot-integration-guide`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
-      url: `${baseUrl}/products/gentletrack`,
+      url: `${baseUrl}/blog/ki-integration-business-prozesse`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/nextjs-15-react-19-performance`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/typescript-best-practices-enterprise`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/dotnet-core-enterprise-best-practices`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/wartungsvertraege-webseiten`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/webseiten-sicherheit-best-practices`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
   ]
 }

@@ -64,7 +64,7 @@ export default function KontaktPage() {
         `Nachricht:\n${formData.message}`
       )
 
-      window.location.href = `mailto:info@gentle-Group.com?subject=${subject}&body=${body}`
+      window.location.href = `mailto:info@gentle-group.com?subject=${subject}&body=${body}`
 
       setSubmitStatus('success')
       setFormData({ name: '', email: '', phone: '', company: '', message: '' })
@@ -287,7 +287,7 @@ export default function KontaktPage() {
                 <div className="space-y-6">
                   {/* Email */}
                   <motion.a
-                    href="mailto:info@gentle-Group.com"
+                    href="mailto:info@gentle-group.com"
                     whileHover={{ x: 5 }}
                     className="flex items-start gap-4 text-ghost-white/80 hover:text-aquamarine transition-colors duration-300"
                   >
@@ -296,7 +296,7 @@ export default function KontaktPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-ghost-white mb-1">E-Mail</p>
-                      <p>info@gentle-Group.com</p>
+                      <p>info@gentle-group.com</p>
                     </div>
                   </motion.a>
 

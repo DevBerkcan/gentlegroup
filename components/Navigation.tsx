@@ -115,7 +115,7 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
                 whileHover={{ scale: 1.1, color: '#01FFA9' }}
-                className="text-ghost-white/70 hover:text-aquamarine transition-colors text-sm font-medium whitespace-nowrap hidden sm:inline"
+                className="text-ghost-white/70 hover:text-aquamarine transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline"
               >
                 {item.label}
               </motion.a>
