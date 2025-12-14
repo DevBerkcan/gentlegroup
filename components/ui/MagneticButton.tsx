@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState, useRef, MouseEvent, ReactNode } from 'react'
+import { playSound } from '@/utils/soundEffects'
 
 interface MagneticButtonProps {
   children: ReactNode
@@ -32,16 +33,26 @@ const MagneticButton = ({
     setPosition({ x, y })
   }
 
+  const handleMouseEnter = () => {
+    playSound('hover')
+  }
+
   const handleMouseLeave = () => {
     setPosition({ x: 0, y: 0 })
+  }
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    playSound('click')
+    if (onClick) onClick()
   }
 
   return (
     <motion.button
       ref={buttonRef}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
+      onClick={handleClick}
       animate={{
         x: position.x,
         y: position.y,

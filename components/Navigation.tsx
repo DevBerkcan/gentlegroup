@@ -6,6 +6,8 @@ import { HiMenu, HiX } from 'react-icons/hi'
 import { useRouter } from 'next/navigation'
 import BookingModal from './BookingModal'
 import MagneticButton from './ui/MagneticButton'
+import ThemeToggle from './ThemeToggle'
+import { playSound } from '@/utils/soundEffects'
 
 const Navigation = () => {
   const router = useRouter()
@@ -42,27 +44,35 @@ const Navigation = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          isScrolled ? 'bg-oxford-blue/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+          isScrolled ? 'glass-dark shadow-lg' : 'bg-transparent'
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex justify-between items-center lg:hidden">
           {/* Mobile Logo */}
           <div className="text-ghost-white text-xl font-bold">Gentle Group</div>
 
-          {/* Mobile Hamburger Button */}
-          <motion.button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="p-2 text-ghost-white hover:text-aquamarine transition-colors"
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? (
-              <HiX className="text-3xl" />
-            ) : (
-              <HiMenu className="text-3xl" />
-            )}
-          </motion.button>
+          <div className="flex items-center gap-4">
+            {/* Mobile Theme Toggle */}
+            <ThemeToggle />
+
+            {/* Mobile Hamburger Button */}
+            <motion.button
+              onClick={() => {
+                playSound('click')
+                setIsMobileMenuOpen(!isMobileMenuOpen)
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="p-2 text-ghost-white hover:text-aquamarine transition-colors"
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? (
+                <HiX className="text-3xl" />
+              ) : (
+                <HiMenu className="text-3xl" />
+              )}
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -73,7 +83,7 @@ const Navigation = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden bg-oxford-blue/98 backdrop-blur-xl"
+              className="lg:hidden glass-dark"
             >
               <div className="px-6 py-8 space-y-6">
                 {navItems.map((item, index) => (
@@ -83,7 +93,11 @@ const Navigation = () => {
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => {
+                      playSound('click')
+                      setIsMobileMenuOpen(false)
+                    }}
+                    onMouseEnter={() => playSound('navHover')}
                     className="block text-2xl text-ghost-white hover:text-aquamarine transition-colors duration-300 font-medium"
                   >
                     {item.label}
@@ -104,8 +118,11 @@ const Navigation = () => {
       >
         {/* Main Navigation */}
         <motion.div
-          className="pointer-events-auto px-8 py-5 bg-black/85 backdrop-blur-xl border border-ghost-white/20 rounded-full shadow-2xl hover:border-aquamarine/50 transition-all duration-300"
-          whileHover={{ boxShadow: "0 0 30px rgba(1, 255, 169, 0.3)" }}
+          className="pointer-events-auto px-8 py-5 glass rounded-full shadow-2xl hover:border-aquamarine/50 transition-all duration-300"
+          whileHover={{
+            boxShadow: "0 0 30px rgba(1, 255, 169, 0.3), inset 0 0 0 1px rgba(1, 255, 169, 0.2)",
+            scale: 1.02
+          }}
         >
           <div className="flex items-center gap-8">
             {navItems.map((item, index) => (
@@ -116,6 +133,7 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
                 whileHover={{ scale: 1.1, color: '#01FFA9' }}
+                onMouseEnter={() => playSound('navHover')}
                 className="text-ghost-white/70 hover:text-aquamarine transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline"
               >
                 {item.label}
@@ -138,6 +156,16 @@ const Navigation = () => {
               >
                 Termin
               </MagneticButton>
+            </motion.div>
+
+            {/* Theme Toggle */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.7 }}
+              className="ml-2 hidden lg:block"
+            >
+              <ThemeToggle />
             </motion.div>
           </div>
         </motion.div>

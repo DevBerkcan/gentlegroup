@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion'
 import { HiSun, HiMoon, HiDesktopComputer } from 'react-icons/hi'
 import { useTheme } from '@/contexts/ThemeContext'
+import { playSound } from '@/utils/soundEffects'
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, actualTheme } = useTheme()
 
   const themes = [
     { value: 'light' as const, icon: HiSun, label: 'Hell' },
@@ -13,16 +14,29 @@ const ThemeToggle = () => {
     { value: 'auto' as const, icon: HiDesktopComputer, label: 'Auto' }
   ]
 
+  // Adaptive colors based on actual theme
+  const containerBg = actualTheme === 'dark'
+    ? 'bg-white/10 border-white/20'
+    : 'bg-oxford-blue/15 border-oxford-blue/30'
+
+  const inactiveColor = actualTheme === 'dark'
+    ? 'text-ghost-white/60 hover:text-ghost-white'
+    : 'text-oxford-blue/60 hover:text-oxford-blue'
+
   return (
-    <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
+    <div className={`flex items-center gap-1 backdrop-blur-md rounded-full p-1 border transition-colors ${containerBg}`}>
       {themes.map(({ value, icon: Icon, label }) => (
         <motion.button
           key={value}
-          onClick={() => setTheme(value)}
+          onClick={() => {
+            playSound('themeSwitch')
+            setTheme(value)
+          }}
+          onMouseEnter={() => playSound('hover')}
           className={`relative px-3 py-2 rounded-full transition-colors ${
             theme === value
               ? 'text-oxford-blue'
-              : 'text-ghost-white/60 hover:text-ghost-white'
+              : inactiveColor
           }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
