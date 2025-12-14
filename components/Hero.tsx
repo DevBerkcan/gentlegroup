@@ -237,7 +237,7 @@ const Hero = () => {
                   }}
                   className="whitespace-nowrap overflow-visible"
                 >
-                  <h1 className="text-[clamp(3rem,10vw,10rem)] inline-block">
+                  <h1 className="text-[clamp(3rem,10vw,10rem)] inline-block kinetic-typography">
                     GENTLE GROUP
                   </h1>
                 </motion.div>

@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { HiMail } from 'react-icons/hi'
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import OptimizedImage from '@/components/OptimizedImage'
 
 // Text content configuration for consistency
@@ -153,6 +154,22 @@ const Team = () => {
           >
             {content.team.badge}
           </motion.span>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex justify-center mb-6"
+          >
+            <Image
+              src="/logo.svg"
+              alt="Gentle Group Logo"
+              width={160}
+              height={60}
+              priority
+              className="h-12 w-auto"
+            />
+          </motion.div>
           <div style={{ fontWeight: 800, letterSpacing: '-0.02em' }} className="leading-[0.9]">
             <motion.span
               initial={{ opacity: 0, y: 30 }}

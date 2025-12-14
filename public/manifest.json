@@ -1,29 +1,49 @@
 {
-  "name": "Gentle Group - Professionelle Webentwicklung & KI-Lösungen",
+  "name": "Gentle Group - Innovative Software-Lösungen",
   "short_name": "Gentle Group",
-  "description": "Innovative Softwarelösungen, modernes Group und KI-Integration aus Düsseldorf",
+  "description": "Professionelle Webentwicklung, KI-Integration & Cloud Services aus Düsseldorf",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#513A2A",
+  "background_color": "#0B0E1E",
+  "theme_color": "#01FFA9",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/favicon.svg",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/svg+xml"
     }
   ],
-  "categories": ["business", "productivity", "technology"],
+  "categories": ["business", "productivity", "developer"],
   "lang": "de-DE",
   "dir": "ltr",
-  "scope": "/",
-  "iarc_rating_id": ""
+  "shortcuts": [
+    {
+      "name": "Portfolio",
+      "short_name": "Portfolio",
+      "description": "Unsere Referenzprojekte ansehen",
+      "url": "/portfolio",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Tech-Blog lesen",
+      "url": "/blog",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kontakt",
+      "short_name": "Kontakt",
+      "description": "Termin vereinbaren",
+      "url": "/kontakt",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    }
+  ]
 }

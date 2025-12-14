@@ -6,6 +6,8 @@ import Analytics from '@/components/Analytics'
 import StructuredData from '@/components/StructuredData'
 import AccessibilityTool from '@/components/AccessibilityTool'
 import Navigation from '@/components/Navigation'
+import GradientCursor from '@/components/effects/GradientCursor'
+import CustomCursor from '@/components/effects/CustomCursor'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -112,6 +114,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body>
         <StructuredData />
+        <CustomCursor />
+        <GradientCursor />
         <Navigation />
 
         {/* Main content - wrapped for accessibility filters */}

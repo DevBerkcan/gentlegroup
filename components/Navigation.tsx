@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { useRouter } from 'next/navigation'
 import BookingModal from './BookingModal'
+import MagneticButton from './ui/MagneticButton'
 
 const Navigation = () => {
   const router = useRouter()
@@ -121,21 +122,23 @@ const Navigation = () => {
               </motion.a>
             ))}
 
-            {/* Kontakt CTA Button */}
-            <motion.button
-                  onClick={() => {
-                    setIsBookingModalOpen(true)
-                    setIsMobileMenuOpen(false)
-                  }}
+            {/* Kontakt CTA Button - Magnetic Effect */}
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="ml-2 px-6 py-2 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-sm shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
             >
-              Termin
-            </motion.button>
+              <MagneticButton
+                onClick={() => {
+                  setIsBookingModalOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+                strength={0.4}
+                className="ml-2 px-6 py-2 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-sm shadow-lg hover:shadow-aquamarine/50 transition-all duration-300 hover:scale-105"
+              >
+                Termin
+              </MagneticButton>
+            </motion.div>
           </div>
         </motion.div>
       </motion.nav>
