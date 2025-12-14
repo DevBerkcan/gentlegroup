@@ -1,14 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 import { HiCheckCircle, HiInformationCircle } from 'react-icons/hi'
 
 export default function Barrierefreiheit() {
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden">
         {/* Background Effects */}
@@ -329,7 +326,6 @@ export default function Barrierefreiheit() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

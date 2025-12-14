@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HiArrowRight, HiSparkles, HiHeart, HiStar, HiCheckCircle } from 'react-icons/hi'
-import Footer from '@/components/Footer'
 
 const BEAUTY_PROJECTS = [
   {
@@ -505,7 +504,6 @@ export default function BeautyPortfolio() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

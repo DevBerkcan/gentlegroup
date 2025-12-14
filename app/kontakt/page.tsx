@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiExclamationCircle } from 'react-icons/hi'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function KontaktPage() {
   const [formData, setFormData] = useState({
@@ -86,7 +84,6 @@ export default function KontaktPage() {
 
   return (
     <>
-      <Navigation />
 
       <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
         {/* Background Effects */}
@@ -373,7 +370,6 @@ export default function KontaktPage() {
         </div>
       </main>
 
-      <Footer />
     </>
   )
 }

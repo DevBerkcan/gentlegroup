@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function Impressum() {
   useEffect(() => {
@@ -23,7 +21,6 @@ export default function Impressum() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden">
         {/* Background Effects */}
@@ -117,7 +114,6 @@ export default function Impressum() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

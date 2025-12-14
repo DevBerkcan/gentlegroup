@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function AGB() {
   useEffect(() => {
@@ -23,7 +21,6 @@ export default function AGB() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden">
         {/* Background Effects */}
@@ -82,7 +79,6 @@ export default function AGB() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

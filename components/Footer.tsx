@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { useTheme } from '@/contexts/ThemeContext'
 
 // Text content configuration for consistency
 const content = {
@@ -31,9 +32,16 @@ const content = {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { actualTheme } = useTheme()
+
+  // Adaptive colors based on theme
+  const bgColor = actualTheme === 'dark' ? 'bg-oxford-blue' : 'bg-white'
+  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
+  const textMuted = actualTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const borderColor = actualTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-white">
+    <footer id="contact" className={`relative overflow-hidden ${bgColor} transition-colors duration-300`}>
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-aquamarine/5 rounded-full blur-[120px]" />
@@ -43,7 +51,7 @@ const Footer = () => {
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16 pt-32 lg:pt-40 pb-12">
         {/* Footer Main Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12 pb-12 border-b border-gray-200">
+        <div className={`grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12 pb-12 border-b ${borderColor}`}>
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <motion.div
@@ -72,7 +80,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-gray-600 text-lg mb-6 max-w-md leading-relaxed"
+                className={`${textMuted} text-lg mb-6 max-w-md leading-relaxed`}
               >
                 {content.footer.description}
               </motion.p>
@@ -83,8 +91,8 @@ const Footer = () => {
                 transition={{ duration: 0.6, delay: 0.25 }}
                 className="p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
               >
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  <strong className="text-gray-900">Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
+                <p className={`text-sm ${textMuted} leading-relaxed`}>
+                  <strong className={textColor}>Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
                   <strong className="text-aquamarine">GentleSuite</strong> (Gentle Access, GentleCalc, GentleTrack).
                 </p>
               </motion.div>
@@ -175,7 +183,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              className={`text-2xl lg:text-3xl font-bold mb-6 ${textColor}`}
               style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
             >
               {content.footer.navigation.title}
@@ -191,7 +199,7 @@ const Footer = () => {
                 >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
+                    className={`${textMuted} text-lg hover:text-aquamarine transition-colors duration-300 block py-2`}
                   >
                     {item}
                   </a>
@@ -212,7 +220,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              className={`text-2xl lg:text-3xl font-bold mb-6 ${textColor}`}
               style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
             >
               {content.footer.services.title}
@@ -228,7 +236,7 @@ const Footer = () => {
                 >
                   <a
                     href="#services"
-                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
+                    className={`${textMuted} text-lg hover:text-aquamarine transition-colors duration-300 block py-2`}
                   >
                     {service}
                   </a>
@@ -247,7 +255,7 @@ const Footer = () => {
           className="flex flex-col gap-8"
         >
           {/* Copyright and Legal Links */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-base">
+          <div className={`flex flex-col md:flex-row justify-between items-center gap-6 ${textMuted} text-base`}>
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -256,7 +264,7 @@ const Footer = () => {
               className="flex flex-col items-center md:items-start gap-2"
             >
               <p>© {currentYear} Gentle Group. {content.footer.legal.copyright}</p>
-              <p className="text-sm text-gray-500">
+              <p className={`text-sm ${textMuted}`}>
                 Entwickelt von{' '}
                 <a
                   href="https://gentle-group.com"

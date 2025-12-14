@@ -9,8 +9,8 @@
   }
 
   body {
-    @apply bg-black text-ghost-white;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Skip to content link for accessibility */
@@ -335,14 +335,20 @@
   --color-text-secondary: #D1D5DB;
 }
 
+/* Default to Dark Mode */
+body {
+  background-color: #0B0E1E;
+  color: #F9FAFB;
+}
+
 /* Dark Mode Specific Styles */
 .dark {
   color-scheme: dark;
 }
 
 .dark body {
-  background-color: #0B0E1E;
-  color: #F9FAFB;
+  background-color: #0B0E1E !important;
+  color: #F9FAFB !important;
 }
 
 .dark .bg-white {
@@ -367,23 +373,26 @@
 }
 
 /* Light Mode Specific Styles */
+.light {
+  color-scheme: light;
+}
+
 .light body {
-  background-color: #FFFFFF;
-  color: #1F2937;
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
 }
 
 .light .glass {
-  background: rgba(11, 14, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(11, 14, 30, 0.2);
 }
 
 .light .glass-dark {
-  background: rgba(11, 14, 30, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Smooth theme transition */
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(11, 14, 30, 0.25);
 }
 

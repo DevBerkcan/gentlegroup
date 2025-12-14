@@ -6,6 +6,7 @@ import Analytics from '@/components/Analytics'
 import StructuredData from '@/components/StructuredData'
 import AccessibilityTool from '@/components/AccessibilityTool'
 import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 import GradientCursor from '@/components/effects/GradientCursor'
 import CustomCursor from '@/components/effects/CustomCursor'
 import { ThemeProvider } from '@/contexts/ThemeContext'
@@ -125,6 +126,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </div>
 
+          <Footer />
           <AccessibilityTool />
           <Analytics />
         </ThemeProvider>

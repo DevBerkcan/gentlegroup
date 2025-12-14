@@ -4,13 +4,17 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
 import BookingModal from './BookingModal'
 import MagneticButton from './ui/MagneticButton'
 import ThemeToggle from './ThemeToggle'
 import { playSound } from '@/utils/soundEffects'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const Navigation = () => {
   const router = useRouter()
+  const { actualTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
@@ -36,6 +40,13 @@ const Navigation = () => {
     { label: 'Contact', href: '/kontakt' },
   ]
 
+  // Adaptive colors based on theme
+  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
+  const textColorMuted = actualTheme === 'dark' ? 'text-ghost-white/70' : 'text-oxford-blue/70'
+  const hoverColor = actualTheme === 'dark' ? 'hover:text-aquamarine' : 'hover:text-tropical-indigo'
+  const iconColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
+  const dividerColor = actualTheme === 'dark' ? 'bg-ghost-white/20' : 'bg-oxford-blue/20'
+
   return (
     <>
       {/* Top Navigation - Mobile Hamburger Menu */}
@@ -49,7 +60,15 @@ const Navigation = () => {
       >
         <div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex justify-between items-center lg:hidden">
           {/* Mobile Logo */}
-          <div className="text-ghost-white text-xl font-bold">Gentle Group</div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.svg"
+              alt="Gentle Group Logo"
+              width={56}
+              height={56}
+              className="w-14 h-14"
+            />
+          </Link>
 
           <div className="flex items-center gap-4">
             {/* Mobile Theme Toggle */}
@@ -63,7 +82,7 @@ const Navigation = () => {
               }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="p-2 text-ghost-white hover:text-aquamarine transition-colors"
+              className={`p-2 ${iconColor} ${hoverColor} transition-colors`}
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
@@ -98,7 +117,7 @@ const Navigation = () => {
                       setIsMobileMenuOpen(false)
                     }}
                     onMouseEnter={() => playSound('navHover')}
-                    className="block text-2xl text-ghost-white hover:text-aquamarine transition-colors duration-300 font-medium"
+                    className={`block text-2xl ${textColor} ${hoverColor} transition-colors duration-300 font-medium`}
                   >
                     {item.label}
                   </motion.a>
@@ -125,6 +144,19 @@ const Navigation = () => {
           }}
         >
           <div className="flex items-center gap-8">
+            {/* Desktop Logo */}
+            <Link href="/" className="hidden lg:flex items-center mr-4">
+              <Image
+                src="/logo.svg"
+                alt="Gentle Group Logo"
+                width={48}
+                height={48}
+                className="w-12 h-12"
+              />
+            </Link>
+
+            <div className={`hidden lg:block w-px h-6 ${dividerColor}`} />
+
             {navItems.map((item, index) => (
               <motion.a
                 key={item.href}
@@ -132,9 +164,9 @@ const Navigation = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
-                whileHover={{ scale: 1.1, color: '#01FFA9' }}
+                whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
                 onMouseEnter={() => playSound('navHover')}
-                className="text-ghost-white/70 hover:text-aquamarine transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline"
+                className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline`}
               >
                 {item.label}
               </motion.a>

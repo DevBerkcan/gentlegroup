@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { HiClock, HiArrowLeft } from 'react-icons/hi'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 const BLOG_POSTS = [
   {
@@ -72,7 +70,6 @@ const BLOG_POSTS = [
 export default function BlogPage() {
   return (
     <>
-      <Navigation />
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -177,7 +174,6 @@ export default function BlogPage() {
         </section>
       </main>
 
-      <Footer />
     </>
   )
 }
