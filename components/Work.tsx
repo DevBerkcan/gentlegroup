@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { HiExternalLink } from 'react-icons/hi'
 import Image from 'next/image'
+import { useTheme } from '@/contexts/ThemeContext'
 
 // Text content configuration for consistency
 const content = {
@@ -99,22 +100,26 @@ const content = {
 }
 
 const Work = () => {
+  const { actualTheme } = useTheme()
   const ref = useRef(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const projectsContainerRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
 
+  // Adaptive colors based on theme
+  const bgColor = actualTheme === 'dark' ? 'bg-black' : 'bg-white'
+  const backgroundTextColor = actualTheme === 'dark' ? 'text-white/5' : 'text-gray-900/5'
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   })
 
-  // Multiple scroll transformations for parallax effects (same as Services)
+  // Multiple scroll transformations for parallax effects
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
   const yFast = useTransform(scrollYProgress, [0, 1], [150, -150])
   const ySlow = useTransform(scrollYProgress, [0, 1], [50, -50])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.3], [0.8, 1])
   const rotate = useTransform(scrollYProgress, [0, 1], [5, 0])
 
@@ -207,8 +212,15 @@ useEffect(() => {
   }
 
   return (
-    <section id="work" ref={ref} className="py-32 lg:py-40 relative overflow-hidden bg-black">
-      {/* Enhanced Background Elements with Parallax (same as Services) */}
+    <section id="work" ref={ref} className={`py-32 lg:py-40 relative overflow-hidden ${bgColor} transition-colors duration-300`}>
+      {/* Background "UNSERE ARBEIT" Text */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className={`absolute top-20 left-8 lg:left-16 ${backgroundTextColor} font-black text-[80px] lg:text-[140px] xl:text-[180px] leading-none select-none`}>
+          UNSERE ARBEIT
+        </div>
+      </div>
+
+      {/* Enhanced Background Elements with Parallax */}
       <div className="absolute inset-0 z-0">
         {/* Floating particles/glows with different speeds */}
         <motion.div
@@ -223,10 +235,10 @@ useEffect(() => {
           style={{ y }}
           className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-purple-400/5 rounded-full blur-[80px]"
         />
-        
+
         {/* Animated grid pattern */}
         <motion.div
-          style={{ 
+          style={{
             opacity: useTransform(scrollYProgress, [0, 0.3], [0, 0.03]),
             scale: useTransform(scrollYProgress, [0, 0.4], [0.5, 1])
           }}
@@ -235,66 +247,17 @@ useEffect(() => {
       </div>
 
       <div ref={containerRef} className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
-        {/* Enhanced Section Header with Scale Effect (same as Services) */}
+        {/* Section Title - Top Left */}
         <motion.div
-          style={{ opacity, scale }}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          className="text-center mb-24"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ 
-              duration: 0.6, 
-              type: "spring", 
-              stiffness: 200 
-            }}
-            className="inline-block px-6 py-3 bg-tropical-indigo/10 border border-tropical-indigo/30 rounded-full text-tropical-indigo font-semibold text-sm mb-8 backdrop-blur-sm"
-          >
-            {content.work.badge}
-          </motion.span>
-          <div style={{ fontWeight: 800, letterSpacing: '-0.02em' }} className="leading-[0.9]">
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.2,
-                type: "spring",
-                stiffness: 80
-              }}
-              className="block text-ghost-white text-[clamp(3rem,8vw,6rem)]"
-            >
-              {content.work.title.part1}
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.3,
-                type: "spring",
-                stiffness: 80
-              }}
-              className="block text-tropical-indigo text-[clamp(3rem,8vw,6rem)]"
-            >
-              {content.work.title.part2}
-            </motion.span>
-          </div>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl md:text-2xl lg:text-3xl text-ghost-white/70 max-w-4xl mx-auto mt-8"
-          >
-          </motion.p>
+          <h2 className={`text-5xl lg:text-6xl font-bold ${actualTheme === 'dark' ? 'text-ghost-white' : 'text-gray-900'}`}>
+            UNSERE ARBEIT
+          </h2>
         </motion.div>
 
         {/* Enhanced Stacked Projects Section with Peeking Effect */}

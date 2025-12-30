@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { HiChartBar, HiEye, HiCalculator, HiArrowRight, HiCheckCircle } from 'react-icons/hi'
+import { HiChartBar, HiEye, HiCalculator, HiCalendar, HiArrowRight, HiCheckCircle } from 'react-icons/hi'
 
 const PRODUCTS = [
   {
@@ -52,6 +52,22 @@ const PRODUCTS = [
     ],
     pricing: 'Ab 39€/Monat',
     link: '/products/gentlecalc'
+  },
+  {
+    id: 'gentlebook',
+    name: 'GentleBook',
+    tagline: 'Online-Buchung für Beauty & Local Business',
+    description: 'Ihr digitaler Empfang: Linktree mit Online-Buchung, Service-Verwaltung und Admin-Panel. Perfekt für Friseure, Beauty-Studios und lokale Dienstleister.',
+    icon: HiCalendar,
+    gradient: 'from-tropical-indigo to-aquamarine',
+    features: [
+      '24/7 Online-Terminbuchung',
+      'Service & Preis-Verwaltung',
+      'Automatische Kalender-Synchronisation',
+      'WhatsApp & Instagram Integration'
+    ],
+    pricing: 'Ab 49€/Monat',
+    link: '/products/gentlebook'
   }
 ]
 
@@ -89,7 +105,7 @@ const Products = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {PRODUCTS.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}

@@ -27,10 +27,6 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleContact = () => {
-    router.push('/kontakt')
-  }
-
   const navItems = [
     { label: 'Services', href: '#services' },
     { label: 'Work', href: '#work' },
@@ -105,23 +101,46 @@ const Navigation = () => {
               className="lg:hidden glass-dark"
             >
               <div className="px-6 py-8 space-y-6">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => {
-                      playSound('click')
-                      setIsMobileMenuOpen(false)
-                    }}
-                    onMouseEnter={() => playSound('navHover')}
-                    className={`block text-2xl ${textColor} ${hoverColor} transition-colors duration-300 font-medium`}
-                  >
-                    {item.label}
-                  </motion.a>
-                ))}
+                {navItems.map((item, index) => {
+                  // Handle Contact link differently (uses router) vs hash links (use anchor)
+                  if (item.href === '/kontakt') {
+                    return (
+                      <motion.button
+                        key={item.href}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => {
+                          playSound('click')
+                          setIsMobileMenuOpen(false)
+                          router.push('/kontakt')
+                        }}
+                        onMouseEnter={() => playSound('navHover')}
+                        className={`block text-2xl ${textColor} ${hoverColor} transition-colors duration-300 font-medium text-left w-full`}
+                      >
+                        {item.label}
+                      </motion.button>
+                    )
+                  }
+
+                  return (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onClick={() => {
+                        playSound('click')
+                        setIsMobileMenuOpen(false)
+                      }}
+                      onMouseEnter={() => playSound('navHover')}
+                      className={`block text-2xl ${textColor} ${hoverColor} transition-colors duration-300 font-medium`}
+                    >
+                      {item.label}
+                    </motion.a>
+                  )
+                })}
               </div>
             </motion.div>
           )}
@@ -157,20 +176,43 @@ const Navigation = () => {
 
             <div className={`hidden lg:block w-px h-6 ${dividerColor}`} />
 
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 + 0.3 }}
-                whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
-                onMouseEnter={() => playSound('navHover')}
-                className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline`}
-              >
-                {item.label}
-              </motion.a>
-            ))}
+            {navItems.map((item, index) => {
+              // Handle Contact link differently (uses router) vs hash links (use anchor)
+              if (item.href === '/kontakt') {
+                return (
+                  <motion.button
+                    key={item.href}
+                    onClick={() => {
+                      playSound('click')
+                      router.push('/kontakt')
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                    whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
+                    onMouseEnter={() => playSound('navHover')}
+                    className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline cursor-pointer`}
+                  >
+                    {item.label}
+                  </motion.button>
+                )
+              }
+
+              return (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                  whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
+                  onMouseEnter={() => playSound('navHover')}
+                  className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline`}
+                >
+                  {item.label}
+                </motion.a>
+              )
+            })}
 
             {/* Kontakt CTA Button - Magnetic Effect */}
             <motion.div

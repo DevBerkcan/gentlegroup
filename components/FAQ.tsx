@@ -3,20 +3,11 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { HiChevronDown } from 'react-icons/hi'
+import { useTheme } from '@/contexts/ThemeContext'
 
 // Text content configuration for consistency
 const content = {
   faq: {
-    badge: "FAQ",
-    title: {
-      part1: "Häufig gestellte",
-      part2: "Fragen"
-    },
-    cta: {
-      title: "Noch Fragen?",
-      description: "Unser Team steht Ihnen gerne für ein persönliches Gespräch zur Verfügung.",
-      button: "Kontakt aufnehmen"
-    },
     items: [
       {
         question: 'Welche Technologien nutzt ihr für Webentwicklung?',
@@ -55,199 +46,108 @@ const content = {
 }
 
 const FAQ = () => {
+  const { actualTheme } = useTheme()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
+  // Adaptive colors based on theme
+  const bgColor = actualTheme === 'dark' ? 'bg-oxford-blue' : 'bg-white'
+  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-gray-900'
+  const textMuted = actualTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const borderColor = actualTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+  const hoverBg = actualTheme === 'dark' ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'
+  const activeBg = actualTheme === 'dark' ? 'bg-gray-800/30' : 'bg-gray-50'
+  const backgroundTextColor = actualTheme === 'dark' ? 'text-white/5' : 'text-gray-900/5'
+
   return (
-    <section id="faq" className="py-32 lg:py-40 relative overflow-hidden bg-white">
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-aquamarine/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-tropical-indigo/5 rounded-full blur-[100px]" />
-        
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px] opacity-[0.02]" />
+    <section id="faq" className={`py-32 lg:py-40 relative overflow-hidden ${bgColor} transition-colors duration-300`}>
+      {/* Background "FAQ" Text */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className={`absolute top-20 left-8 lg:left-16 ${backgroundTextColor} font-black text-[150px] lg:text-[220px] xl:text-[280px] leading-none select-none`}>
+          FAQ
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
-        {/* Enhanced Section Header with Scale Effect */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 lg:px-16">
+        {/* Section Title - Top Left */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          className="text-center mb-24"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ 
-              duration: 0.6, 
-              type: "spring", 
-              stiffness: 200 
-            }}
-            className="inline-block px-6 py-3 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine font-semibold text-sm mb-8 backdrop-blur-sm"
-          >
-            {content.faq.badge}
-          </motion.span>
-          <div style={{ fontWeight: 800, letterSpacing: '-0.02em' }} className="leading-[0.9]">
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.2,
-                type: "spring",
-                stiffness: 80
-              }}
-              className="block text-gray-900 text-[clamp(3rem,8vw,6rem)]"
-            >
-              {content.faq.title.part1}
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.3,
-                type: "spring",
-                stiffness: 80
-              }}
-              className="block text-aquamarine text-[clamp(3rem,8vw,6rem)]"
-            >
-              {content.faq.title.part2}
-            </motion.span>
-          </div>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl md:text-2xl lg:text-3xl text-gray-600 max-w-4xl mx-auto mt-8"
-          >
-          </motion.p>
+          <h2 className={`text-5xl lg:text-6xl font-bold ${textColor}`}>
+            FAQ
+          </h2>
         </motion.div>
 
-        {/* Enhanced FAQ Items */}
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
-            {content.faq.items.map((faq, index) => (
+        {/* FAQ Accordion List */}
+        <div className="space-y-4">
+          {content.faq.items.map((faq, index) => {
+            const isOpen = openIndex === index
+
+            return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                className="group"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`${borderColor} border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isOpen ? activeBg : ''
+                }`}
               >
-                <motion.button
+                {/* Accordion Header */}
+                <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full text-left bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-aquamarine/50 rounded-3xl p-8 lg:p-10 transition-all duration-500 shadow-lg hover:shadow-2xl backdrop-blur-sm group-hover:scale-[1.02]"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className={`w-full px-6 lg:px-8 py-6 flex items-center justify-between ${hoverBg} transition-colors duration-200`}
                 >
-                  {/* Hover Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-between gap-6">
-                      <motion.h3 
-                        className="text-2xl lg:text-3xl font-bold text-gray-900 pr-8 group-hover:text-aquamarine transition-colors duration-300"
-                        style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
-                      >
-                        {faq.question}
-                      </motion.h3>
-                      <motion.div
-                        animate={{ rotate: openIndex === index ? 180 : 0 }}
-                        transition={{ duration: 0.3, type: "spring" }}
-                        className="flex-shrink-0"
-                      >
-                        <div className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300">
-                          <HiChevronDown className="text-2xl text-black" />
-                        </div>
-                      </motion.div>
+                  <div className="flex items-center gap-4 lg:gap-6 flex-1">
+                    {/* Icon */}
+                    <div className="flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-xl flex items-center justify-center shadow-lg">
+                      <span className="text-black font-bold text-xl lg:text-2xl">
+                        {index + 1}
+                      </span>
                     </div>
 
-                    <AnimatePresence>
-                      {openIndex === index && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <motion.div 
-                            initial={{ y: -10 }}
-                            animate={{ y: 0 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
-                            className="pt-8 text-gray-600 text-lg lg:text-xl leading-relaxed border-t border-gray-200 mt-8"
-                          >
-                            {faq.answer}
-                          </motion.div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {/* Question */}
+                    <h3 className={`text-lg lg:text-xl font-bold text-left ${textColor}`}>
+                      {faq.question}
+                    </h3>
                   </div>
-                </motion.button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
-        {/* Enhanced CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-24 text-center"
-        >
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="inline-block p-10 lg:p-12 bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-sm"
-          >
-            <motion.h3 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-3xl lg:text-4xl font-bold mb-6 text-gray-900"
-              style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
-            >
-              {content.faq.cta.title}
-            </motion.h3>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-gray-600 text-xl mb-8 max-w-xl mx-auto"
-            >
-              {content.faq.cta.description}
-            </motion.p>
-            <motion.a
-              href="#contact"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 40px rgba(1, 255, 169, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block px-12 py-6 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-xl shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
-              style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
-            >
-              {content.faq.cta.button}
-            </motion.a>
-          </motion.div>
-        </motion.div>
+                  {/* Chevron */}
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex-shrink-0"
+                  >
+                    <HiChevronDown className={`text-2xl ${textMuted}`} />
+                  </motion.div>
+                </button>
+
+                {/* Accordion Content */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 lg:px-8 pb-6 pt-2 lg:pl-24">
+                        <p className={`${textMuted} text-base lg:text-lg leading-relaxed`}>
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

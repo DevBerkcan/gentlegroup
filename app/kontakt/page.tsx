@@ -83,9 +83,7 @@ export default function KontaktPage() {
   }
 
   return (
-    <>
-
-      <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
+    <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
         {/* Background Effects */}
         <div className="fixed inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aquamarine/10 rounded-full blur-[120px] animate-pulse" />
@@ -369,7 +367,5 @@ export default function KontaktPage() {
           </div>
         </div>
       </main>
-
-    </>
   )
 }
