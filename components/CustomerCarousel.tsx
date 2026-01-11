@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -137,4 +138,4 @@ const CustomerCarousel = () => {
   )
 }
 
-export default CustomerCarousel;
+export default React.memo(CustomerCarousel);

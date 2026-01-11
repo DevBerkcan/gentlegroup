@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import { HiSun, HiMoon, HiDesktopComputer } from 'react-icons/hi'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -57,4 +58,4 @@ const ThemeToggle = () => {
   )
 }
 
-export default ThemeToggle
+export default React.memo(ThemeToggle)

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { HiExternalLink } from 'react-icons/hi'
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -21,7 +21,7 @@ const content = {
         description: 'Umfassende Logistik-Management-Plattform mit Web-App, Backend-API und Android-App für Fracht- und Fahrzeugverwaltung mit Echtzeit-Tracking.',
         tags: ['React', 'TypeScript', 'ASP.NET Core 8', 'Android', 'Azure SQL'],
         color: 'from-aquamarine to-tropical-indigo',
-        image: '/emma.png',
+        image: '/emma.webp',
         url: 'https://emmasolution.com/',
         imagePosition: 'object-top' // Show top of website (header/navigation)
       },
@@ -31,7 +31,7 @@ const content = {
         description: 'Projektmanagement-System mit React Frontend und ASP.NET Core Backend für Echtzeit-Zusammenarbeit und umfassende Berichterstattung.',
         tags: ['React', 'Vite', 'ASP.NET Core 8', 'MS SQL', 'Multi-language'],
         color: 'from-tropical-indigo to-aquamarine',
-        image: '/gentletrack.png',
+        image: '/gentletrack.webp',
         url: 'https://f7e2b27f.gentle-track-ui.pages.dev/',
         imagePosition: 'object-top' // Show main dashboard area
       },
@@ -41,7 +41,7 @@ const content = {
         description: 'Moderne Friseur-Website entwickelt mit React und Vite für schnelle Performance und reaktionsschnelle Benutzeroberfläche.',
         tags: ['React', 'TypeScript', 'Vite', 'Responsive Design'],
         color: 'from-aquamarine to-oxford-blue',
-        image: '/creativhairstyling.png',
+        image: '/creativhairstyling.webp',
         url: 'https://creative-hairstyling-3u6e.vercel.app/',
         imagePosition: 'object-[center_40%]' // Show text in the middle
       },
@@ -51,7 +51,7 @@ const content = {
         description: 'Professionelle WordPress-Website für Hautpflege und Laser-Behandlungen mit modernem Design und optimaler Performance.',
         tags: ['WordPress', 'PHP', 'Custom Theme', 'SEO'],
         color: 'from-tropical-indigo to-oxford-blue',
-        image: '/hautliebe.png',
+        image: '/hautliebe.webp',
         url: 'https://hautliebeundlaser.de/',
         imagePosition: 'object-center' // Show header and services
       },
@@ -61,7 +61,7 @@ const content = {
         description: 'Elegante Immobilien-Website mit Next.js für optimale SEO-Performance und moderne Benutzererfahrung.',
         tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
         color: 'from-aquamarine to-tropical-indigo',
-        image: '/janjacobi.png',
+        image: '/janjacobi.webp',
         url: 'https://www.jj-immobilienpartner.de/',
         imagePosition: 'object-[center_40%]'
       },
@@ -71,7 +71,7 @@ const content = {
         description: 'E-Commerce-Plattform für Kabelbrücken mit Next.js, optimiert für Performance und Conversion.',
         tags: ['Next.js', 'React', 'TypeScript', 'E-Commerce'],
         color: 'from-tropical-indigo to-aquamarine',
-        image: '/kabelbruecken.png',
+        image: '/kabelbruecken.webp',
         url: 'https://www.kabelbruecken24.de/',
         imagePosition: 'object-center' // Show product catalog
       },
@@ -81,7 +81,7 @@ const content = {
         description: 'Ästhetische Klinik-Website mit Next.js für professionelle Präsentation und optimale Ladezeiten.',
         tags: ['Next.js', 'React', 'TypeScript', 'Responsive Design'],
         color: 'from-aquamarine to-oxford-blue',
-        image: '/skinbloom.png',
+        image: '/skinbloom.webp',
         url: 'https://www.skinbloom-aesthetics.ch/',
         imagePosition: 'object-[center_40%]' // Show "Verleihen Sie Ihrer Haut neuen Glanz."
       },
@@ -91,7 +91,7 @@ const content = {
         description: 'Immobilienportal mit Next.js für effiziente Darstellung von Immobilienangeboten und SEO-Optimierung.',
         tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
         color: 'from-tropical-indigo to-oxford-blue',
-        image: '/nrwrealestate.png',
+        image: '/nrwrealestate.webp',
         url: 'https://www.nrwrealestate.de/',
         imagePosition: 'object-[center_40%]' // Show text in the middle with top padding
       },
@@ -128,15 +128,14 @@ const Work = () => {
   const cardOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 1])
 
   // Wheel scroll handler with boundary detection
-useEffect(() => {
-  const projectsContainer = projectsContainerRef.current
-  if (!projectsContainer) return
+  // Use useCallback to prevent memory leak from recreating event listeners
+  const onWheel = useCallback((e: WheelEvent) => {
+    const projectsContainer = projectsContainerRef.current
+    if (!projectsContainer) return
 
-  let ticking = false
-  const onWheel = (e: WheelEvent) => {
     const target = e.target as HTMLElement
     const isInsideProjectsContainer = projectsContainer.contains(target)
-    
+
     if (isInsideProjectsContainer) {
       const isProjectContent = target.closest('.project-box-content')
       if (isProjectContent) {
@@ -154,9 +153,8 @@ useEffect(() => {
 
         // Prevent default for project navigation
         e.preventDefault()
-        
-        if (ticking || isScrolling) return
-        ticking = true
+
+        if (isScrolling) return
         setIsScrolling(true)
 
         if (isScrollingDown) {
@@ -170,16 +168,16 @@ useEffect(() => {
         }
 
         setTimeout(() => {
-          ticking = false
           setIsScrolling(false)
         }, 600)
       }
     }
-  }
+  }, [activeProject, isScrolling])
 
-  document.addEventListener('wheel', onWheel, { passive: false })
-  return () => document.removeEventListener('wheel', onWheel)
-}, [isScrolling, activeProject])  // WICHTIG: activeProject zu dependencies hinzufügen!
+  useEffect(() => {
+    document.addEventListener('wheel', onWheel, { passive: false })
+    return () => document.removeEventListener('wheel', onWheel)
+  }, [onWheel])
 
   // Keyboard navigation
   useEffect(() => {
@@ -287,14 +285,16 @@ useEffect(() => {
                     zIndex: isActive ? 30 : isPeeking ? 20 - offset : 0,
                     rotateX: isActive ? 0 : isPeeking ? 2 + (offset * 1) : 0,
                   }}
-                  transition={{ 
-                    duration: 0.6, 
+                  transition={{
+                    duration: 0.6,
                     ease: [0.22, 1, 0.36, 1]
                   }}
+                  viewport={{ once: false, amount: 0.3 }}
                   className="absolute left-0 right-0 mx-auto w-full"
-                  style={{ 
+                  style={{
                     top: '0%',
-                    transformStyle: 'preserve-3d'
+                    transformStyle: 'preserve-3d',
+                    willChange: isActive || isPeeking ? 'transform, opacity' : 'auto'
                   }}
                 >
                   <div 
@@ -469,4 +469,4 @@ useEffect(() => {
   )
 }
 
-export default Work
+export default React.memo(Work)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { useRouter } from 'next/navigation'
@@ -19,13 +19,14 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
 
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 50)
+  }, [])
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [handleScroll])
 
   const navItems = [
     { label: 'Services', href: '#services' },
@@ -254,4 +255,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation;
+export default React.memo(Navigation);

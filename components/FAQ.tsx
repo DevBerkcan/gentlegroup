@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
 import { HiChevronDown } from 'react-icons/hi'
 import { useTheme } from '@/contexts/ThemeContext'
 
@@ -153,4 +153,4 @@ const FAQ = () => {
   )
 }
 
-export default FAQ
+export default React.memo(FAQ)

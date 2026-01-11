@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 interface OptimizedImageProps {
@@ -12,7 +12,7 @@ interface OptimizedImageProps {
   priority?: boolean
   sizes?: string
   className?: string
-  onError?: (e: any) => void
+  onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
 }
 
@@ -30,7 +30,7 @@ interface OptimizedImageProps {
  *   1. /berkcan.webp (WebP version - 90% smaller)
  *   2. /berkcan.png (PNG fallback if WebP fails)
  */
-export default function OptimizedImage({
+function OptimizedImage({
   src,
   alt,
   width,
@@ -56,7 +56,7 @@ export default function OptimizedImage({
   // Try WebP first
   const webpSrc = hasError ? src : getWebPSrc(src)
 
-  const handleError = (e: any) => {
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     // Fallback to original PNG if WebP fails
     if (!hasError) {
       setHasError(true)
@@ -86,3 +86,5 @@ export default function OptimizedImage({
 
   return <Image {...imageProps} />
 }
+
+export default React.memo(OptimizedImage)

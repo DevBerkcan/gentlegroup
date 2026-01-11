@@ -104,34 +104,38 @@ const Footer = () => {
                 className="flex gap-4"
               >
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="LinkedIn Profil"
                 >
                   <FaLinkedin className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="GitHub Profil"
                 >
                   <FaGithub className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="Twitter Profil"
                 >
                   <FaTwitter className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="Instagram Profil"
                 >
                   <FaInstagram className="text-xl" />
                 </motion.a>

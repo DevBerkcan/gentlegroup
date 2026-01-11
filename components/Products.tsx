@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { HiChartBar, HiEye, HiCalculator, HiCalendar, HiArrowRight, HiCheckCircle } from 'react-icons/hi'
@@ -214,4 +215,4 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
   )
 }
 
-export default Products
+export default React.memo(Products)

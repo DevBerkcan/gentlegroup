@@ -1,7 +1,7 @@
 "use client";
 
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import {
   HiCode,
   HiCloud,
@@ -210,4 +210,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default React.memo(Services);

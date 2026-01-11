@@ -5,7 +5,7 @@ import { HiMail } from 'react-icons/hi'
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import OptimizedImage from '@/components/OptimizedImage'
 import { useTheme } from '@/contexts/ThemeContext'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 
 // Text content configuration for consistency
 const content = {
@@ -140,8 +140,8 @@ const Team = () => {
                         priority={index < 2}
                         className="object-cover"
                         sizes="(max-width: 768px) 240px, 240px"
-                        onError={(e: any) => {
-                          const target = e.target as HTMLImageElement;
+                        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                          const target = e.currentTarget;
                           target.style.display = 'none';
                           const fallback = target.nextElementSibling as HTMLElement;
                           if (fallback) fallback.classList.remove('hidden');
@@ -217,26 +217,29 @@ const Team = () => {
                       className="flex justify-center gap-3"
                     >
                       <motion.a
-                        href="#"
+                        href="/kontakt"
                         whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         className={`p-2.5 ${actualTheme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-600'} rounded-full hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg`}
+                        aria-label="E-Mail senden"
                       >
                         <HiMail className="text-lg" />
                       </motion.a>
                       <motion.a
-                        href="#"
+                        href="/kontakt"
                         whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         className={`p-2.5 ${actualTheme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-600'} rounded-full hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg`}
+                        aria-label="LinkedIn Profil"
                       >
                         <FaLinkedin className="text-lg" />
                       </motion.a>
                       <motion.a
-                        href="#"
+                        href="/kontakt"
                         whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         className={`p-2.5 ${actualTheme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-600'} rounded-full hover:text-white hover:bg-gradient-to-r hover:from-aquamarine hover:to-tropical-indigo transition-all duration-300 shadow-md hover:shadow-lg`}
+                        aria-label="GitHub Profil"
                       >
                         <FaGithub className="text-lg" />
                       </motion.a>
@@ -275,4 +278,4 @@ const Team = () => {
   )
 }
 
-export default Team
+export default React.memo(Team)

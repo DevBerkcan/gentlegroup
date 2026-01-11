@@ -17,6 +17,15 @@ interface FormData {
   reference: string
 }
 
+interface Question {
+  label: string
+  key: string
+  type: 'text' | 'email' | 'textarea' | 'select'
+  placeholder?: string
+  description?: string
+  options?: string[]
+}
+
 interface ProjectInquiryModalProps {
   onClose: () => void
 }
@@ -249,9 +258,11 @@ Gentle Group Team
             <motion.button
               whileHover={{ scale: 1.1, rotate: 90 }}
               onClick={closeModal}
+              aria-label="Schließen"
+              title="Schließen"
               className="absolute top-8 right-8 text-ghost-white/60 hover:text-aquamarine transition-colors z-10"
             >
-              <HiX className="text-2xl" />
+              <HiX className="text-2xl" aria-hidden="true" />
             </motion.button>
 
             {/* Progress Bar */}
@@ -323,7 +334,7 @@ Gentle Group Team
                   className="w-full px-6 py-4 bg-black/50 border border-aquamarine/30 rounded-2xl text-ghost-white focus:outline-none focus:border-aquamarine transition-all duration-300 text-lg"
                 >
                   <option value="">Bitte auswählen...</option>
-                  {(currentQuestion as any).options?.map((option: string) => (
+                  {currentQuestion.type === 'select' && currentQuestion.options?.map((option: string) => (
                     <option key={option} value={option} className="bg-black text-lg py-2">
                       {option}
                     </option>

@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
 import { HiStar } from 'react-icons/hi'
 import { useTheme } from '@/contexts/ThemeContext'
 
@@ -173,4 +173,4 @@ const Reviews = () => {
   )
 }
 
-export default Reviews
+export default React.memo(Reviews)
