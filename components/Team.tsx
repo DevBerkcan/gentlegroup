@@ -16,28 +16,28 @@ const content = {
         role: 'Founder & Lead Developer',
         description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
         expertise: ['React', '.NET Core', 'Azure Cloud', 'AI Integration'],
-        image: '/berkcan.png'
+        image: '/berkcan.webp'
       },
       {
         name: 'Medin',
         role: 'Backend Specialist',
         description: 'Experte für skalierbare Backend-Architekturen und Datenbank-Design.',
         expertise: ['C# .NET', 'SQL', 'API Design', 'DevOps', "NoSQL"],
-        image: '/medin.png'
+        image: '/medin.webp'
       },
       {
         name: 'Moritz',
         role: 'Marketing & Sales',
         description: 'Spezialist für digitales Marketing, Kundenakquise und strategische Geschäftsentwicklung.',
         expertise: ['Digital Marketing', 'Sales Strategy', 'Customer Relations', 'Brand Development'],
-        image: '/moritz.png'
+        image: ''
       },
       {
         name: 'Alanur',
         role: 'Backoffice & Administration',
         description: 'Organisationstalent für Verwaltung, Angebotserstellung und interne Prozesse.',
         expertise: ['Angebotserstellung', 'Onboarding', 'Rechnungswesen', 'Projektkoordination'],
-        image: '/alanur.png'
+        image: '/alanur.webp'
       },
     ]
   }

@@ -11,7 +11,7 @@ const BEAUTY_PROJECTS = [
     id: 'skinbloom-aesthetics',
     title: 'Skinbloom Aesthetics',
     description: 'Premium-Auftritt für ästhetische Medizin inkl. vollautomatischer Anfrage-Strecke. Fokus: Vertrauen aufbauen, 24/7 erreichbar sein und Beratungen planbar machen.',
-    image: '/skinbloom.png',
+    image: '/skinbloom.webp',
     url: 'https://www.skinbloom-aesthetics.ch',
     tags: ['Next.js', 'WhatsApp Integration', 'Google Analytics'],
     color: 'from-purple-500 to-indigo-600',
@@ -31,7 +31,7 @@ const BEAUTY_PROJECTS = [
     id: 'hautliebe-laser',
     title: 'Hautliebe & Laser',
     description: 'Fachinstitut für apparative Kosmetik mit zwei Standorten (Wuppertal & Duisburg). Ziel: Telefonaufkommen entzerren und Neukundinnen auf beide Standorte verteilen.',
-    image: '/hautliebe.png',
+    image: '/hautliebe.webp',
     url: 'https://hautliebeundlaser.de',
     tags: ['WordPress', 'Divi Theme', 'Online-Buchung'],
     color: 'from-rose-500 to-pink-600',
@@ -51,7 +51,7 @@ const BEAUTY_PROJECTS = [
     id: 'creative-hairstyling',
     title: 'Creative Hairstyling',
     description: 'Komplettlösung für Boutique-Salon: neue Marke, Preiskommunikation, Online-Auftritt und Kampagnen mit messbaren Buchungen.',
-    image: '/creativhairstyling.png',
+    image: '/creativhairstyling.webp',
     url: null,
     tags: ['GentleCalc', 'Corporate Design', 'Marketing'],
     color: 'from-teal-500 to-cyan-600',
@@ -527,7 +527,7 @@ export default function BeautyPortfolio() {
               {
                 name: 'Sarah M.',
                 role: 'Inhaberin Skinbloom Aesthetics',
-                image: '/skinbloom.png',
+                image: '/skinbloom.webp',
                 quote: 'Seit dem Launch unserer neuen Website haben wir 180% mehr Online-Anfragen. Die automatische WhatsApp-Strecke spart uns täglich Stunden!',
                 rating: 5,
                 result: '+180% Anfragen in 90 Tagen'
@@ -535,7 +535,7 @@ export default function BeautyPortfolio() {
               {
                 name: 'Lisa K.',
                 role: 'Geschäftsführerin Hautliebe & Laser',
-                image: '/hautliebe.png',
+                image: '/hautliebe.webp',
                 quote: 'Endlich keine Telefon-Warteschleifen mehr! 62% unserer Termine werden jetzt online gebucht. Die Standort-Lösung ist perfekt für unsere zwei Filialen.',
                 rating: 5,
                 result: '62% Online-Buchungen'
@@ -543,7 +543,7 @@ export default function BeautyPortfolio() {
               {
                 name: 'Nina R.',
                 role: 'Creative Hairstyling',
-                image: '/creativhairstyling.png',
+                image: '/creativhairstyling.webp',
                 quote: 'Der interaktive Preisrechner erklärt unsere Leistungen so gut, dass wir kaum noch Einwand-Gespräche haben. Die Buchungen sind durch die Decke gegangen!',
                 rating: 5,
                 result: '+150% Buchungen'
