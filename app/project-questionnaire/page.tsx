@@ -261,7 +261,7 @@ Gentle Group Team
     `.trim())
 
     // Open email client
-    window.open(`mailto:info@gentle-Group.com?subject=${subject}&body=${body}`, '_blank')
+    window.open(`mailto:info@gentle-group.com?subject=${subject}&body=${body}`, '_blank')
     
     // Reset after delay
     setTimeout(() => {

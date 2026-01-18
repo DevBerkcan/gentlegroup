@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiExclamationCircle } from 'react-icons/hi'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function KontaktPage() {
   const [formData, setFormData] = useState({
@@ -64,7 +62,7 @@ export default function KontaktPage() {
         `Nachricht:\n${formData.message}`
       )
 
-      window.location.href = `mailto:info@gentle-Group.com?subject=${subject}&body=${body}`
+      window.location.href = `mailto:info@gentle-group.com?subject=${subject}&body=${body}`
 
       setSubmitStatus('success')
       setFormData({ name: '', email: '', phone: '', company: '', message: '' })
@@ -85,10 +83,7 @@ export default function KontaktPage() {
   }
 
   return (
-    <>
-      <Navigation />
-
-      <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
+    <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
         {/* Background Effects */}
         <div className="fixed inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aquamarine/10 rounded-full blur-[120px] animate-pulse" />
@@ -287,7 +282,7 @@ export default function KontaktPage() {
                 <div className="space-y-6">
                   {/* Email */}
                   <motion.a
-                    href="mailto:info@gentle-Group.com"
+                    href="mailto:info@gentle-group.com"
                     whileHover={{ x: 5 }}
                     className="flex items-start gap-4 text-ghost-white/80 hover:text-aquamarine transition-colors duration-300"
                   >
@@ -296,7 +291,7 @@ export default function KontaktPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-ghost-white mb-1">E-Mail</p>
-                      <p>info@gentle-Group.com</p>
+                      <p>info@gentle-group.com</p>
                     </div>
                   </motion.a>
 
@@ -372,8 +367,5 @@ export default function KontaktPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </>
   )
 }

@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function Impressum() {
   useEffect(() => {
@@ -23,7 +21,6 @@ export default function Impressum() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden">
         {/* Background Effects */}
@@ -51,10 +48,45 @@ export default function Impressum() {
               <div className="h-1 w-24 bg-gradient-to-r from-aquamarine to-tropical-indigo rounded-full" />
             </motion.div>
 
+            {/* GentleSuite Disclaimer */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-12 p-8 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-3xl border border-aquamarine/20"
+            >
+              <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4" style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>
+                Hinweis zu Gentle Group & GentleSuite
+              </h2>
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p className="mb-4">
+                  <strong>Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen unter dem Namen <strong>GentleSuite</strong>.
+                </p>
+                <p className="mb-4">
+                  Gentle Group ist <strong>keine eigenständige registrierte Firma</strong>, sondern eine Marke,
+                  unter der wir folgende Software-Produkte entwickeln und anbieten:
+                </p>
+                <ul className="list-disc pl-6 mb-4 space-y-2">
+                  <li>
+                    <strong className="text-aquamarine">Gentle Access</strong> – SaaS-Lösung für digitale Barrierefreiheit
+                  </li>
+                  <li>
+                    <strong className="text-aquamarine">GentleCalc</strong> – Individueller Preisrechner für Beauty & Wellness
+                  </li>
+                  <li>
+                    <strong className="text-aquamarine">GentleTrack</strong> – Projekt-Tracking und Transparenz-Tool
+                  </li>
+                </ul>
+                <p className="text-sm text-gray-600">
+                  Alle rechtlichen Angaben und verantwortliche Stellen entnehmen Sie bitte dem nachfolgenden Impressum.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="prose prose-lg max-w-none"
               id="lc-text"
             >
@@ -82,7 +114,6 @@ export default function Impressum() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

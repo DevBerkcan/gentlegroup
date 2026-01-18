@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { useTheme } from '@/contexts/ThemeContext'
 
 // Text content configuration for consistency
 const content = {
@@ -31,9 +32,16 @@ const content = {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { actualTheme } = useTheme()
+
+  // Adaptive colors based on theme
+  const bgColor = actualTheme === 'dark' ? 'bg-oxford-blue' : 'bg-white'
+  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
+  const textMuted = actualTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const borderColor = actualTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-white">
+    <footer id="contact" className={`relative overflow-hidden ${bgColor} transition-colors duration-300`}>
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-aquamarine/5 rounded-full blur-[120px]" />
@@ -43,7 +51,7 @@ const Footer = () => {
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16 pt-32 lg:pt-40 pb-12">
         {/* Footer Main Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12 border-b border-gray-200">
+        <div className={`grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12 pb-12 border-b ${borderColor}`}>
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <motion.div
@@ -72,10 +80,22 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-gray-600 text-lg mb-8 max-w-md leading-relaxed"
+                className={`${textMuted} text-lg mb-6 max-w-md leading-relaxed`}
               >
                 {content.footer.description}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
+              >
+                <p className={`text-sm ${textMuted} leading-relaxed`}>
+                  <strong className={textColor}>Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
+                  <strong className="text-aquamarine">GentleSuite</strong> (Gentle Access, GentleCalc, GentleTrack).
+                </p>
+              </motion.div>
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -84,40 +104,76 @@ const Footer = () => {
                 className="flex gap-4"
               >
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="LinkedIn Profil"
                 >
                   <FaLinkedin className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="GitHub Profil"
                 >
                   <FaGithub className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="Twitter Profil"
                 >
                   <FaTwitter className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="/kontakt"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  aria-label="Instagram Profil"
                 >
                   <FaInstagram className="text-xl" />
                 </motion.a>
               </motion.div>
             </motion.div>
           </div>
+
+          {/* Legal Cockpit Seal - Centered */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.15, type: "spring", stiffness: 100 }}
+            className="flex items-center justify-center"
+          >
+            <a
+              href="https://cockpit.legal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-block"
+              title="Legal Cockpit - Agentur-Partner Rechtssicherheit"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400 }}
+                className="relative"
+              >
+                <Image
+                  src="/legal-cockpit-seal.svg"
+                  alt="Legal Cockpit Seal"
+                  width={140}
+                  height={140}
+                  className="w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/0 to-tropical-indigo/0 group-hover:from-aquamarine/10 group-hover:to-tropical-indigo/10 rounded-lg transition-all duration-300" />
+              </motion.div>
+            </a>
+          </motion.div>
 
           {/* Quick Links */}
           <motion.div
@@ -131,7 +187,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              className={`text-2xl lg:text-3xl font-bold mb-6 ${textColor}`}
               style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
             >
               {content.footer.navigation.title}
@@ -147,7 +203,7 @@ const Footer = () => {
                 >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
+                    className={`${textMuted} text-lg hover:text-aquamarine transition-colors duration-300 block py-2`}
                   >
                     {item}
                   </a>
@@ -168,7 +224,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              className={`text-2xl lg:text-3xl font-bold mb-6 ${textColor}`}
               style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
             >
               {content.footer.services.title}
@@ -184,7 +240,7 @@ const Footer = () => {
                 >
                   <a
                     href="#services"
-                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
+                    className={`${textMuted} text-lg hover:text-aquamarine transition-colors duration-300 block py-2`}
                   >
                     {service}
                   </a>
@@ -202,36 +258,8 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
           className="flex flex-col gap-8"
         >
-          {/* Legal Cockpit Seal - Centered and Compact */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex justify-center"
-          >
-            <a
-              href="https://cockpit.legal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-block"
-            >
-              <div className="relative w-32 sm:w-40 transition-transform duration-300 group-hover:scale-105">
-                <Image
-                  src="/legal-cockpit-seal.svg"
-                  alt="Legal Cockpit - Agentur-Partner Rechtssicherheit"
-                  width={160}
-                  height={160}
-                  className="w-full h-auto"
-                  priority={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/0 to-tropical-indigo/0 group-hover:from-aquamarine/5 group-hover:to-tropical-indigo/5 rounded-lg transition-all duration-300" />
-              </div>
-            </a>
-          </motion.div>
-
           {/* Copyright and Legal Links */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-base">
+          <div className={`flex flex-col md:flex-row justify-between items-center gap-6 ${textMuted} text-base`}>
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -240,10 +268,10 @@ const Footer = () => {
               className="flex flex-col items-center md:items-start gap-2"
             >
               <p>© {currentYear} Gentle Group. {content.footer.legal.copyright}</p>
-              <p className="text-sm text-gray-500">
+              <p className={`text-sm ${textMuted}`}>
                 Entwickelt von{' '}
                 <a
-                  href="https://gentle-Group.com"
+                  href="https://gentle-group.com"
                   className="text-aquamarine hover:text-tropical-indigo transition-colors duration-300"
                 >
                   Gentle Group

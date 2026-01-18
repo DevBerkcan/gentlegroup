@@ -2,13 +2,10 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden min-h-[80vh] flex items-center justify-center">
         {/* Background Effects */}
@@ -107,7 +104,6 @@ export default function NotFound() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

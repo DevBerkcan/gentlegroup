@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
 export default function Datenschutzerklaerung() {
   const [isLoading, setIsLoading] = useState(true)
@@ -28,7 +26,6 @@ export default function Datenschutzerklaerung() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navigation />
 
       <div className="relative overflow-hidden">
         {/* Background Effects */}
@@ -87,7 +84,6 @@ export default function Datenschutzerklaerung() {
         </div>
       </div>
 
-      <Footer />
     </main>
   )
 }

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/private/'],
       },
     ],
-    sitemap: 'https://gentle-Group.com/sitemap.xml',
+    sitemap: 'https://gentle-group.com/sitemap.xml',
   }
 }

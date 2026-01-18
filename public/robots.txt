@@ -8,7 +8,7 @@ Disallow: /private/
 Disallow: /_next/
 
 # Sitemap
-Sitemap: https://gentle-Group.com/sitemap.xml
+Sitemap: https://gentle-group.com/sitemap.xml
 
 # Crawl-delay für bessere Server-Performance
 Crawl-delay: 0.5
