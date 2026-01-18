@@ -18,9 +18,6 @@ const Reviews = dynamic(() => import('@/components/Reviews'), {
 const FAQ = dynamic(() => import('@/components/FAQ'), {
   loading: () => <div className="h-screen" />
 })
-const NeedProject = dynamic(() => import('@/components/NeedProject'), {
-  loading: () => <div className="h-screen" />
-})
 const Blog = dynamic(() => import('@/components/Blog'), {
   loading: () => <div className="h-screen" />
 })
@@ -35,7 +32,6 @@ export default function Home() {
       <Team />
       <Reviews />
       <FAQ />
-      <NeedProject />
       <Blog />
     </main>
   )
