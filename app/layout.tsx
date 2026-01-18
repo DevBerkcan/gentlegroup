@@ -7,8 +7,6 @@ import StructuredData from '@/components/StructuredData'
 import AccessibilityTool from '@/components/AccessibilityTool'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-import GradientCursor from '@/components/effects/GradientCursor'
-import CustomCursor from '@/components/effects/CustomCursor'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({
@@ -117,8 +115,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>
           <StructuredData />
-          <CustomCursor />
-          <GradientCursor />
           <Navigation />
 
           {/* Main content - wrapped for accessibility filters */}
