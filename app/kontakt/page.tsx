@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle, HiExclamationCircle } from 'react-icons/hi'
+import BookingModal from '@/components/BookingModal' // Adjust the import path as needed
 
 export default function KontaktPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function KontaktPage() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -83,7 +85,8 @@ export default function KontaktPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
+    <>
+      <main className="min-h-screen bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95">
         {/* Background Effects */}
         <div className="fixed inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aquamarine/10 rounded-full blur-[120px] animate-pulse" />
@@ -342,30 +345,31 @@ export default function KontaktPage() {
                 </div>
               </div>
 
-              {/* CTA */}
+              {/* CTA - Updated to open booking modal */}
               <div className="bg-gradient-to-br from-aquamarine/10 to-tropical-indigo/10 backdrop-blur-xl rounded-3xl p-8 border border-aquamarine/20 shadow-2xl">
                 <h3 className="text-2xl font-bold text-ghost-white mb-4">Lieber persönlich?</h3>
                 <p className="text-ghost-white/80 mb-6">
                   Vereinbaren Sie direkt einen Termin für ein unverbindliches Erstgespräch.
                 </p>
-                <motion.a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    // This would open the booking modal from Navigation component
-                    // For now, just scroll to contact
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }}
+                <motion.button
+                  onClick={() => setIsBookingModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-block px-6 py-3 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-xl shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
                 >
                   Termin buchen
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           </div>
         </div>
       </main>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
+    </>
   )
 }

@@ -10,7 +10,7 @@ import {
   HiChevronDown,
 } from "react-icons/hi";
 import { FaAndroid, FaRobot } from "react-icons/fa";
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Text content configuration for consistency
 const content = {
@@ -63,7 +63,7 @@ const content = {
       },
       {
         icon: FaAndroid,
-        title: "Android Apps",
+        title: "Android/iOs Apps",
         description:
           "Moderne Android-Apps mit hoher Performance, intuitivem Design und nahtloser Integration.",
         features: [
@@ -82,13 +82,17 @@ const Services = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // Adaptive colors based on theme
-  const bgColor = actualTheme === 'dark' ? 'bg-oxford-blue' : 'bg-white';
-  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-gray-900';
-  const textMuted = actualTheme === 'dark' ? 'text-gray-400' : 'text-gray-600';
-  const borderColor = actualTheme === 'dark' ? 'border-gray-700' : 'border-gray-200';
-  const hoverBg = actualTheme === 'dark' ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50';
-  const activeBg = actualTheme === 'dark' ? 'bg-gray-800/30' : 'bg-gray-50';
-  const backgroundTextColor = actualTheme === 'dark' ? 'text-white/5' : 'text-gray-900/5';
+  const bgColor = actualTheme === "dark" ? "bg-oxford-blue" : "bg-white";
+  const textColor =
+    actualTheme === "dark" ? "text-ghost-white" : "text-gray-900";
+  const textMuted = actualTheme === "dark" ? "text-gray-400" : "text-gray-600";
+  const borderColor =
+    actualTheme === "dark" ? "border-gray-700" : "border-gray-200";
+  const hoverBg =
+    actualTheme === "dark" ? "hover:bg-gray-800/50" : "hover:bg-gray-50";
+  const activeBg = actualTheme === "dark" ? "bg-gray-800/30" : "bg-gray-50";
+  const backgroundTextColor =
+    actualTheme === "dark" ? "text-white/5" : "text-gray-900/5";
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -101,7 +105,9 @@ const Services = () => {
     >
       {/* Background "SERVICES" Text */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className={`absolute top-20 left-8 lg:left-16 ${backgroundTextColor} font-black text-[120px] lg:text-[180px] xl:text-[220px] leading-none select-none`}>
+        <div
+          className={`absolute top-20 left-8 lg:left-16 ${backgroundTextColor} font-black text-[120px] lg:text-[180px] xl:text-[220px] leading-none select-none`}
+        >
           SERVICES
         </div>
       </div>
@@ -134,7 +140,7 @@ const Services = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`${borderColor} border rounded-2xl overflow-hidden transition-all duration-300 ${
-                  isOpen ? activeBg : ''
+                  isOpen ? activeBg : ""
                 }`}
               >
                 {/* Accordion Header */}
@@ -149,7 +155,9 @@ const Services = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className={`text-xl lg:text-2xl font-bold text-left ${textColor}`}>
+                    <h3
+                      className={`text-xl lg:text-2xl font-bold text-left ${textColor}`}
+                    >
                       {service.title}
                     </h3>
                   </div>
@@ -176,7 +184,9 @@ const Services = () => {
                     >
                       <div className="px-6 lg:px-8 pb-6 pt-2 lg:pl-24">
                         {/* Description */}
-                        <p className={`${textMuted} text-base lg:text-lg mb-6 leading-relaxed`}>
+                        <p
+                          className={`${textMuted} text-base lg:text-lg mb-6 leading-relaxed`}
+                        >
                           {service.description}
                         </p>
 
