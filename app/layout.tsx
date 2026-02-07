@@ -9,6 +9,8 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import GradientCursor from '@/components/effects/GradientCursor'
 import CustomCursor from '@/components/effects/CustomCursor'
+import CookieConsent from '@/components/CookieConsent'
+import WebVitals from '@/components/WebVitals'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({
@@ -78,7 +80,7 @@ export const metadata: Metadata = {
     ],
     countryName: 'Deutschland',
     emails: ['info@gentle-group.com'],
-    phoneNumbers: ['+49-XXX-XXXXXX'],
+    phoneNumbers: ['+49 175 470 1892'],
   },
   twitter: {
     card: 'summary_large_image',
@@ -112,6 +114,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//www.clarity.ms" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
 
       <body>
@@ -128,6 +134,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <Footer />
           <AccessibilityTool />
+          <CookieConsent />
+          <WebVitals />
           <Analytics />
         </ThemeProvider>
       </body>

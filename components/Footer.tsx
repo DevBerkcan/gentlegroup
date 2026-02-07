@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { useTheme } from '@/contexts/ThemeContext'
 
 // Text content configuration for consistency
@@ -104,7 +104,9 @@ const Footer = () => {
                 className="flex gap-4"
               >
                 <motion.a
-                  href="/kontakt"
+                  href="https://www.linkedin.com/company/gentle-webdesign/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
@@ -113,25 +115,9 @@ const Footer = () => {
                   <FaLinkedin className="text-xl" />
                 </motion.a>
                 <motion.a
-                  href="/kontakt"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
-                  aria-label="GitHub Profil"
-                >
-                  <FaGithub className="text-xl" />
-                </motion.a>
-                <motion.a
-                  href="/kontakt"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
-                  aria-label="Twitter Profil"
-                >
-                  <FaTwitter className="text-xl" />
-                </motion.a>
-                <motion.a
-                  href="/kontakt"
+                  href="https://www.instagram.com/gentlewebdesign/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"

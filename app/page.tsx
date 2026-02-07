@@ -36,7 +36,7 @@ export default function Home() {
       <Products />
       <Work />
       <Team />
-      <CustomerCarousel />
+      {/* <CustomerCarousel /> */}
       <Reviews />
       <FAQ />
       <NeedProject />

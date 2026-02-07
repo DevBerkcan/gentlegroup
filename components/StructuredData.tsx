@@ -13,8 +13,8 @@ export default function StructuredData() {
     logo: 'https://gentle-group.com/logo.svg',
     image: 'https://gentle-group.com/og-image.svg',
     sameAs: [
-      'https://www.linkedin.com/company/gentle-group',
-      'https://github.com/gentle-group',
+      'https://www.linkedin.com/company/gentle-webdesign/',
+      'https://www.instagram.com/gentlewebdesign/',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -44,7 +44,7 @@ export default function StructuredData() {
     url: 'https://gentle-group.com',
     logo: 'https://gentle-group.com/logo.svg',
     image: 'https://gentle-group.com/og-image.svg',
-    telephone: '+49-XXX-XXXXXX', // Hier echte Telefonnummer eintragen
+    telephone: '+49 175 470 1892', 
     email: 'info@gentle-group.com',
     address: {
       '@type': 'PostalAddress',
@@ -194,6 +194,62 @@ export default function StructuredData() {
     }
   }
 
+  // FAQ Schema for Google Rich Snippets
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Welche Technologien nutzt ihr für Webentwicklung?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Wir setzen auf moderne Technologien wie React, Next.js, TypeScript für Frontend-Entwicklung. Im Backend arbeiten wir mit .NET Core, Node.js und nutzen Azure Cloud für Hosting und Services.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Wie lange dauert die Entwicklung einer Website?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Die Entwicklungszeit hängt vom Projektumfang ab. Eine einfache Corporate Website kann in 2-4 Wochen fertig sein, während komplexe Web-Apps oder E-Commerce-Plattformen 2-4 Monate benötigen können.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Was kostet eine professionelle Website?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Die Kosten variieren je nach Anforderungen. Eine einfache Landing Page startet ab 2.000€, während umfangreiche Web-Anwendungen zwischen 10.000€ - 50.000€+ liegen können. Wir erstellen gerne ein individuelles Angebot nach einem kostenlosen Erstgespräch.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Bietet ihr auch Wartung und Support an?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ja, wir bieten umfassende Wartungs- und Support-Pakete an. Diese beinhalten regelmäßige Updates, Security-Patches, Performance-Optimierung, Backup-Management und technischen Support.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Sind eure Websites mobilfreundlich?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ja, alle unsere Websites sind vollständig responsive und für alle Geräte optimiert. Wir verfolgen einen Mobile-First-Ansatz, da heute über 60% der Nutzer mobil auf Websites zugreifen.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Was ist mit SEO und Performance?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'SEO und Performance sind von Anfang an in unseren Entwicklungsprozess integriert. Wir optimieren Ladezeiten, nutzen moderne Techniken wie Code Splitting, implementieren strukturierte Daten und sorgen für saubere URLs und optimale Meta-Tags.'
+        }
+      }
+    ]
+  }
+
   // WebSite Schema
   const websiteSchema = {
     '@context': 'https://schema.org',
@@ -246,6 +302,15 @@ export default function StructuredData() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(serviceSchema)
+        }}
+      />
+
+      {/* FAQ Schema */}
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
         }}
       />
 
