@@ -12,16 +12,10 @@ const Work = dynamic(() => import('@/components/Work'), {
 const Team = dynamic(() => import('@/components/Team'), {
   loading: () => <div className="h-screen" />
 })
-const CustomerCarousel = dynamic(() => import('@/components/CustomerCarousel'), {
-  loading: () => <div className="h-32" />
-})
 const Reviews = dynamic(() => import('@/components/Reviews'), {
   loading: () => <div className="h-screen" />
 })
 const FAQ = dynamic(() => import('@/components/FAQ'), {
-  loading: () => <div className="h-screen" />
-})
-const NeedProject = dynamic(() => import('@/components/NeedProject'), {
   loading: () => <div className="h-screen" />
 })
 const Blog = dynamic(() => import('@/components/Blog'), {
@@ -39,7 +33,6 @@ export default function Home() {
       {/* <CustomerCarousel /> */}
       <Reviews />
       <FAQ />
-      <NeedProject />
       <Blog />
     </main>
   )

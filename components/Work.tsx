@@ -451,10 +451,6 @@ const Work = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-20"
         >
-          <motion.div
-            style={{ scaleX: scrollYProgress }}
-            className="h-1 bg-gradient-to-r from-aquamarine to-tropical-indigo rounded-full max-w-md mx-auto mb-8 origin-left"
-          />
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(169, 122, 255, 0.5)" }}

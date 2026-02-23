@@ -7,8 +7,6 @@ import StructuredData from '@/components/StructuredData'
 import AccessibilityTool from '@/components/AccessibilityTool'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-import GradientCursor from '@/components/effects/GradientCursor'
-import CustomCursor from '@/components/effects/CustomCursor'
 import CookieConsent from '@/components/CookieConsent'
 import WebVitals from '@/components/WebVitals'
 import { ThemeProvider } from '@/contexts/ThemeContext'
@@ -123,8 +121,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>
           <StructuredData />
-          <CustomCursor />
-          <GradientCursor />
           <Navigation />
 
           {/* Main content - wrapped for accessibility filters */}

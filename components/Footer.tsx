@@ -19,7 +19,7 @@ const content = {
       items: ['Group', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
     },
     legal: {
-      copyright: "Alle Rechte vorbehalten.",
+      copyright: "",
       links: [
         { text: 'Datenschutz', href: '/datenschutzerklaerung' },
         { text: 'Impressum', href: '/impressum' },
@@ -84,18 +84,7 @@ const Footer = () => {
               >
                 {content.footer.description}
               </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.25 }}
-                className="p-4 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 rounded-2xl border border-aquamarine/10 max-w-md"
-              >
-                <p className={`text-sm ${textMuted} leading-relaxed`}>
-                  <strong className={textColor}>Gentle Group</strong> ist die Dachmarke für innovative Software-Lösungen der{' '}
-                  <strong className="text-aquamarine">GentleSuite</strong> (Gentle Access, GentleCalc, GentleTrack).
-                </p>
-              </motion.div>
+
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -253,7 +242,7 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="flex flex-col items-center md:items-start gap-2"
             >
-              <p>© {currentYear} Gentle Group. {content.footer.legal.copyright}</p>
+              <p>© {currentYear} Gentle Group {content.footer.legal.copyright}</p>
               <p className={`text-sm ${textMuted}`}>
                 Entwickelt von{' '}
                 <a
@@ -295,7 +284,7 @@ const Footer = () => {
                 className="hover:text-aquamarine transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
               >
-                Cookie-Einstellungen
+                Cookies
               </motion.a>
             </motion.div>
           </div>

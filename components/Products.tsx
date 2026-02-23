@@ -120,21 +120,6 @@ const Products = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <div className="inline-block p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-ghost-white/10">
-            <p className="text-xl text-ghost-white/90 mb-6">
-              Alle Produkte flexibel im Abo. Keine Einrichtungsgebühr. Jederzeit kündbar.
-            </p>
-            <Link href="/kontakt">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full shadow-lg hover:shadow-aquamarine/50 transition-all duration-300 inline-flex items-center gap-2"
-              >
-                Beratungsgespräch vereinbaren
-                <HiArrowRight className="w-5 h-5" />
-              </motion.button>
-            </Link>
-          </div>
         </motion.div>
       </div>
     </section>
