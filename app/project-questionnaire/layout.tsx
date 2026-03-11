@@ -1,17 +1,10 @@
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Projekt-Fragebogen',
-  description: 'Beschreiben Sie Ihr Projekt in wenigen Schritten. Wir erstellen ein individuelles Angebot für Ihre Website, App oder Software-Lösung.',
-  openGraph: {
-    title: 'Projekt-Fragebogen | Gentle Group',
-    description: 'Starten Sie Ihr Projekt. Füllen Sie unseren Fragebogen aus.',
-  },
-  alternates: {
-    canonical: '/project-questionnaire',
-  },
-}
+// app/project-questionnaire/layout.tsx
+export const dynamic = 'force-static'
 
 export default function QuestionnaireLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <div className="min-h-screen bg-black text-ghost-white">
+      {children}
+    </div>
+  )
 }
