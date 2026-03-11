@@ -37,16 +37,19 @@ const Navigation = () => {
     { label: 'Contact', href: '/kontakt' },
   ]
 
-  // Adaptive colors based on theme
-  const textColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
-  const textColorMuted = actualTheme === 'dark' ? 'text-ghost-white/70' : 'text-oxford-blue/70'
-  const hoverColor = actualTheme === 'dark' ? 'hover:text-aquamarine' : 'hover:text-tropical-indigo'
-  const iconColor = actualTheme === 'dark' ? 'text-ghost-white' : 'text-oxford-blue'
-  const dividerColor = actualTheme === 'dark' ? 'bg-ghost-white/20' : 'bg-oxford-blue/20'
+  const isDark = actualTheme === 'dark'
+
+  const textColor = isDark ? 'text-ghost-white' : 'text-oxford-blue'
+  const textColorMuted = isDark ? 'text-ghost-white/70' : 'text-oxford-blue/70'
+  const hoverColor = isDark ? 'hover:text-aquamarine' : 'hover:text-tropical-indigo'
+  const iconColor = isDark ? 'text-ghost-white' : 'text-oxford-blue'
+  const dividerColor = isDark ? 'bg-ghost-white/20' : 'bg-oxford-blue/20'
+
+  const navLinkClass = `${textColorMuted} ${hoverColor} transition-colors duration-200 text-sm font-medium whitespace-nowrap hidden lg:inline cursor-pointer`
 
   return (
     <>
-      {/* Top Navigation - Mobile Hamburger Menu */}
+      {/* ── Top bar (mobile only) ── */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -56,7 +59,6 @@ const Navigation = () => {
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex justify-between items-center lg:hidden">
-          {/* Mobile Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
@@ -68,10 +70,7 @@ const Navigation = () => {
           </Link>
 
           <div className="flex items-center gap-4">
-            {/* Mobile Theme Toggle */}
             <ThemeToggle />
-
-            {/* Mobile Hamburger Button */}
             <motion.button
               onClick={() => {
                 playSound('click')
@@ -91,7 +90,7 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile dropdown */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -103,7 +102,6 @@ const Navigation = () => {
             >
               <div className="px-6 py-8 space-y-6">
                 {navItems.map((item, index) => {
-                  // Handle Contact link differently (uses router) vs hash links (use anchor)
                   if (item.href === '/kontakt') {
                     return (
                       <motion.button
@@ -148,23 +146,21 @@ const Navigation = () => {
         </AnimatePresence>
       </motion.nav>
 
-      {/* Bottom Center Navigation - Fixed at bottom */}
+      {/* ── Bottom pill navigation (desktop) ── */}
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="fixed bottom-0 inset-x-0 z-50 mb-8 flex justify-center items-center pointer-events-none px-4"
       >
-        {/* Main Navigation */}
         <motion.div
           className="pointer-events-auto px-8 py-5 glass rounded-full shadow-2xl hover:border-aquamarine/50 transition-all duration-300"
           whileHover={{
-            boxShadow: "0 0 30px rgba(1, 255, 169, 0.3), inset 0 0 0 1px rgba(1, 255, 169, 0.2)",
-            scale: 1.02
+            boxShadow: '0 0 30px rgba(1, 255, 169, 0.3), inset 0 0 0 1px rgba(1, 255, 169, 0.2)',
+            scale: 1.02,
           }}
         >
           <div className="flex items-center gap-8">
-            {/* Desktop Logo */}
             <Link href="/" className="hidden lg:flex items-center mr-4">
               <Image
                 src="/logo.svg"
@@ -178,7 +174,6 @@ const Navigation = () => {
             <div className={`hidden lg:block w-px h-6 ${dividerColor}`} />
 
             {navItems.map((item, index) => {
-              // Handle Contact link differently (uses router) vs hash links (use anchor)
               if (item.href === '/kontakt') {
                 return (
                   <motion.button
@@ -190,9 +185,9 @@ const Navigation = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
-                    whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
+                    whileHover={{ scale: 1.1 }}
                     onMouseEnter={() => playSound('navHover')}
-                    className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline cursor-pointer`}
+                    className={navLinkClass}
                   >
                     {item.label}
                   </motion.button>
@@ -206,16 +201,15 @@ const Navigation = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 + 0.3 }}
-                  whileHover={{ scale: 1.1, color: actualTheme === 'dark' ? '#01FFA9' : '#7B68EE' }}
+                  whileHover={{ scale: 1.1 }}
                   onMouseEnter={() => playSound('navHover')}
-                  className={`${textColorMuted} ${hoverColor} transition-colors text-sm font-medium whitespace-nowrap hidden lg:inline`}
+                  className={navLinkClass}
                 >
                   {item.label}
                 </motion.a>
               )
             })}
 
-            {/* Kontakt CTA Button - Magnetic Effect */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -233,7 +227,6 @@ const Navigation = () => {
               </MagneticButton>
             </motion.div>
 
-            {/* Theme Toggle */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -246,7 +239,6 @@ const Navigation = () => {
         </motion.div>
       </motion.nav>
 
-      {/* Booking Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
@@ -255,4 +247,4 @@ const Navigation = () => {
   )
 }
 
-export default React.memo(Navigation);
+export default React.memo(Navigation)

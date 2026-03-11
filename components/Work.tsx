@@ -102,8 +102,11 @@ const Work = () => {
   const [activeProject, setActiveProject] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
 
-  const bgColor = actualTheme === 'dark' ? 'bg-black' : 'bg-white'
-  const backgroundTextColor = actualTheme === 'dark' ? 'text-white/5' : 'text-gray-900/5'
+  const isDark = actualTheme === 'dark'
+  const bgColor = isDark ? 'bg-black' : 'bg-white'
+  const textColor = isDark ? 'text-ghost-white' : 'text-gray-900'
+  const textMuted = isDark ? 'text-gray-400' : 'text-gray-500'
+  const backgroundTextColor = isDark ? 'text-white/5' : 'text-gray-900/5'
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
 
@@ -179,42 +182,80 @@ const Work = () => {
   }
 
   return (
-    <section id="work" ref={ref} className={`py-32 lg:py-40 relative overflow-hidden ${bgColor} transition-colors duration-300`}>
+    <section id="work" ref={ref} className={`py-24 sm:py-32 lg:py-40 relative overflow-hidden ${bgColor} transition-colors duration-300`}>
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className={`absolute top-20 left-8 lg:left-16 ${backgroundTextColor} font-black text-[80px] lg:text-[140px] xl:text-[180px] leading-none select-none`}>
+        <div className={`absolute top-20 left-4 sm:left-8 lg:left-16 ${backgroundTextColor} font-black text-[80px] sm:text-[120px] lg:text-[160px] xl:text-[200px] leading-none select-none`}>
           UNSERE ARBEIT
         </div>
       </div>
 
-      <div className="absolute inset-0 z-0">
-        <motion.div style={{ y: yFast, rotate, scale }} className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-tropical-indigo/10 rounded-full blur-[120px]" />
-        <motion.div style={{ y: ySlow, rotate: useTransform(scrollYProgress, [0, 1], [-3, 3]) }} className="absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-aquamarine/8 rounded-full blur-[100px]" />
-        <motion.div style={{ y }} className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-purple-400/5 rounded-full blur-[80px]" />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <motion.div style={{ y: yFast, rotate, scale }} className="absolute top-1/4 right-10 w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] bg-tropical-indigo/10 rounded-full blur-[120px]" />
+        <motion.div style={{ y: ySlow, rotate: useTransform(scrollYProgress, [0, 1], [-3, 3]) }} className="absolute bottom-1/4 left-10 w-[400px] h-[400px] lg:w-[600px] lg:h-[600px] bg-aquamarine/8 rounded-full blur-[100px]" />
+        <motion.div style={{ y }} className="absolute top-1/2 left-1/4 w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] bg-purple-400/5 rounded-full blur-[80px]" />
         <motion.div
           style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [0, 0.03]), scale: useTransform(scrollYProgress, [0, 0.4], [0.5, 1]) }}
           className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px]"
         />
       </div>
 
-      <div ref={containerRef} className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className={`text-5xl lg:text-6xl font-bold ${actualTheme === 'dark' ? 'text-ghost-white' : 'text-gray-900'}`}>
-            UNSERE ARBEIT
-          </h2>
-        </motion.div>
+      <div ref={containerRef} className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16">
 
+        {/* ── Section header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-8 mb-10 sm:mb-16">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold ${textColor}`}>
+              UNSERE ARBEIT
+            </h2>
+            <p className={`mt-3 text-base sm:text-lg ${textMuted} max-w-xl`}>
+              Projekte, auf die wir stolz sind.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex items-center gap-3 shrink-0 sm:pb-1"
+          >
+            <div className="text-right hidden sm:block">
+              <p className={`text-sm font-semibold ${textColor}`}>
+                {activeProject + 1} / {content.work.items.length}
+              </p>
+              <p className={`text-xs ${textMuted}`}>Scroll zum Navigieren</p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              {content.work.items.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveProject(i)}
+                  className={`block w-1 rounded-full transition-all duration-300 ${
+                    i === activeProject
+                      ? 'h-6 bg-aquamarine'
+                      : isDark
+                        ? 'h-2 bg-white/20 hover:bg-white/40'
+                        : 'h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Projekt ${i + 1}`}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Stacked cards ── */}
         <motion.div
           style={{ y: cardY, opacity: cardOpacity }}
-          ref={containerRef}
-          className="min-h-[70vh] flex items-start justify-center relative cursor-default mb-20"
+          className="min-h-[70vh] flex items-start justify-center relative cursor-default mb-16 sm:mb-20"
         >
-          <div ref={projectsContainerRef} className="w-full max-w-[1400px] px-4 relative" style={{ perspective: '2000px' }}>
+          <div ref={projectsContainerRef} className="w-full max-w-[1400px] px-0 sm:px-4 relative" style={{ perspective: '2000px' }}>
             {content.work.items.map((project, index) => {
               const offset = index - activeProject
               const isActive = index === activeProject
@@ -232,34 +273,27 @@ const Work = () => {
                     rotateX: isActive ? 0 : isPeeking ? 2 + offset * 1 : 0,
                   }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: false, amount: 0.3 }}
                   className="absolute left-0 right-0 mx-auto w-full"
                   style={{ top: '0%', transformStyle: 'preserve-3d', willChange: isActive || isPeeking ? 'transform, opacity' : 'auto' }}
                 >
                   <div className="project-box-content group relative cursor-pointer" onClick={() => handleProjectClick(project.url)}>
-                    <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
 
-                    <div className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[650px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
+                    <div className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[620px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
                       <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
                       <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/8 to-tropical-indigo/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                       <motion.div
-                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         style={{ background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.4), rgba(100, 100, 255, 0.4), transparent)', backgroundSize: '200% 100%' }}
                         animate={{ backgroundPosition: ['0% 0%', '200% 0%'] }}
                         transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                       />
 
-                      <div className="relative z-10 h-full p-10 flex flex-col justify-between">
+                      <div className="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                         <div>
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="relative w-full h-48 mb-6 rounded-2xl overflow-hidden border border-aquamarine/20 group-hover:border-aquamarine/40 transition-colors duration-300"
-                          >
+                          <div className="relative w-full h-40 sm:h-48 mb-5 sm:mb-6 rounded-xl sm:rounded-2xl overflow-hidden border border-aquamarine/20 group-hover:border-aquamarine/40 transition-colors duration-300">
                             <Image
                               src={project.image}
                               alt={project.title}
@@ -269,74 +303,37 @@ const Work = () => {
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                            <motion.div
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileHover={{ opacity: 1, scale: 1 }}
-                              className="absolute top-3 right-3 bg-black/70 text-ghost-white text-xs px-2 py-1 rounded-full backdrop-blur-sm"
-                            >
-                              {project.imagePosition === 'object-top' ? 'Header-Bereich' : project.imagePosition === 'object-center' ? 'Hauptinhalt' : project.imagePosition?.includes('center') ? 'Zentrierter Inhalt' : 'Website'}
-                            </motion.div>
-                          </motion.div>
+                          </div>
 
-                          <motion.span
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.1 }}
-                            className="inline-block px-4 py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-sm font-semibold mb-6"
-                          >
+                          <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
                             {project.category}
-                          </motion.span>
+                          </span>
 
-                          <motion.h3
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
-                            className="text-4xl md:text-5xl font-bold mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white"
-                          >
+                          <h3 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white" style={{ letterSpacing: '-0.02em' }}>
                             {project.title}
-                          </motion.h3>
+                          </h3>
 
-                          <motion.p
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
-                            className="text-ghost-white/70 text-lg lg:text-xl mb-8 leading-relaxed"
-                          >
+                          <p className="text-ghost-white/70 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">
                             {project.description}
-                          </motion.p>
+                          </p>
                         </div>
 
                         <div>
-                          <div className="flex flex-wrap gap-2 mb-6">
-                            {project.tags.map((tag, i) => (
-                              <motion.span
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
+                            {project.tags.map((tag) => (
+                              <span
                                 key={tag}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: index * 0.1 + i * 0.1, type: 'spring', stiffness: 200 }}
-                                className="px-4 py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-sm hover:border-aquamarine/30 transition-colors duration-300"
+                                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-xs sm:text-sm hover:border-aquamarine/30 transition-colors duration-300"
                               >
                                 {tag}
-                              </motion.span>
+                              </span>
                             ))}
                           </div>
 
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-                            className="flex items-center gap-3 text-aquamarine font-semibold text-lg group-hover:gap-5 transition-all duration-300"
-                          >
+                          <div className="flex items-center gap-3 text-aquamarine font-semibold text-base sm:text-lg group-hover:gap-5 transition-all duration-300">
                             <span>Projekt ansehen</span>
-                            <motion.div whileHover={{ x: 5 }}>
-                              <HiExternalLink className="text-2xl" />
-                            </motion.div>
-                          </motion.div>
+                            <HiExternalLink className="text-xl sm:text-2xl" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -347,18 +344,19 @@ const Work = () => {
           </div>
         </motion.div>
 
+        {/* ── CTA ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-20"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mt-16 sm:mt-20"
         >
           <Link href="/projects" passHref legacyBehavior>
             <motion.a
               whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(169, 122, 255, 0.5)' }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block px-12 py-6 border-2 border-tropical-indigo text-tropical-indigo font-bold rounded-full text-xl hover:bg-tropical-indigo hover:text-black transition-all duration-300"
+              className="inline-block px-8 sm:px-12 py-4 sm:py-6 border-2 border-tropical-indigo text-tropical-indigo font-bold rounded-full text-base sm:text-xl hover:bg-tropical-indigo hover:text-black transition-all duration-300"
             >
               Alle Projekte ansehen
             </motion.a>

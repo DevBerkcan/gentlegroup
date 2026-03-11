@@ -1,4 +1,3 @@
-// components/Footer.tsx
 'use client'
 
 import { motion } from 'framer-motion'
@@ -47,7 +46,13 @@ const Footer = () => {
         <div className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px] opacity-[0.02]" />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 pt-20 sm:pt-28 lg:pt-36 pb-10 sm:pb-12">
+      {/*
+        pb accounts for the fixed bottom nav pill:
+        - pill is ~mb-8 (32px) from bottom + ~py-5 (20px top+bottom) + content height ≈ ~100px total
+        - we add 32px extra breathing room on top of that
+        - on mobile the top nav covers the top, not the bottom, so smaller pb is fine there
+      */}
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 pt-20 sm:pt-28 lg:pt-36 pb-28 sm:pb-32 lg:pb-36">
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12 mb-10 sm:mb-12 pb-10 sm:pb-12 border-b ${borderColor}`}>
           <div className="lg:col-span-2">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
@@ -156,7 +161,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.6 + index * 0.08 }}
-                className={`${linkHover}`}
+                className={`${textMuted} ${linkHover}`}
                 whileHover={{ scale: 1.05 }}
               >
                 {link.text}
@@ -169,7 +174,7 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.6 + content.footer.legal.links.length * 0.08 }}
-              className={`${linkHover}`}
+              className={`${textMuted} ${linkHover}`}
               whileHover={{ scale: 1.05 }}
             >
               Cookies
