@@ -1,0 +1,26 @@
+// app/(site)/page.tsx
+import dynamic from 'next/dynamic'
+import Hero from '@/components/Hero'
+import Services from '@/components/Services'
+
+const Products = dynamic(() => import('@/components/Products'), { loading: () => <div className="h-screen" /> })
+const Work = dynamic(() => import('@/components/Work'), { loading: () => <div className="h-screen" /> })
+const Team = dynamic(() => import('@/components/Team'), { loading: () => <div className="h-screen" /> })
+const Reviews = dynamic(() => import('@/components/Reviews'), { loading: () => <div className="h-screen" /> })
+const FAQ = dynamic(() => import('@/components/FAQ'), { loading: () => <div className="h-screen" /> })
+const Blog = dynamic(() => import('@/components/Blog'), { loading: () => <div className="h-screen" /> })
+
+export default function Home() {
+  return (
+    <main className="relative">
+      <Hero />
+      <Services />
+      <Products />
+      <Work />
+      <Team />
+      <Reviews />
+      <FAQ />
+      <Blog />
+    </main>
+  )
+}
