@@ -38,7 +38,6 @@ const Navigation = () => {
   ]
 
   const isDark = actualTheme === 'dark'
-
   const textColor = isDark ? 'text-ghost-white' : 'text-oxford-blue'
   const textColorMuted = isDark ? 'text-ghost-white/70' : 'text-oxford-blue/70'
   const hoverColor = isDark ? 'hover:text-aquamarine' : 'hover:text-tropical-indigo'
@@ -49,7 +48,7 @@ const Navigation = () => {
 
   return (
     <>
-      {/* ── Top bar (mobile only) ── */}
+      {/* ── Mobile top bar ── */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -58,37 +57,41 @@ const Navigation = () => {
           isScrolled ? 'glass-dark shadow-lg' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex justify-between items-center lg:hidden">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.svg"
-              alt="Gentle Group Logo"
-              width={56}
-              height={56}
-              className="w-14 h-14"
-            />
-          </Link>
+<div className="max-w-[1600px] mx-auto px-6 lg:px-8 py-4 flex items-center lg:hidden">
+  {/* Logo left */}
+  <Link href="/" className="flex items-center">
+    <Image
+      src="/logo.svg"
+      alt="Gentle Group Logo"
+      width={56}
+      height={56}
+      className="w-14 h-14"
+    />
+  </Link>
 
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <motion.button
-              onClick={() => {
-                playSound('click')
-                setIsMobileMenuOpen(!isMobileMenuOpen)
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={`p-2 ${iconColor} ${hoverColor} transition-colors`}
-              aria-label="Toggle mobile menu"
-            >
-              {isMobileMenuOpen ? (
-                <HiX className="text-3xl" />
-              ) : (
-                <HiMenu className="text-3xl" />
-              )}
-            </motion.button>
-          </div>
-        </div>
+  {/* ThemeToggle centered */}
+  <div className="flex-1 flex justify-center">
+    <ThemeToggle />
+  </div>
+
+  {/* Burger right */}
+  <motion.button
+    onClick={() => {
+      playSound('click')
+      setIsMobileMenuOpen(!isMobileMenuOpen)
+    }}
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    className={`p-2 ${iconColor} ${hoverColor} transition-colors`}
+    aria-label="Toggle mobile menu"
+  >
+    {isMobileMenuOpen ? (
+      <HiX className="text-3xl" />
+    ) : (
+      <HiMenu className="text-3xl" />
+    )}
+  </motion.button>
+</div>
 
         {/* Mobile dropdown */}
         <AnimatePresence>
@@ -146,7 +149,7 @@ const Navigation = () => {
         </AnimatePresence>
       </motion.nav>
 
-      {/* ── Bottom pill navigation (desktop) ── */}
+      {/* ── Bottom pill nav (desktop) ── */}
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
