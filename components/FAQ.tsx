@@ -257,6 +257,7 @@ const FAQ = () => {
 
             <motion.a
               href="/project-questionnaire"
+              target="_blank"
               whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(1,255,169,0.25)' }}
               whileTap={{ scale: 0.97 }}
               className="shrink-0 flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-black font-bold rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg"

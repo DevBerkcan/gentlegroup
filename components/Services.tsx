@@ -249,6 +249,7 @@ const Services = () => {
 
                   <motion.a
                     href="/project-questionnaire"
+                    target="_blank"
                     whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(1,255,169,0.25)" }}
                     whileTap={{ scale: 0.97 }}
                     className={`inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 bg-gradient-to-r ${active.accent} text-black font-bold rounded-full text-sm sm:text-base shadow-lg transition-all duration-300`}
@@ -279,6 +280,7 @@ const Services = () => {
           </div>
           <motion.a
             href="/project-questionnaire"
+            target="_blank"
             whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(1,255,169,0.25)" }}
             whileTap={{ scale: 0.97 }}
             className="shrink-0 flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-black font-bold rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg"
