@@ -83,7 +83,7 @@ const content = {
 
 const Services = () => {
   const { actualTheme } = useTheme();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const isDark = actualTheme === "dark";
   const bgColor = isDark ? "bg-oxford-blue" : "bg-white";
