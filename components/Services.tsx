@@ -9,6 +9,7 @@ import {
   HiTerminal,
   HiArrowRight,
   HiExternalLink,
+  HiChevronDown,
 } from "react-icons/hi";
 import { FaAndroid, FaRobot } from "react-icons/fa";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -82,7 +83,7 @@ const content = {
 
 const Services = () => {
   const { actualTheme } = useTheme();
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const isDark = actualTheme === "dark";
   const bgColor = isDark ? "bg-oxford-blue" : "bg-white";
@@ -92,8 +93,6 @@ const Services = () => {
   const backgroundTextColor = isDark ? "text-white/5" : "text-gray-900/5";
   const panelBg = isDark ? "bg-white/5" : "bg-gray-50";
   const panelBgHover = isDark ? "hover:bg-white/8" : "hover:bg-gray-100/80";
-
-  const active = content.services.items[activeIndex];
 
   return (
     <section
@@ -125,13 +124,13 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 xl:gap-16">
+        {/* ── Desktop layout (lg+) ── */}
+        <div className="hidden lg:flex gap-10 xl:gap-16">
           <div className="lg:w-[420px] xl:w-[480px] shrink-0">
             <div className="space-y-2">
               {content.services.items.map((service, index) => {
                 const isActive = activeIndex === index;
                 const Icon = service.icon;
-
                 return (
                   <motion.button
                     key={service.title}
@@ -139,7 +138,7 @@ const Services = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: index * 0.07 }}
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(isActive ? null : index)}
                     className={`relative w-full text-left rounded-2xl transition-all duration-300 overflow-hidden group ${
                       isActive
                         ? isDark
@@ -150,17 +149,15 @@ const Services = () => {
                   >
                     {isActive && (
                       <motion.div
-                        layoutId="serviceAccent"
+                        layoutId="serviceAccentDesktop"
                         className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${service.accent}`}
                         transition={{ duration: 0.3 }}
                       />
                     )}
-
                     <div className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-3.5 sm:py-4">
                       <div className={`shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${service.accent} rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-105"}`}>
                         <Icon className="text-lg sm:text-xl text-black" />
                       </div>
-
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
                           <span className={`font-bold text-sm sm:text-base truncate ${isActive ? "text-aquamarine" : textColor}`}>
@@ -174,7 +171,6 @@ const Services = () => {
                           {service.stat}
                         </span>
                       </div>
-
                       <motion.div
                         animate={{ x: isActive ? 0 : -4, opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 0.2 }}
@@ -190,77 +186,194 @@ const Services = () => {
 
           <div className="flex-1 min-w-0">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className={`h-full rounded-2xl sm:rounded-3xl border ${borderColor} overflow-hidden ${isDark ? "bg-white/5" : "bg-gray-50"}`}
-              >
-                <div className={`h-1.5 w-full bg-gradient-to-r ${active.accent}`} />
-
-                <div className="p-6 sm:p-8 lg:p-10">
-                  <div className="flex items-start justify-between gap-4 mb-6 sm:mb-8">
-                    <div className="flex items-center gap-4 sm:gap-5">
-                      <div className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${active.accent} rounded-2xl flex items-center justify-center shadow-xl shrink-0`}>
-                        {React.createElement(active.icon, { className: "text-2xl sm:text-3xl lg:text-4xl text-black" })}
-                      </div>
-                      <div>
-                        <p className={`text-xs sm:text-sm font-mono ${textMuted} mb-1`}>{active.number}</p>
-                        <h3
-                          className={`text-xl sm:text-2xl lg:text-3xl font-bold ${textColor}`}
-                          style={{ letterSpacing: "-0.02em" }}
-                        >
-                          {active.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <span className="shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border bg-aquamarine/10 border-aquamarine/30 text-aquamarine">
-                      {active.stat}
-                    </span>
-                  </div>
-
-                  <p className={`${textMuted} text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8`}>
-                    {active.description}
-                  </p>
-
-                  <div className={`w-full h-px ${isDark ? "bg-white/10" : "bg-gray-200"} mb-6 sm:mb-8`} />
-
-                  <div className="mb-6 sm:mb-8">
-                    <p className={`text-xs font-semibold uppercase tracking-widest ${textMuted} mb-4`}>
-                      Leistungen im Überblick
-                    </p>
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                      {active.features.map((feature, i) => (
-                        <motion.div
-                          key={feature}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.25, delay: i * 0.07 }}
-                          className={`flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border ${isDark ? "bg-white/5 border-white/10" : "bg-white border-gray-200"}`}
-                        >
-                          <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${active.accent} shrink-0`} />
-                          <span className={`${textColor} text-xs sm:text-sm font-medium`}>{feature}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <motion.a
-                    href="/project-questionnaire"
-                    target="_blank"
-                    whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(1,255,169,0.25)" }}
-                    whileTap={{ scale: 0.97 }}
-                    className={`inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 bg-gradient-to-r ${active.accent} text-black font-bold rounded-full text-sm sm:text-base shadow-lg transition-all duration-300`}
+              {activeIndex !== null && (() => {
+                const active = content.services.items[activeIndex];
+                return (
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className={`h-full rounded-2xl sm:rounded-3xl border ${borderColor} overflow-hidden ${isDark ? "bg-white/5" : "bg-gray-50"}`}
                   >
-                    Jetzt anfragen
-                    <HiExternalLink className="text-base sm:text-lg" />
-                  </motion.a>
-                </div>
-              </motion.div>
+                    <div className={`h-1.5 w-full bg-gradient-to-r ${active.accent}`} />
+                    <div className="p-6 sm:p-8 lg:p-10">
+                      <div className="flex items-start justify-between gap-4 mb-6 sm:mb-8">
+                        <div className="flex items-center gap-4 sm:gap-5">
+                          <div className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${active.accent} rounded-2xl flex items-center justify-center shadow-xl shrink-0`}>
+                            {React.createElement(active.icon, { className: "text-2xl sm:text-3xl lg:text-4xl text-black" })}
+                          </div>
+                          <div>
+                            <p className={`text-xs sm:text-sm font-mono ${textMuted} mb-1`}>{active.number}</p>
+                            <h3
+                              className={`text-xl sm:text-2xl lg:text-3xl font-bold ${textColor}`}
+                              style={{ letterSpacing: "-0.02em" }}
+                            >
+                              {active.title}
+                            </h3>
+                          </div>
+                        </div>
+                        <span className="shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border bg-aquamarine/10 border-aquamarine/30 text-aquamarine">
+                          {active.stat}
+                        </span>
+                      </div>
+                      <p className={`${textMuted} text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8`}>
+                        {active.description}
+                      </p>
+                      <div className={`w-full h-px ${isDark ? "bg-white/10" : "bg-gray-200"} mb-6 sm:mb-8`} />
+                      <div className="mb-6 sm:mb-8">
+                        <p className={`text-xs font-semibold uppercase tracking-widest ${textMuted} mb-4`}>
+                          Leistungen im Überblick
+                        </p>
+                        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                          {active.features.map((feature, i) => (
+                            <motion.div
+                              key={feature}
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.25, delay: i * 0.07 }}
+                              className={`flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border ${isDark ? "bg-white/5 border-white/10" : "bg-white border-gray-200"}`}
+                            >
+                              <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${active.accent} shrink-0`} />
+                              <span className={`${textColor} text-xs sm:text-sm font-medium`}>{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                      <motion.a
+                        href="/project-questionnaire"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(1,255,169,0.25)" }}
+                        whileTap={{ scale: 0.97 }}
+                        className={`inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 bg-gradient-to-r ${active.accent} text-black font-bold rounded-full text-sm sm:text-base shadow-lg transition-all duration-300`}
+                      >
+                        Jetzt anfragen
+                        <HiExternalLink className="text-base sm:text-lg" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                );
+              })()}
+              {activeIndex === null && (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`h-full min-h-[300px] rounded-2xl sm:rounded-3xl border border-dashed ${borderColor} flex items-center justify-center ${isDark ? "bg-white/2" : "bg-gray-50/50"}`}
+                >
+                  <p className={`${textMuted} text-sm`}>Wählen Sie einen Service aus.</p>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
+        </div>
+
+        {/* ── Mobile layout (< lg) – accordion ── */}
+        <div className="flex flex-col gap-3 lg:hidden">
+          {content.services.items.map((service, index) => {
+            const isOpen = activeIndex === index;
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                className={`rounded-2xl border overflow-hidden transition-all duration-300 ${
+                  isOpen
+                    ? isDark
+                      ? "bg-white/10 border-aquamarine/30 shadow-lg shadow-aquamarine/5"
+                      : "bg-gray-100 border-aquamarine/40 shadow-lg shadow-aquamarine/10"
+                    : `${panelBg} ${borderColor}`
+                }`}
+              >
+                <button
+                  onClick={() => setActiveIndex(isOpen ? null : index)}
+                  className="w-full text-left"
+                >
+                  <div className="flex items-center gap-3 px-4 py-4">
+                    {isOpen && (
+                      <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${service.accent} rounded-l-2xl`} />
+                    )}
+                    <div className={`shrink-0 w-10 h-10 bg-gradient-to-br ${service.accent} rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 ${isOpen ? "scale-110" : ""}`}>
+                      <Icon className="text-lg text-black" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`font-bold text-sm truncate ${isOpen ? "text-aquamarine" : textColor}`}>
+                          {service.title}
+                        </span>
+                        <span className={`shrink-0 text-xs font-mono ${isOpen ? "text-aquamarine/70" : textMuted}`}>
+                          {service.number}
+                        </span>
+                      </div>
+                      <span className={`text-xs ${isOpen ? "text-aquamarine/60" : textMuted}`}>
+                        {service.stat}
+                      </span>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="shrink-0"
+                    >
+                      <HiChevronDown className={`text-xl ${isOpen ? "text-aquamarine" : textMuted}`} />
+                    </motion.div>
+                  </div>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className={`h-0.5 w-full bg-gradient-to-r ${service.accent}`} />
+                      <div className="p-4 pt-5">
+                        <p className={`${textMuted} text-sm leading-relaxed mb-5`}>
+                          {service.description}
+                        </p>
+                        <p className={`text-xs font-semibold uppercase tracking-widest ${textMuted} mb-3`}>
+                          Leistungen im Überblick
+                        </p>
+                        <div className="grid grid-cols-2 gap-2 mb-5">
+                          {service.features.map((feature, i) => (
+                            <motion.div
+                              key={feature}
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.2, delay: i * 0.06 }}
+                              className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border ${isDark ? "bg-white/5 border-white/10" : "bg-white border-gray-200"}`}
+                            >
+                              <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${service.accent} shrink-0`} />
+                              <span className={`${textColor} text-xs font-medium`}>{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                        <motion.a
+                          href="/project-questionnaire"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                          className={`inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r ${service.accent} text-black font-bold rounded-full text-sm shadow-lg transition-all duration-300`}
+                        >
+                          Jetzt anfragen
+                          <HiExternalLink className="text-base" />
+                        </motion.a>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div
@@ -281,6 +394,7 @@ const Services = () => {
           <motion.a
             href="/project-questionnaire"
             target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(1,255,169,0.25)" }}
             whileTap={{ scale: 0.97 }}
             className="shrink-0 flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-black font-bold rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg"

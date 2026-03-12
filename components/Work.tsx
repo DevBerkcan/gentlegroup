@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import React, { useRef, useState, useEffect, useCallback } from 'react'
-import { HiExternalLink } from 'react-icons/hi'
+import { HiExternalLink, HiArrowRight, HiArrowLeft } from 'react-icons/hi'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -101,6 +101,7 @@ const Work = () => {
   const projectsContainerRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
+  const touchStartY = useRef<number | null>(null)
 
   const isDark = actualTheme === 'dark'
   const bgColor = isDark ? 'bg-black' : 'bg-white'
@@ -118,14 +119,20 @@ const Work = () => {
   const cardY = useTransform(scrollYProgress, [0, 0.3, 0.6], [100, 0, 0])
   const cardOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 1])
 
+  const goNext = useCallback(() => {
+    setActiveProject((current) => Math.min(current + 1, content.work.items.length - 1))
+  }, [])
+
+  const goPrev = useCallback(() => {
+    setActiveProject((current) => Math.max(current - 1, 0))
+  }, [])
+
   const onWheel = useCallback(
     (e: WheelEvent) => {
       const projectsContainer = projectsContainerRef.current
       if (!projectsContainer) return
-
       const target = e.target as HTMLElement
       const isInsideProjectsContainer = projectsContainer.contains(target)
-
       if (isInsideProjectsContainer) {
         const isProjectContent = target.closest('.project-box-content')
         if (isProjectContent) {
@@ -133,20 +140,15 @@ const Work = () => {
           const isScrollingUp = e.deltaY < -10
           const isAtLastProject = activeProject === content.work.items.length - 1
           const isAtFirstProject = activeProject === 0
-
           if ((isScrollingDown && isAtLastProject) || (isScrollingUp && isAtFirstProject)) return
-
           e.preventDefault()
-
           if (isScrolling) return
           setIsScrolling(true)
-
           if (isScrollingDown) {
             setActiveProject((current) => Math.min(current + 1, content.work.items.length - 1))
           } else if (isScrollingUp) {
             setActiveProject((current) => Math.max(current - 1, 0))
           }
-
           setTimeout(() => setIsScrolling(false), 600)
         }
       }
@@ -177,9 +179,28 @@ const Work = () => {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY
+  }, [])
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartY.current === null) return
+    const delta = touchStartY.current - e.changedTouches[0].clientY
+    if (Math.abs(delta) > 40) {
+      if (delta > 0) {
+        setActiveProject((current) => Math.min(current + 1, content.work.items.length - 1))
+      } else {
+        setActiveProject((current) => Math.max(current - 1, 0))
+      }
+    }
+    touchStartY.current = null
+  }, [])
+
   const handleProjectClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer')
   }
+
+  const project = content.work.items[activeProject]
 
   return (
     <section id="work" ref={ref} className={`py-24 sm:py-32 lg:py-40 relative overflow-hidden ${bgColor} transition-colors duration-300`}>
@@ -201,7 +222,6 @@ const Work = () => {
 
       <div ref={containerRef} className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16">
 
-        {/* ── Section header ── */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-8 mb-10 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -230,7 +250,6 @@ const Work = () => {
               </p>
               <p className={`text-xs ${textMuted}`}>Scroll zum Navigieren</p>
             </div>
-
             <div className="flex flex-col gap-1.5">
               {content.work.items.map((_, i) => (
                 <button
@@ -250,20 +269,19 @@ const Work = () => {
           </motion.div>
         </div>
 
-        {/* ── Stacked cards ── */}
+        {/* ── Desktop stacked cards ── */}
         <motion.div
           style={{ y: cardY, opacity: cardOpacity }}
-          className="min-h-[70vh] flex items-start justify-center relative cursor-default mb-16 sm:mb-20"
+          className="hidden lg:flex min-h-[70vh] items-start justify-center relative cursor-default mb-16 sm:mb-20"
         >
           <div ref={projectsContainerRef} className="w-full max-w-[1400px] px-0 sm:px-4 relative" style={{ perspective: '2000px' }}>
-            {content.work.items.map((project, index) => {
+            {content.work.items.map((proj, index) => {
               const offset = index - activeProject
               const isActive = index === activeProject
               const isPeeking = offset > 0 && offset <= 2
-
               return (
                 <motion.div
-                  key={project.title}
+                  key={proj.title}
                   initial={{ opacity: 0, y: 60 }}
                   animate={{
                     y: isActive ? 0 : offset > 0 ? -30 - offset * 15 : 100,
@@ -276,51 +294,44 @@ const Work = () => {
                   className="absolute left-0 right-0 mx-auto w-full"
                   style={{ top: '0%', transformStyle: 'preserve-3d', willChange: isActive || isPeeking ? 'transform, opacity' : 'auto' }}
                 >
-                  <div className="project-box-content group relative cursor-pointer" onClick={() => handleProjectClick(project.url)}>
+                  <div className="project-box-content group relative cursor-pointer" onClick={() => handleProjectClick(proj.url)}>
                     <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
-
                     <div className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[620px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${proj.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
                       <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
                       <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/8 to-tropical-indigo/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                       <motion.div
                         className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         style={{ background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.4), rgba(100, 100, 255, 0.4), transparent)', backgroundSize: '200% 100%' }}
                         animate={{ backgroundPosition: ['0% 0%', '200% 0%'] }}
                         transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                       />
-
                       <div className="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                         <div>
                           <div className="relative w-full h-40 sm:h-48 mb-5 sm:mb-6 rounded-xl sm:rounded-2xl overflow-hidden border border-aquamarine/20 group-hover:border-aquamarine/40 transition-colors duration-300">
                             <Image
-                              src={project.image}
-                              alt={project.title}
+                              src={proj.image}
+                              alt={proj.title}
                               fill
-                              className={`object-cover ${project.imagePosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
+                              className={`object-cover ${proj.imagePosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
                               quality={90}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                           </div>
-
                           <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
-                            {project.category}
+                            {proj.category}
                           </span>
-
                           <h3 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white" style={{ letterSpacing: '-0.02em' }}>
-                            {project.title}
+                            {proj.title}
                           </h3>
-
                           <p className="text-ghost-white/70 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">
-                            {project.description}
+                            {proj.description}
                           </p>
                         </div>
-
                         <div>
                           <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
-                            {project.tags.map((tag) => (
+                            {proj.tags.map((tag) => (
                               <span
                                 key={tag}
                                 className="px-3 sm:px-4 py-1.5 sm:py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-xs sm:text-sm hover:border-aquamarine/30 transition-colors duration-300"
@@ -329,7 +340,6 @@ const Work = () => {
                               </span>
                             ))}
                           </div>
-
                           <div className="flex items-center gap-3 text-aquamarine font-semibold text-base sm:text-lg group-hover:gap-5 transition-all duration-300">
                             <span>Projekt ansehen</span>
                             <HiExternalLink className="text-xl sm:text-2xl" />
@@ -344,13 +354,110 @@ const Work = () => {
           </div>
         </motion.div>
 
-        {/* ── CTA ── */}
+        {/* ── Mobile swipeable card ── */}
+        <div className="lg:hidden mb-10">
+          <div
+            className="relative touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <motion.div
+              key={activeProject}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative cursor-pointer"
+              onClick={() => handleProjectClick(project.url)}
+            >
+              <div className="relative bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-2xl overflow-hidden shadow-2xl">
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10`} />
+                <div className="relative z-10 p-5 flex flex-col gap-4">
+                  <div className="relative w-full h-44 rounded-xl overflow-hidden border border-aquamarine/20">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className={`object-cover ${project.imagePosition || 'object-top'}`}
+                      quality={85}
+                      sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+                  <span className="inline-block self-start px-3 py-1.5 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-xs font-semibold">
+                    {project.category}
+                  </span>
+                  <h3 className="text-2xl font-bold text-ghost-white" style={{ letterSpacing: '-0.02em' }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-ghost-white/70 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-xs"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-aquamarine font-semibold text-sm">
+                    <span>Projekt ansehen</span>
+                    <HiExternalLink className="text-base" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="flex items-center justify-between mt-5">
+            <button
+              onClick={goPrev}
+              disabled={activeProject === 0}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-aquamarine/30 text-aquamarine text-sm font-semibold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <HiArrowLeft className="text-base" />
+              Zurück
+            </button>
+            <span className={`text-sm font-semibold ${textColor}`}>
+              {activeProject + 1} / {content.work.items.length}
+            </span>
+            <button
+              onClick={goNext}
+              disabled={activeProject === content.work.items.length - 1}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-aquamarine/30 text-aquamarine text-sm font-semibold disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              Weiter
+              <HiArrowRight className="text-base" />
+            </button>
+          </div>
+
+          <div className="flex justify-center gap-1.5 mt-4">
+            {content.work.items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveProject(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === activeProject
+                    ? 'w-6 h-2 bg-aquamarine'
+                    : isDark
+                      ? 'w-2 h-2 bg-white/20'
+                      : 'w-2 h-2 bg-gray-300'
+                }`}
+                aria-label={`Projekt ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-16 sm:mt-20"
+          className="text-center mt-8 sm:mt-16"
         >
           <Link href="/projects" passHref legacyBehavior>
             <motion.a
