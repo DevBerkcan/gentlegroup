@@ -23,7 +23,7 @@ const employees: Employee[] = [
     name: 'Berk-Can',
     role: 'Founder & Lead Developer',
     image: '/berkcan.webp',
-    calendarUrl: 'https://calendar.app.google/zwXoTnXiZbopiSva7'
+    calendarUrl: 'https://calendar.app.google/NKTDowEPMRFjvDWV9'
   },
   {
     name: 'Medin',
