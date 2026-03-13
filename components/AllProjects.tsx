@@ -126,7 +126,7 @@ const projects: Project[] = [
     tags: ['React', 'Vite', 'Node.js', 'MySQL', 'Android', 'iOS', 'Cloudflare', 'cPanel'],
     color: 'from-aquamarine to-tropical-indigo',
     image: '/teretnjaci.png',
-    url: null,
+    url: 'https://teretnjaci.ba/',
     imagePosition: 'object-top',
     highlights: ['Web-App mit React + Vite', 'Node.js Backend auf cPanel', 'MySQL Datenbank', 'Android-App live im Store', 'iOS-App live im Store', 'Admin-Portal für Beiträge', 'Frontend auf Cloudflare'],
     stats: { platform: 'Web + Android + iOS', backend: 'Node.js + MySQL', frontend: 'Cloudflare' },
