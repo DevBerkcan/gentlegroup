@@ -1,12 +1,27 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import React, { useRef, useState } from 'react'
-import { HiExternalLink, HiSearch, HiX } from 'react-icons/hi'
+import { HiExternalLink, HiSearch, HiX, HiArrowRight, HiSparkles, HiFilter } from 'react-icons/hi'
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
 
-const projects = [
+type Category = 'Alle' | 'Full-Stack Development' | 'CRM System' | 'Web-App' | 'Group' | 'E-Commerce' | 'Booking System' | 'Tool' | 'Landing Page'
+
+interface Project {
+  title: string
+  category: Exclude<Category, 'Alle'>
+  description: string
+  tags: string[]
+  color: string
+  image: string
+  url: string | null
+  imagePosition: string
+  highlights: string[]
+  stats: Record<string, string>
+}
+
+const projects: Project[] = [
   {
     title: 'Emma Solution',
     category: 'Full-Stack Development',
@@ -16,6 +31,8 @@ const projects = [
     image: '/emma.webp',
     url: 'https://emmasolution.com/',
     imagePosition: 'object-top',
+    highlights: ['Web-App für Frachtverwaltung', 'Backend-API mit ASP.NET Core 8', 'Android-App für Fahrer', 'Echtzeit-Fahrzeug-Tracking', 'Azure SQL Datenbank'],
+    stats: { platform: 'Web + Android', backend: 'ASP.NET Core 8', database: 'Azure SQL' },
   },
   {
     title: 'Gentle Track',
@@ -26,6 +43,8 @@ const projects = [
     image: '/gentletrack.webp',
     url: 'https://f7e2b27f.gentle-track-ui.pages.dev/',
     imagePosition: 'object-top',
+    highlights: ['Echtzeit-Projektverfolgung', 'Multi-language Unterstützung', 'Umfassende Berichterstattung', 'ASP.NET Core 8 Backend', 'MS SQL Datenbank'],
+    stats: { frontend: 'React + Vite', backend: 'ASP.NET Core 8', sprachen: 'Multi-language' },
   },
   {
     title: 'Creative Hairstyling',
@@ -36,6 +55,8 @@ const projects = [
     image: '/creativhairstyling.webp',
     url: 'https://creative-hairstyling-3u6e.vercel.app/',
     imagePosition: 'object-[center_40%]',
+    highlights: ['React + Vite für schnelle Performance', 'Vollständig responsives Design', 'TypeScript für Typsicherheit', 'Modernes UI/UX'],
+    stats: { framework: 'React + Vite', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Hautliebe & Laser',
@@ -46,6 +67,8 @@ const projects = [
     image: '/hautliebe.webp',
     url: 'https://hautliebeundlaser.de/',
     imagePosition: 'object-center',
+    highlights: ['Custom WordPress Theme', 'SEO-Optimierung', 'PHP Backend', 'Professionelles Design'],
+    stats: { cms: 'WordPress', sprache: 'PHP', optimierung: 'SEO' },
   },
   {
     title: 'JJ Immobilienpartner',
@@ -56,6 +79,8 @@ const projects = [
     image: '/janjacobi.webp',
     url: 'https://www.jj-immobilienpartner.de/',
     imagePosition: 'object-[center_40%]',
+    highlights: ['Next.js für optimales SEO', 'Modernes Immobilien-Layout', 'TypeScript', 'Responsives Design'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', optimierung: 'SEO' },
   },
   {
     title: 'Kabelbrücken24',
@@ -66,6 +91,8 @@ const projects = [
     image: '/kabelbruecken.webp',
     url: 'https://www.kabelbruecken24.de/',
     imagePosition: 'object-center',
+    highlights: ['Next.js E-Commerce-Plattform', 'Produktkatalog', 'Performance-optimiert', 'TypeScript'],
+    stats: { framework: 'Next.js', typ: 'E-Commerce', sprache: 'TypeScript' },
   },
   {
     title: 'Skinbloom Aesthetics',
@@ -76,6 +103,8 @@ const projects = [
     image: '/skinbloom.webp',
     url: 'https://www.skinbloom-aesthetics.ch/',
     imagePosition: 'object-[center_40%]',
+    highlights: ['Next.js für schnelle Ladezeiten', 'Professionelles Klinik-Design', 'Responsiv auf allen Geräten', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'NRW Real Estate',
@@ -86,6 +115,8 @@ const projects = [
     image: '/nrwrealestate.webp',
     url: 'https://www.nrwrealestate.de/',
     imagePosition: 'object-[center_40%]',
+    highlights: ['Next.js Immobilienportal', 'SEO-Optimierung', 'Immobilienangebote-Verwaltung', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', optimierung: 'SEO' },
   },
   {
     title: 'Teretnjaci',
@@ -96,6 +127,8 @@ const projects = [
     image: '/teretnjaci.png',
     url: 'https://teretnjaci.ba',
     imagePosition: 'object-top',
+    highlights: ['Web-App mit React + Vite', 'Node.js Backend auf cPanel', 'MySQL Datenbank', 'Android-App live im Store', 'iOS-App live im Store', 'Admin-Portal für Beiträge', 'Frontend auf Cloudflare'],
+    stats: { platform: 'Web + Android + iOS', backend: 'Node.js + MySQL', frontend: 'Cloudflare' },
   },
   {
     title: 'Skinbloom Buchungssystem',
@@ -106,6 +139,8 @@ const projects = [
     image: '/skinbloombooking.png',
     url: 'https://skinbloombooking.gentlegroup.de/',
     imagePosition: 'object-top',
+    highlights: ['Admin-Dashboard für Buchungsverwaltung', 'Zeitblockierung für Mitarbeiter', 'Mitarbeiter-Login mit eigenem Kalender', 'Service- und Kundenverwaltung', 'E-Mail-Versand via SMTP', 'Online-Buchung für Kunden', 'C# ASP.NET Backend auf ASP Monster', 'MS SQL Datenbank'],
+    stats: { frontend: 'Next.js auf Vercel', backend: 'C# ASP.NET auf ASP Monster', datenbank: 'MS SQL' },
   },
   {
     title: 'Skinbloom Preisrechner',
@@ -116,6 +151,8 @@ const projects = [
     image: '/skinbloompreisrechner.png',
     url: 'https://skinbloompreisrechner.gentlegroup.de/skinbloom',
     imagePosition: 'object-top',
+    highlights: ['Admin-Verwaltung für Services und Preise', 'Kundenverwaltung', 'Service-Kategorien', 'PDF-Export als Kostenvoranschlag', 'C# ASP.NET Backend', 'MS SQL Datenbank'],
+    stats: { frontend: 'Next.js auf Vercel', backend: 'C# ASP.NET auf ASP Monster', export: 'PDF-Kostenvoranschlag' },
   },
   {
     title: 'Zoey Preisrechner',
@@ -126,6 +163,8 @@ const projects = [
     image: '/zoeypreisrechner.png',
     url: 'https://zoey-preisrechner.vercel.app/',
     imagePosition: 'object-top',
+    highlights: ['Schnelle Preisberechnung', 'Rabatt-Kalkulation', 'Einfaches UI ohne Verwaltung', 'Next.js auf Vercel'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'VIPShuttle24',
@@ -136,6 +175,8 @@ const projects = [
     image: '/vipshuttle24.png',
     url: 'https://vipshuttle-24.de/',
     imagePosition: 'object-center',
+    highlights: ['Professionelle Landing Page', 'Next.js für schnelle Ladezeiten', 'Responsives Design', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Dario Barber',
@@ -146,6 +187,8 @@ const projects = [
     image: '/dariobarber.png',
     url: 'https://limktree-keinfriseur.vercel.app/',
     imagePosition: 'object-top',
+    highlights: ['Linktree-Seite', 'Online-Buchungssystem', 'Admin-Dashboard', 'Mitarbeiter-Kalender', 'Service-Verwaltung', 'C# ASP.NET Backend', 'MS SQL Datenbank'],
+    stats: { frontend: 'Next.js auf Vercel', backend: 'C# ASP.NET auf ASP Monster', datenbank: 'MS SQL' },
   },
   {
     title: 'Casa del Soul Tattoostudio',
@@ -156,6 +199,8 @@ const projects = [
     image: '/casadelsoul.png',
     url: 'https://casa-del-soul-tattoostudio.vercel.app/',
     imagePosition: 'object-top',
+    highlights: ['Linktree-Seite', 'Online-Buchungssystem', 'Admin-Dashboard', 'Mitarbeiter-Kalender', 'Service-Verwaltung', 'C# ASP.NET Backend', 'MS SQL Datenbank'],
+    stats: { frontend: 'Next.js auf Vercel', backend: 'C# ASP.NET auf ASP Monster', datenbank: 'MS SQL' },
   },
   {
     title: 'Hautliebe Preisrechner',
@@ -166,6 +211,8 @@ const projects = [
     image: '/zoeypreisrechner.png',
     url: 'https://hautliebepreisrechner-fyg2.vercel.app/api/auth/signin',
     imagePosition: 'object-top',
+    highlights: ['Schnelle Preisberechnung', 'Rabatt-Kalkulation', 'Einfaches UI ohne Verwaltung', 'Next.js auf Vercel'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Autocenter Kaddoura',
@@ -176,6 +223,8 @@ const projects = [
     image: '/kaddoura.png',
     url: 'https://kaddouraautocenter.vercel.app/',
     imagePosition: 'object-center',
+    highlights: ['Professionelle Landing Page', 'Next.js für schnelle Ladezeiten', 'Responsives Design', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Golden Ticket',
@@ -186,6 +235,8 @@ const projects = [
     image: '/goldenticket.png',
     url: 'https://goldentickethomepage.vercel.app/',
     imagePosition: 'object-center',
+    highlights: ['Professionelle Landing Page', 'Next.js für schnelle Ladezeiten', 'Responsives Design', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Sweet Funnel Gewinnspiel',
@@ -196,6 +247,8 @@ const projects = [
     image: '/sweetsfunnel.png',
     url: 'https://sweetfunnelgewinnspiel.vercel.app/',
     imagePosition: 'object-center',
+    highlights: ['Professionelle Landing Page', 'Next.js für schnelle Ladezeiten', 'Responsives Design', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
   {
     title: 'Sweets Funnel',
@@ -206,27 +259,156 @@ const projects = [
     image: '/sweetsfunnel.png',
     url: 'https://sweetsfunnel.vercel.app/',
     imagePosition: 'object-center',
+    highlights: ['Professionelle Landing Page', 'Next.js für schnelle Ladezeiten', 'Responsives Design', 'TypeScript'],
+    stats: { framework: 'Next.js', sprache: 'TypeScript', hosting: 'Vercel' },
   },
 ]
 
-const allCategories = ['Alle', ...Array.from(new Set(projects.map((p) => p.category)))]
+const ALL_CATEGORIES: Category[] = [
+  'Alle',
+  'Full-Stack Development',
+  'CRM System',
+  'Web-App',
+  'Group',
+  'E-Commerce',
+  'Booking System',
+  'Tool',
+  'Landing Page',
+]
+
+interface ProjectCardProps {
+  project: Project
+  index: number
+  isDark: boolean
+  textColor: string
+  textMuted: string
+  cardBg: string
+}
+
+function ProjectCard({ project, index, isDark, textColor, textMuted, cardBg }: ProjectCardProps) {
+  const isEven = index % 2 === 0
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, delay: index * 0.04 }}
+      className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isEven ? '' : 'lg:grid-flow-dense'}`}
+    >
+      <motion.div
+        className={`relative ${isEven ? '' : 'lg:col-start-2'}`}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 z-10`} />
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className={`object-cover ${project.imagePosition || 'object-top'}`}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={85}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 z-20 flex items-end p-6">
+            <div className="flex gap-2 flex-wrap">
+              {project.tags.map(tag => (
+                <span key={tag} className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-semibold">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className={`absolute -top-4 -right-4 z-30 px-4 py-2 bg-gradient-to-r ${project.color} text-white rounded-xl shadow-xl font-bold text-xs sm:text-sm`}>
+          {project.category}
+        </div>
+      </motion.div>
+
+      <div className={isEven ? '' : 'lg:col-start-1 lg:row-start-1'}>
+        <motion.div
+          initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+        >
+          <h3
+            className={`text-3xl sm:text-4xl font-bold mb-4 ${textColor}`}
+            style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+          >
+            {project.title}
+          </h3>
+
+          <p className={`text-base sm:text-lg mb-5 leading-relaxed ${textMuted}`}>
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tags.map(tag => (
+              <span
+                key={tag}
+                className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold ${
+                  isDark ? 'bg-white/10 text-ghost-white' : 'bg-gray-100 text-gray-700'
+                }`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 mb-6">
+            {Object.entries(project.stats).map(([key, value]) => (
+              <div key={key} className={`flex items-center gap-3 p-3 sm:p-4 rounded-xl border ${cardBg}`}>
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}>
+                  <HiSparkles className="w-5 h-5 text-white" />
+                </div>
+                <span className={`text-sm sm:text-base font-bold ${textColor}`}>{value}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className={`rounded-2xl p-5 border mb-6 ${cardBg}`}>
+            <h4 className={`text-sm font-bold mb-3 ${textColor}`}>Leistungen:</h4>
+            <ul className="space-y-2">
+              {project.highlights.map((h, i) => (
+                <li key={i} className={`flex items-start gap-2 text-sm ${textMuted}`}>
+                  <HiSparkles className="w-4 h-4 text-aquamarine flex-shrink-0 mt-0.5" />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {project.url && (
+            <a href={project.url} target="_blank" rel="noopener noreferrer">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-7 py-3.5 bg-gradient-to-r ${project.color} text-white font-bold rounded-full text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2`}
+                style={{ fontWeight: 700 }}
+              >
+                Live-Website ansehen
+                <HiExternalLink className="w-4 h-4" />
+              </motion.button>
+            </a>
+          )}
+        </motion.div>
+      </div>
+    </motion.article>
+  )
+}
 
 const AllProjects = () => {
   const { actualTheme } = useTheme()
   const ref = useRef(null)
   const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState('Alle')
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [activeCategory, setActiveCategory] = useState<Category>('Alle')
 
   const isDark = actualTheme === 'dark'
   const bgColor = isDark ? 'bg-black' : 'bg-white'
   const textColor = isDark ? 'text-ghost-white' : 'text-gray-900'
   const subTextColor = isDark ? 'text-ghost-white/60' : 'text-gray-500'
   const backgroundTextColor = isDark ? 'text-white/5' : 'text-gray-900/5'
-
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const yFast = useTransform(scrollYProgress, [0, 1], [150, -150])
-  const ySlow = useTransform(scrollYProgress, [0, 1], [50, -50])
+  const cardBg = isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200'
 
   const filtered = projects.filter((p) => {
     const matchesCategory = activeCategory === 'Alle' || p.category === activeCategory
@@ -236,6 +418,13 @@ const AllProjects = () => {
       p.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()))
     return matchesCategory && matchesSearch
   })
+
+  const filterBtn = (active: boolean) =>
+    active
+      ? 'bg-gradient-to-r from-aquamarine to-tropical-indigo text-black shadow-lg'
+      : isDark
+        ? 'bg-white/10 text-ghost-white border border-white/20 hover:border-aquamarine/40'
+        : 'bg-white text-gray-700 border border-gray-300 hover:border-aquamarine'
 
   return (
     <section
@@ -249,25 +438,21 @@ const AllProjects = () => {
       </div>
 
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <motion.div
-          style={{ y: yFast }}
-          className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-tropical-indigo/10 rounded-full blur-[120px]"
-        />
-        <motion.div
-          style={{ y: ySlow }}
-          className="absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-aquamarine/8 rounded-full blur-[100px]"
-        />
+        <div className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-tropical-indigo/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-aquamarine/8 rounded-full blur-[100px]" />
         <div className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px] opacity-[0.03]" />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-6"
         >
-          <h1 className={`text-5xl lg:text-6xl font-bold ${textColor}`}>ALLE PROJEKTE</h1>
+          <h1 className={`text-5xl lg:text-6xl font-bold ${textColor}`} style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>
+            ALLE PROJEKTE
+          </h1>
           <p className={`mt-4 text-lg lg:text-xl ${subTextColor} max-w-2xl`}>
             Ein vollständiger Überblick über unsere Arbeit. Von Full-Stack-Entwicklung bis E-Commerce.
           </p>
@@ -277,44 +462,47 @@ const AllProjects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mb-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
+          className="mb-10 flex flex-col gap-4"
         >
-          <div className="flex flex-wrap gap-2">
-            {allCategories.map((cat) => (
+          <div className="flex flex-wrap gap-2 items-center">
+            <div className={`flex items-center gap-2 ${subTextColor} font-semibold text-sm`}>
+              <HiFilter className="w-4 h-4" />
+              <span>Kategorie:</span>
+            </div>
+            {ALL_CATEGORIES.map((cat) => (
               <motion.button
                 key={cat}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all duration-300 ${
-                  activeCategory === cat
-                    ? 'bg-aquamarine text-black border-aquamarine'
-                    : isDark
-                      ? 'bg-transparent border-ghost-white/20 text-ghost-white/70 hover:border-aquamarine/50'
-                      : 'bg-transparent border-gray-300 text-gray-600 hover:border-aquamarine/50'
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${filterBtn(activeCategory === cat)}`}
               >
                 {cat}
               </motion.button>
             ))}
           </div>
 
-          <div className={`relative w-full sm:w-72 flex items-center border rounded-full px-4 py-2.5 transition-all duration-300 ${
-            isDark ? 'bg-black/50 border-ghost-white/20 focus-within:border-aquamarine/60' : 'bg-white border-gray-200 focus-within:border-aquamarine/60'
-          }`}>
-            <HiSearch className={`shrink-0 text-lg mr-2 ${isDark ? 'text-ghost-white/40' : 'text-gray-400'}`} />
-            <input
-              type="text"
-              placeholder="Suchen..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className={`flex-1 bg-transparent outline-none text-sm ${isDark ? 'text-ghost-white placeholder-ghost-white/30' : 'text-gray-800 placeholder-gray-400'}`}
-            />
-            {search && (
-              <button onClick={() => setSearch('')} className="ml-2 shrink-0">
-                <HiX className={`text-base ${isDark ? 'text-ghost-white/40 hover:text-ghost-white/80' : 'text-gray-400 hover:text-gray-700'} transition-colors`} />
-              </button>
-            )}
+          <div className="flex items-center justify-between gap-4">
+            <div className={`relative w-full sm:w-72 flex items-center border rounded-full px-4 py-2.5 transition-all duration-300 ${
+              isDark ? 'bg-black/50 border-ghost-white/20 focus-within:border-aquamarine/60' : 'bg-white border-gray-200 focus-within:border-aquamarine/60'
+            }`}>
+              <HiSearch className={`shrink-0 text-lg mr-2 ${isDark ? 'text-ghost-white/40' : 'text-gray-400'}`} />
+              <input
+                type="text"
+                placeholder="Suchen..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className={`flex-1 bg-transparent outline-none text-sm ${isDark ? 'text-ghost-white placeholder-ghost-white/30' : 'text-gray-800 placeholder-gray-400'}`}
+              />
+              {search && (
+                <button onClick={() => setSearch('')} className="ml-2 shrink-0">
+                  <HiX className={`text-base ${isDark ? 'text-ghost-white/40 hover:text-ghost-white/80' : 'text-gray-400 hover:text-gray-700'} transition-colors`} />
+                </button>
+              )}
+            </div>
+            <p className={`text-sm ${subTextColor} shrink-0`}>
+              {filtered.length} {filtered.length === 1 ? 'Projekt' : 'Projekte'}
+            </p>
           </div>
         </motion.div>
 
@@ -329,88 +517,28 @@ const AllProjects = () => {
           </motion.div>
         )}
 
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
-        >
-          {filtered.map((project, index) => (
-            <motion.div
-              key={project.title}
-              layout
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-              onClick={() => {
-                if (project.url !== '#') window.open(project.url, '_blank', 'noopener,noreferrer')
-              }}
-              className="group relative cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
-
-              <div className="relative bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl h-full flex flex-col">
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
-                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/8 to-tropical-indigo/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full">
-                  <div className="relative w-full h-44 mb-5 rounded-2xl overflow-hidden border border-aquamarine/20 group-hover:border-aquamarine/40 transition-colors duration-300 shrink-0">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className={`object-cover ${project.imagePosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
-                      quality={85}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-
-                    <motion.div
-                      animate={{ opacity: hoveredIndex === index ? 1 : 0, scale: hoveredIndex === index ? 1 : 0.85 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-3 right-3 bg-black/70 text-ghost-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm flex items-center gap-1.5"
-                    >
-                      <HiExternalLink className="text-aquamarine" />
-                      Besuchen
-                    </motion.div>
-                  </div>
-
-                  <div className="flex-1 flex flex-col">
-                    <span className="inline-block px-3 py-1.5 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-xs font-semibold mb-4 self-start">
-                      {project.category}
-                    </span>
-
-                    <h3 className="text-2xl sm:text-3xl font-bold mb-3 text-ghost-white group-hover:text-aquamarine transition-colors duration-300">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-ghost-white/70 text-sm sm:text-base leading-relaxed mb-5 flex-1">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-xs hover:border-aquamarine/30 transition-colors duration-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-2 text-aquamarine font-semibold text-sm group-hover:gap-3 transition-all duration-300 mt-auto">
-                      <span>Projekt ansehen</span>
-                      <HiExternalLink className="text-lg" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory + search}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-16 lg:space-y-24"
+          >
+            {filtered.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                isDark={isDark}
+                textColor={textColor}
+                textMuted={subTextColor}
+                cardBg={cardBg}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
