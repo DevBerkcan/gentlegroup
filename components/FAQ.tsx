@@ -184,22 +184,6 @@ const FAQ = () => {
               Antworten auf die häufigsten Fragen.
             </p>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-3 sm:gap-4"
-          >
-            <div className="text-right hidden sm:block">
-              <p className={`text-sm font-semibold ${textColor}`}>{content.faq.items.length} Fragen</p>
-              <p className={`text-xs ${textMuted}`}>Alle Antworten auf einen Blick</p>
-            </div>
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-2xl flex items-center justify-center shadow-lg text-black font-black text-lg sm:text-xl">
-              ?
-            </div>
-          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 xl:gap-20">
