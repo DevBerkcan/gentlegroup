@@ -2,8 +2,9 @@
 
 import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
-import ProjectInquiryModal from "@/components/ProjectInquiryModal";
 import Image from "next/image";
+import ProjectInquiryModal from "@/app/project-questionnaire/page";
+import AIQuestionnairePage from "@/app/project-questionnaire/page";
 
 // Type definitions for model-viewer
 declare global {
@@ -339,7 +340,7 @@ const Hero = () => {
       </section>
 
       {isModalOpen && (
-        <ProjectInquiryModal onClose={() => setIsModalOpen(false)} />
+        <AIQuestionnairePage />
       )}
     </>
   );

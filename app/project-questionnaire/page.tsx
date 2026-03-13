@@ -85,10 +85,9 @@ const AIQuestionnairePage = () => {
         key: 'projectType',
         type: 'select',
         options: [
-          'Neue Website/Relaunch',
+          'Neue Website',
           'Web-Anwendung (Web-App)',
           'Mobile App (iOS/Android)',
-          'E-Commerce Shop',
           'KI-Integration/Automatisierung',
           'Cloud-Migration/Optimierung',
           'UI/UX Redesign',
@@ -298,17 +297,6 @@ const AIQuestionnairePage = () => {
           className="shrink-0 mb-4 pb-4 border-b border-ghost-white/10"
         >
           <div className="flex items-center gap-3 sm:gap-5">
-            <motion.div
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              className="shrink-0 w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-2xl overflow-hidden"
-              style={{ width: 'clamp(52px, 8vw, 80px)', height: 'clamp(52px, 8vw, 80px)' }}
-            >
-              <ModelViewer
-                src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
-                alt="Fella AI Assistant 3D Avatar"
-                className="w-full h-full"
-              />
-            </motion.div>
 
             <div className="flex-1 min-w-0">
               <h1 className="font-bold text-ghost-white truncate leading-tight" style={{ fontSize: 'clamp(1.2rem, 3.5vw, 2.25rem)' }}>
@@ -362,9 +350,8 @@ const AIQuestionnairePage = () => {
                 >
                   <motion.div
                     whileHover={{ scale: 1.08, rotate: 5 }}
-                    className={`shrink-0 rounded-xl flex items-center justify-center overflow-hidden ${
-                      message.type === 'fella' ? '' : message.type === 'system' ? 'bg-ghost-white/10' : 'bg-ghost-white/20'
-                    }`}
+                    className={`shrink-0 rounded-xl flex items-center justify-center overflow-hidden ${message.type === 'fella' ? '' : message.type === 'system' ? 'bg-ghost-white/10' : 'bg-ghost-white/20'
+                      }`}
                     style={{ width: 'clamp(40px, 6vw, 56px)', height: 'clamp(40px, 6vw, 56px)' }}
                   >
                     {message.type === 'fella' ? (
@@ -385,13 +372,12 @@ const AIQuestionnairePage = () => {
                     style={{ maxWidth: 'min(76%, 520px)' }}
                   >
                     <div
-                      className={`inline-block px-4 sm:px-6 py-3 sm:py-4 rounded-3xl ${
-                        message.type === 'fella'
+                      className={`inline-block px-4 sm:px-6 py-3 sm:py-4 rounded-3xl ${message.type === 'fella'
                           ? 'bg-gradient-to-br from-ghost-white/10 to-ghost-white/5 border-2 border-ghost-white/20 rounded-bl-none shadow-xl'
                           : message.type === 'system'
                             ? 'bg-ghost-white/8 border border-ghost-white/15 rounded-3xl shadow-lg'
                             : 'bg-gradient-to-br from-aquamarine/20 to-tropical-indigo/20 border-2 border-aquamarine/30 rounded-br-none shadow-xl shadow-aquamarine/10'
-                      } backdrop-blur-md`}
+                        } backdrop-blur-md`}
                     >
                       <p className="leading-relaxed whitespace-pre-line" style={{ fontSize: 'clamp(0.85rem, 2.2vw, 1.125rem)' }}>
                         {message.content}
@@ -539,7 +525,8 @@ const AIQuestionnairePage = () => {
                 )}
               </div>
 
-              <div className="flex gap-3 justify-between">
+              <div className="flex gap-3 justify-between pr-14 sm:pr-0">
+
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -564,7 +551,7 @@ const AIQuestionnairePage = () => {
                   {step === questions.length - 1 ? (
                     <>Abschließen <HiCheckCircle className="text-lg sm:text-xl" /></>
                   ) : (
-                    <>Weiter <HiArrowRight className="text-lg sm:text-xl" /></>
+                    <>Weiter</>
                   )}
                 </motion.button>
               </div>
