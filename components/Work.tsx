@@ -90,6 +90,126 @@ const content = {
         url: 'https://www.nrwrealestate.de/',
         imagePosition: 'object-[center_40%]',
       },
+      {
+        title: 'Teretnjaci',
+        category: 'Full-Stack Development',
+        description: 'News-Plattform rund um Trucks und Logistik als Web-App, Android-App und iOS-App. Admins verwalten Beiträge über ein Admin-Portal. Nutzer sehen alle Posts auf der Startseite.',
+        tags: ['React', 'Vite', 'Node.js', 'MySQL', 'Android', 'iOS', 'Cloudflare', 'cPanel'],
+        color: 'from-aquamarine to-tropical-indigo',
+        image: '/teretnjaci.png',
+        url: 'https://teretnjaci.ba',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Skinbloom Buchungssystem',
+        category: 'Booking System',
+        description: 'Buchungsplattform für Skinbloom Aesthetics. Admins verwalten Buchungen, Zeitblockierungen, Services, Mitarbeiter und Kunden. Mitarbeiter sehen nur ihren eigenen Kalender. Kunden buchen online mit Service- und Mitarbeiterwahl.',
+        tags: ['Next.js', 'React', 'C#', 'ASP.NET', 'MS SQL', 'SMTP', 'Vercel'],
+        color: 'from-tropical-indigo to-aquamarine',
+        image: '/skinbloombooking.png',
+        url: 'https://skinbloombooking.gentlegroup.de/',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Skinbloom Preisrechner',
+        category: 'Tool',
+        description: 'Preisrechner für Skinbloom Aesthetics. Admins legen Kunden, Services, Kategorien und Preise fest. Am Ende wird ein Kostenvoranschlag als PDF exportiert.',
+        tags: ['Next.js', 'React', 'TypeScript', 'C#', 'ASP.NET', 'MS SQL', 'PDF', 'Vercel'],
+        color: 'from-aquamarine to-oxford-blue',
+        image: '/skinbloompreisrechner.png',
+        url: 'https://skinbloompreisrechner.gentlegroup.de/skinbloom',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Zoey Preisrechner',
+        category: 'Tool',
+        description: 'Einfacher Preisrechner zur schnellen Berechnung von Preisen und Rabatten ohne Kundenverwaltung oder Service-Konfiguration.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-tropical-indigo to-oxford-blue',
+        image: '/zoeypreisrechner.png',
+        url: 'https://zoey-preisrechner.vercel.app/',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'VIPShuttle24',
+        category: 'Landing Page',
+        description: 'Elegante Landing Page für erstklassigen Chauffeur-Service in Düsseldorf und NRW. Diskretion, Pünktlichkeit und Komfort auf höchstem Niveau.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-aquamarine to-tropical-indigo',
+        image: '/vipshuttle24.png',
+        url: 'https://vipshuttle-24.de/',
+        imagePosition: 'object-center',
+      },
+      {
+        title: 'Dario Barber',
+        category: 'Booking System',
+        description: 'Linktree und Buchungssystem für Dario Barber. Kunden buchen online, Admins verwalten Termine, Services und Mitarbeiter – gleicher Funktionsumfang wie das Skinbloom Buchungssystem.',
+        tags: ['Next.js', 'React', 'C#', 'ASP.NET', 'MS SQL', 'Vercel'],
+        color: 'from-tropical-indigo to-aquamarine',
+        image: '/dariobarber.png',
+        url: 'https://limktree-keinfriseur.vercel.app/',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Casa del Soul Tattoostudio',
+        category: 'Booking System',
+        description: 'Linktree und Buchungssystem für Casa del Soul Tattoostudio. Gleicher Funktionsumfang wie das Skinbloom Buchungssystem und Dario Barber.',
+        tags: ['Next.js', 'React', 'C#', 'ASP.NET', 'MS SQL', 'Vercel'],
+        color: 'from-aquamarine to-oxford-blue',
+        image: '/casadelsoul.png',
+        url: 'https://casa-del-soul-tattoostudio.vercel.app/',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Hautliebe Preisrechner',
+        category: 'Tool',
+        description: 'Preisrechner für Hautliebe. Einfache Berechnung von Preisen und Rabatten – gleicher Funktionsumfang wie der Zoey Preisrechner.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-tropical-indigo to-oxford-blue',
+        image: '/zoeypreisrechner.png',
+        url: 'https://hautliebepreisrechner-fyg2.vercel.app/api/auth/signin',
+        imagePosition: 'object-top',
+      },
+      {
+        title: 'Autocenter Kaddoura',
+        category: 'Landing Page',
+        description: 'Professionelle Landing Page für Autocenter Kaddoura. Modernes Design mit Next.js und optimaler Performance.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-aquamarine to-tropical-indigo',
+        image: '/kaddoura.png',
+        url: 'https://kaddouraautocenter.vercel.app/',
+        imagePosition: 'object-center',
+      },
+      {
+        title: 'Golden Ticket',
+        category: 'Landing Page',
+        description: 'Ansprechende Landing Page für Golden Ticket. Entwickelt mit Next.js, React und TypeScript für schnelle Ladezeiten.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-tropical-indigo to-aquamarine',
+        image: '/goldenticket.png',
+        url: 'https://goldentickethomepage.vercel.app/',
+        imagePosition: 'object-center',
+      },
+      {
+        title: 'Sweet Funnel Gewinnspiel',
+        category: 'Landing Page',
+        description: 'Landing Page für Sweet Funnel Gewinnspiel. Gleicher Aufbau und Technologie-Stack wie Golden Ticket.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-aquamarine to-oxford-blue',
+        image: '/sweetsfunnel.png',
+        url: 'https://sweetfunnelgewinnspiel.vercel.app/',
+        imagePosition: 'object-center',
+      },
+      {
+        title: 'Sweets Funnel',
+        category: 'Landing Page',
+        description: 'Landing Page für Sweets Funnel. Gleicher Aufbau und Technologie-Stack wie Golden Ticket.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+        color: 'from-tropical-indigo to-oxford-blue',
+        image: '/sweetsfunnel.png',
+        url: 'https://sweetsfunnel.vercel.app/',
+        imagePosition: 'object-center',
+      },
     ],
   },
 }
@@ -197,6 +317,7 @@ const Work = () => {
   }, [])
 
   const handleProjectClick = (url: string) => {
+    if (url === '#') return
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
@@ -269,7 +390,6 @@ const Work = () => {
           </motion.div>
         </div>
 
-        {/* ── Desktop stacked cards ── */}
         <motion.div
           style={{ y: cardY, opacity: cardOpacity }}
           className="hidden lg:flex min-h-[70vh] items-start justify-center relative cursor-default mb-16 sm:mb-20"
@@ -354,7 +474,6 @@ const Work = () => {
           </div>
         </motion.div>
 
-        {/* ── Mobile swipeable card ── */}
         <div className="lg:hidden mb-10">
           <div
             className="relative touch-pan-y"
