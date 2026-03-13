@@ -3,10 +3,8 @@
 import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import ProjectInquiryModal from "@/app/project-questionnaire/page";
-import AIQuestionnairePage from "@/app/project-questionnaire/page";
+import { useRouter } from "next/navigation";
 
-// Type definitions for model-viewer
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -31,7 +29,7 @@ declare global {
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
   const titleControls = useAnimation();
   const contentControls = useAnimation();
   const modelViewerRef = useRef<HTMLElement | null>(null);
@@ -66,7 +64,6 @@ const Hero = () => {
         filter: "blur(0px)",
         transition: { duration: 0.8 },
       });
-
       await contentControls.start({
         opacity: 1,
         y: 0,
@@ -104,31 +101,26 @@ const Hero = () => {
     }
   }, [displayText, isDeleting, currentTextIndex, rotatingTexts]);
 
-  // Model viewer click handler
+  const handleProjectRedirect = () => {
+    window.open("/project-questionnaire", "_blank", "noopener,noreferrer");
+  };
+
+
   useEffect(() => {
     if (typeof window !== "undefined" && modelViewerRef.current) {
       const modelViewer = modelViewerRef.current;
-
-      const handleClick = () => {
-        window.open("/project-questionnaire", "_blank", "noopener,noreferrer");
-      };
-
+      const handleClick = () => handleProjectRedirect();
       modelViewer.addEventListener("click", handleClick);
-
-      return () => {
-        modelViewer.removeEventListener("click", handleClick);
-      };
+      return () => modelViewer.removeEventListener("click", handleClick);
     }
   }, []);
 
-  // Handle model viewer loading
   useEffect(() => {
     const checkModelViewer = () => {
-      if (modelViewerRef.current && 'loaded' in modelViewerRef.current) {
+      if (modelViewerRef.current && "loaded" in modelViewerRef.current) {
         setIsModelViewerLoaded(true);
       }
     };
-
     const timer = setTimeout(checkModelViewer, 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -144,7 +136,6 @@ const Hero = () => {
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0 bg-black" />
 
-        {/* Background SVG Lines */}
         <svg className="absolute inset-0 w-full h-full opacity-10">
           <motion.line
             x1="20%"
@@ -153,14 +144,8 @@ const Hero = () => {
             y2="70%"
             stroke="url(#gradient1)"
             strokeWidth="1"
-            animate={{
-              strokeDasharray: ["0 100", "100 0"],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={{ strokeDasharray: ["0 100", "100 0"] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           <motion.line
             x1="80%"
@@ -169,14 +154,8 @@ const Hero = () => {
             y2="70%"
             stroke="url(#gradient2)"
             strokeWidth="1"
-            animate={{
-              strokeDasharray: ["100 0", "0 100"],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={{ strokeDasharray: ["100 0", "0 100"] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           />
           <defs>
             <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -195,7 +174,7 @@ const Hero = () => {
           className="relative z-20 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8"
         >
           <div className="flex flex-col items-center justify-center min-h-screen py-8">
-            {/* Logo - Responsive */}
+
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={contentControls}
@@ -211,7 +190,6 @@ const Hero = () => {
               />
             </motion.div>
 
-            {/* Main Title - Responsive */}
             <div className="mb-4 sm:mb-6 lg:mb-8 min-h-[80px] sm:min-h-[120px] lg:min-h-[160px] flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 1.4 }}
@@ -220,14 +198,8 @@ const Hero = () => {
                 className="leading-[0.9] text-center"
               >
                 <motion.div
-                  animate={{
-                    backgroundPosition: ["0% center", "200% center"],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                  animate={{ backgroundPosition: ["0% center", "200% center"] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   style={{
                     backgroundImage:
                       "linear-gradient(300deg, #01FFA9 0%, #A97AFF 25%, #01FFA9 50%, #A97AFF 75%, #01FFA9 100%)",
@@ -245,11 +217,8 @@ const Hero = () => {
               </motion.div>
             </div>
 
-            {/* Text Content - Centered + 3D Model positioned to the right */}
             <div className="w-full max-w-7xl mx-auto px-4 mb-32 sm:mb-36 lg:mb-40 relative">
-              {/* Centered Text Content */}
               <div className="flex flex-col items-center">
-                {/* Subtitle - GentleSuite Brand */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={contentControls}
@@ -261,7 +230,6 @@ const Hero = () => {
                   </p>
                 </motion.div>
 
-                {/* Rotating Text - Responsive */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={contentControls}
@@ -283,30 +251,25 @@ const Hero = () => {
                 </motion.div>
               </div>
 
-              {/* 3D Model - Positioned to the right on desktop */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={contentControls}
                 className="mt-12 lg:mt-0 lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 flex justify-center"
               >
                 <div className="relative cursor-pointer flex justify-center items-center">
-                  <motion.div
-                    className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-ghost-white/95 text-black px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-base font-semibold whitespace-nowrap backdrop-blur-sm border border-ghost-white/30 shadow-lg z-30"
-                    animate={{
-                      y: [0, -5, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                  <motion.button
+                    onClick={handleProjectRedirect}
+                    className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-ghost-white/95 text-black px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-base font-semibold whitespace-nowrap backdrop-blur-sm border border-ghost-white/30 shadow-lg z-30 cursor-pointer hover:bg-white transition-colors duration-200"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Need a project? Click me!
                     <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-2 h-2 bg-ghost-white/95 rotate-45" />
-                  </motion.div>
+                  </motion.button>
 
                   <div className="relative w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] lg:w-[350px] lg:h-[350px] flex justify-center">
-                    {/* Loading Fallback */}
                     {!isModelViewerLoaded && (
                       <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/20 to-tropical-indigo/20 rounded-2xl flex items-center justify-center">
                         <div className="text-ghost-white text-lg">Loading 3D Model...</div>
@@ -326,9 +289,8 @@ const Hero = () => {
                       camera-orbit="0deg 75deg 105%"
                       interaction-prompt="none"
                       shadow-intensity="1"
-                      className={`w-full h-full cursor-pointer rounded-2xl transition-opacity duration-500 ${
-                        isModelViewerLoaded ? 'opacity-100' : 'opacity-0'
-                      }`}
+                      className={`w-full h-full cursor-pointer rounded-2xl transition-opacity duration-500 ${isModelViewerLoaded ? "opacity-100" : "opacity-0"
+                        }`}
                       onLoad={() => setIsModelViewerLoaded(true)}
                     ></model-viewer>
                   </div>
@@ -338,10 +300,6 @@ const Hero = () => {
           </div>
         </motion.div>
       </section>
-
-      {isModalOpen && (
-        <AIQuestionnairePage />
-      )}
     </>
   );
 };

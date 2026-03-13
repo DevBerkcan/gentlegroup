@@ -566,7 +566,8 @@ const AllProjects = () => {
           className="text-center mt-20"
         >
           <motion.a
-            href="/#contact"
+            href="/project-questionnaire"
+            target='_blank'
             whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(169, 122, 255, 0.5)' }}
             whileTap={{ scale: 0.95 }}
             className="inline-block px-12 py-6 border-2 border-tropical-indigo text-tropical-indigo font-bold rounded-full text-xl hover:bg-tropical-indigo hover:text-black transition-all duration-300"
