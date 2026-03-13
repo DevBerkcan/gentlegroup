@@ -440,7 +440,7 @@ export default function GentleCalcPage() {
             className={`${cardBg} backdrop-blur-xl rounded-3xl p-12 border ${borderColor} text-center`}
           >
             <h2 className={`text-4xl font-bold mb-4 ${textColor}`}>
-              Ab 39€/Monat
+              Ab 9€/Monat
             </h2>
             <p className={`text-lg ${mutedColor} mb-8`}>
               Monatlich kündbar, keine Setup-Gebühren

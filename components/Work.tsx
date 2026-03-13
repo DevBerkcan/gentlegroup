@@ -97,7 +97,7 @@ const content = {
         tags: ['React', 'Vite', 'Node.js', 'MySQL', 'Android', 'iOS', 'Cloudflare', 'cPanel'],
         color: 'from-aquamarine to-tropical-indigo',
         image: '/teretnjaci.png',
-        url: 'https://teretnjaci.ba',
+        url: '#',
         imagePosition: 'object-top',
       },
       {
@@ -343,7 +343,7 @@ const Work = () => {
 
       <div ref={containerRef} className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16">
 
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-8 mb-10 sm:mb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-8 mb-10 sm:mb-16" style={{ alignItems: 'flex-start' }}>
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -363,7 +363,7 @@ const Work = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="flex items-center gap-3 shrink-0 sm:pb-1"
+            className="flex items-center gap-3 shrink-0"
           >
             <div className="text-right hidden sm:block">
               <p className={`text-sm font-semibold ${textColor}`}>
@@ -392,9 +392,9 @@ const Work = () => {
 
         <motion.div
           style={{ y: cardY, opacity: cardOpacity }}
-          className="hidden lg:flex min-h-[70vh] items-start justify-center relative cursor-default mb-16 sm:mb-20"
+          className="hidden lg:block relative cursor-default mb-8"
         >
-          <div ref={projectsContainerRef} className="w-full max-w-[1400px] px-0 sm:px-4 relative" style={{ perspective: '2000px' }}>
+          <div ref={projectsContainerRef} className="w-full max-w-[1400px] px-0 sm:px-4 relative" style={{ perspective: '2000px', height: '620px' }}>
             {content.work.items.map((proj, index) => {
               const offset = index - activeProject
               const isActive = index === activeProject

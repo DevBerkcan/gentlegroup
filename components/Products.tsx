@@ -15,7 +15,7 @@ const PRODUCTS = [
     icon: HiChartBar,
     gradient: 'from-aquamarine to-tropical-indigo',
     features: ['Live-Status Ihrer Projekte', 'Automatische Updates', 'Transparente Kommunikation', 'Meilenstein-Tracking'],
-    pricing: 'Ab 29€/Monat',
+    pricing: 'Ab 9€/Monat',
     link: '/products/gentletrack',
   },
   {
@@ -26,7 +26,7 @@ const PRODUCTS = [
     icon: HiEye,
     gradient: 'from-tropical-indigo to-aquamarine',
     features: ['WCAG 2.1 Compliance-Check', 'Automatische Optimierungen', 'Screen-Reader Kompatibilität', 'Kontrast-Anpassungen'],
-    pricing: 'Ab 49€/Monat',
+    pricing: 'Ab 19€/Monat',
     link: '/products/gentleaccess',
   },
   {
@@ -37,7 +37,7 @@ const PRODUCTS = [
     icon: HiCalculator,
     gradient: 'from-aquamarine to-tropical-indigo',
     features: ['Individuell konfigurierbar', 'Automatische Preisberechnung', 'Lead-Generierung', 'Direkte Buchungsanfragen'],
-    pricing: 'Ab 39€/Monat',
+    pricing: 'Ab 19€/Monat',
     link: '/products/gentlecalc',
   },
   {
@@ -48,7 +48,7 @@ const PRODUCTS = [
     icon: HiCalendar,
     gradient: 'from-tropical-indigo to-aquamarine',
     features: ['24/7 Online-Terminbuchung', 'Service & Preis-Verwaltung', 'Automatische Kalender-Synchronisation', 'WhatsApp & Instagram Integration'],
-    pricing: 'Ab 49€/Monat',
+    pricing: 'Ab 19€/Monat',
     link: '/products/gentlebook',
   },
 ]

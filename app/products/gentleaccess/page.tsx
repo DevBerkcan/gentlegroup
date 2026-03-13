@@ -313,7 +313,7 @@ export default function GentleAccessPage() {
           >
             <div className="max-w-2xl mx-auto">
               <h2 className={`text-4xl font-bold mb-4 ${textColor}`}>
-                Ab 49€/Monat
+                Ab 19€/Monat
               </h2>
               <p className={`text-lg ${mutedColor} mb-8`}>
                 Monatlich kündbar • Keine Setup-Gebühren • Unbegrenzte Tests
