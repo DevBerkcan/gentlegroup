@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { HiEye, HiCheckCircle, HiArrowRight } from 'react-icons/hi'
+import { HiEye, HiCheckCircle, HiArrowRight, HiHome } from 'react-icons/hi'
 import { useTheme } from '@/contexts/ThemeContext'
 
 export default function GentleAccessPage() {
@@ -77,62 +77,65 @@ export default function GentleAccessPage() {
     }
   ]
 
-  // Auto-hide hint after 10 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowHint(false)
-    }, 10000)
-
+    const timer = setTimeout(() => setShowHint(false), 10000)
     return () => clearTimeout(timer)
   }, [])
 
   return (
     <>
       <main className={`min-h-screen ${bgColor} pt-32 pb-20`}>
-        {/* Hint Arrow pointing to the accessibility icon */}
+
         {showHint && (
-          <div className="fixed bottom-32 right-24 z-40 pointer-events-none">
+          <div className="fixed bottom-28 right-6 z-40 pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative"
+              className="flex flex-col items-end gap-2"
             >
-
-
-              {/* Arrow pointing to icon */}
+              <div className={`px-3 py-2 rounded-xl text-xs font-medium shadow-lg ${actualTheme === 'dark' ? 'bg-oxford-blue border border-ghost-white/20 text-ghost-white' : 'bg-white border border-gray-200 text-oxford-blue'}`}>
+                Hier testen! 👇
+              </div>
               <motion.div
-                animate={{
-                  x: [-20, 0, -20],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="flex items-center"
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+                className="flex justify-end pr-3"
               >
-                <div className="flex items-center">
-                  <div className="w-12 h-1 bg-tropical-indigo/50 rounded-l" />
-                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-tropical-indigo/50 border-b-[10px] border-b-transparent" />
-                </div>
-                <div className="ml-2">
-                  <HiEye className="w-8 h-8 text-tropical-indigo animate-pulse" />
-                </div>
+                <HiArrowRight className="w-5 h-5 text-tropical-indigo rotate-90" />
               </motion.div>
             </motion.div>
           </div>
         )}
 
         <section className="max-w-[1400px] mx-auto px-8 lg:px-16">
-          {/* Hero Section */}
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-10"
+          >
+            <Link href="/">
+              <motion.div
+                whileHover={{ scale: 1.05, x: -4 }}
+                whileTap={{ scale: 0.95 }}
+                className={`inline-flex items-center gap-2 px-4 py-2 ${cardBg} border ${borderColor} rounded-full text-sm font-medium ${mutedColor} transition-all duration-200`}
+              >
+                <HiHome className="w-4 h-4" />
+                Zurück zur Startseite
+              </motion.div>
+            </Link>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <div className="inline-flex p-4 bg-gradient-to-br from-tropical-indigo to-aquamarine rounded-2xl mb-6">
+            <div className="inline-flex p-4 bg-gradient-to-br from-tropical-indigo to-aquamarine rounded-2xl mb-6 shadow-lg shadow-tropical-indigo/20">
               <HiEye className="w-12 h-12 text-oxford-blue" />
             </div>
 
@@ -144,42 +147,48 @@ export default function GentleAccessPage() {
               Barrierefreiheit leicht gemacht
             </p>
 
-            <p className={`text-xl lg:text-2xl ${mutedColor} max-w-3xl mx-auto`}>
+            <p className={`text-xl lg:text-2xl ${mutedColor} max-w-3xl mx-auto leading-relaxed`}>
               Machen Sie Ihre Website für alle zugänglich. GentleAccess analysiert und verbessert die Barrierefreiheit automatisch.
             </p>
           </motion.div>
 
-          {/* Simple Demo Callout */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className={`${cardBg} backdrop-blur-xl rounded-3xl p-8 border ${borderColor} mb-16 text-center relative`}
+            className={`rounded-3xl p-8 border ${borderColor} mb-16 bg-gradient-to-br ${actualTheme === 'dark' ? 'from-tropical-indigo/10 to-aquamarine/5' : 'from-tropical-indigo/5 to-aquamarine/5'} text-center`}
           >
             <div className="flex flex-col items-center">
-              <div className="flex items-center gap-4 mb-6">
-                <HiEye className="w-10 h-10 text-tropical-indigo" />
-                <h3 className={`text-2xl font-bold ${textColor}`}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-tropical-indigo/10 rounded-xl flex items-center justify-center">
+                  <HiEye className="w-5 h-5 text-tropical-indigo" />
+                </div>
+                <h3 className={`text-xl font-bold ${textColor}`}>
                   Jetzt direkt testen
                 </h3>
               </div>
-              
-              <p className={`text-lg ${mutedColor} mb-6 max-w-2xl`}>
+
+              <p className={`text-base ${mutedColor} mb-5 max-w-xl`}>
                 Das Accessibility-Tool ist <span className="font-bold text-tropical-indigo">bereits aktiv</span> auf dieser Seite.
               </p>
 
-              <div className={`p-4 rounded-xl ${actualTheme === 'dark' ? 'bg-white/5' : 'bg-gray-50'} border ${borderColor}`}>
-                <p className={`font-medium ${textColor} mb-2`}>
-                   Klicken Sie auf das <span className="text-tropical-indigo">Icon unten rechts</span>
-                </p>
-                <p className={`text-sm ${mutedColor}`}>
-                  (Das Accessibility-Icon ist immer sichtbar)
-                </p>
+              <div className={`inline-flex items-center gap-3 px-5 py-3 rounded-xl ${actualTheme === 'dark' ? 'bg-white/5' : 'bg-white'} border ${borderColor} shadow-sm`}>
+                <span className={`text-sm font-medium ${textColor}`}>
+                  Klicken Sie auf das
+                </span>
+                <span className="px-2 py-0.5 bg-tropical-indigo/10 text-tropical-indigo text-sm font-bold rounded-lg">
+                  Icon unten rechts
+                </span>
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <HiArrowRight className="w-4 h-4 text-tropical-indigo" />
+                </motion.div>
               </div>
             </div>
           </motion.div>
 
-          {/* How It Works */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,23 +198,23 @@ export default function GentleAccessPage() {
             <h2 className={`text-3xl font-bold mb-12 text-center ${textColor}`}>
               So funktioniert GentleAccess
             </h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {howItWorks.map((item, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className={`${cardBg} backdrop-blur-xl rounded-2xl p-8 border ${borderColor} text-center hover:border-tropical-indigo/50 transition-all duration-300`}
+                  className={`${cardBg} backdrop-blur-xl rounded-2xl p-7 border ${borderColor} text-center hover:border-tropical-indigo/50 hover:shadow-lg hover:shadow-tropical-indigo/10 transition-all duration-300`}
                 >
-                  <div className="w-16 h-16 bg-gradient-to-br from-tropical-indigo to-aquamarine rounded-full flex items-center justify-center text-2xl font-bold text-oxford-blue mb-6 mx-auto">
+                  <div className="w-14 h-14 bg-gradient-to-br from-tropical-indigo to-aquamarine rounded-2xl flex items-center justify-center text-xl font-black text-oxford-blue mb-5 mx-auto shadow-lg shadow-tropical-indigo/20">
                     {item.step}
                   </div>
-                  <h3 className={`text-xl font-bold mb-3 ${textColor}`}>
+                  <h3 className={`text-base font-bold mb-2 ${textColor}`}>
                     {item.title}
                   </h3>
-                  <p className={mutedColor}>
+                  <p className={`${mutedColor} text-sm leading-relaxed`}>
                     {item.description}
                   </p>
                 </motion.div>
@@ -213,7 +222,6 @@ export default function GentleAccessPage() {
             </div>
           </motion.div>
 
-          {/* Features Grid */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -223,25 +231,25 @@ export default function GentleAccessPage() {
             <h2 className={`text-3xl font-bold mb-12 text-center ${textColor}`}>
               Was GentleAccess für Sie tut
             </h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                  className={`${cardBg} backdrop-blur-xl rounded-2xl p-8 border ${borderColor} hover:border-tropical-indigo/50 transition-all duration-300`}
+                  className={`${cardBg} backdrop-blur-xl rounded-2xl p-7 border ${borderColor} hover:border-tropical-indigo/50 hover:shadow-lg hover:shadow-tropical-indigo/10 transition-all duration-300 group`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-tropical-indigo/20 to-aquamarine/20 rounded-xl flex items-center justify-center">
-                      <HiCheckCircle className="w-6 h-6 text-tropical-indigo" />
+                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-tropical-indigo/20 to-aquamarine/20 rounded-xl flex items-center justify-center group-hover:from-tropical-indigo/30 group-hover:to-aquamarine/30 transition-all duration-300">
+                      <HiCheckCircle className="w-5 h-5 text-tropical-indigo" />
                     </div>
                     <div>
-                      <h3 className={`text-xl font-bold mb-2 ${textColor}`}>
+                      <h3 className={`text-base font-bold mb-2 ${textColor}`}>
                         {feature.title}
                       </h3>
-                      <p className={mutedColor}>
+                      <p className={`${mutedColor} text-sm leading-relaxed`}>
                         {feature.description}
                       </p>
                     </div>
@@ -251,30 +259,29 @@ export default function GentleAccessPage() {
             </div>
           </motion.div>
 
-          {/* Benefits Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className={`${cardBg} backdrop-blur-xl rounded-3xl p-12 border ${borderColor} mb-20`}
+            className={`rounded-3xl p-10 border ${borderColor} mb-20 bg-gradient-to-br ${actualTheme === 'dark' ? 'from-tropical-indigo/10 to-aquamarine/5' : 'from-tropical-indigo/5 to-aquamarine/5'}`}
           >
             <h2 className={`text-3xl font-bold mb-8 text-center ${textColor}`}>
               Ihre Vorteile mit GentleAccess
             </h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {benefits.map((benefit, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                  className="flex items-start gap-3"
+                  className={`flex items-center gap-3 p-4 rounded-xl ${cardBg} border ${borderColor}`}
                 >
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-tropical-indigo flex items-center justify-center mt-1">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-tropical-indigo to-aquamarine flex items-center justify-center shadow-sm">
                     <div className="w-2 h-2 rounded-full bg-white" />
                   </div>
-                  <span className={`${textColor} font-medium`}>
+                  <span className={`${textColor} text-sm font-medium`}>
                     {benefit}
                   </span>
                 </motion.div>
@@ -282,7 +289,6 @@ export default function GentleAccessPage() {
             </div>
           </motion.div>
 
-          {/* Tech Stack */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -292,11 +298,11 @@ export default function GentleAccessPage() {
             <h2 className={`text-3xl font-bold mb-8 text-center ${textColor}`}>
               Technologie-Stack
             </h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className={`px-6 py-3 ${cardBg} backdrop-blur-xl rounded-full border ${borderColor} ${textColor} font-medium hover:border-tropical-indigo transition-colors duration-300`}
+                  className={`px-5 py-2.5 ${cardBg} backdrop-blur-xl rounded-full border ${borderColor} ${textColor} text-sm font-medium hover:border-tropical-indigo hover:shadow-sm transition-all duration-300`}
                 >
                   {tech}
                 </span>
@@ -304,50 +310,50 @@ export default function GentleAccessPage() {
             </div>
           </motion.div>
 
-          {/* Pricing & CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.1 }}
-            className={`${cardBg} backdrop-blur-xl rounded-3xl p-12 border ${borderColor} text-center`}
+            className={`rounded-3xl p-12 border ${borderColor} text-center bg-gradient-to-br ${actualTheme === 'dark' ? 'from-white/5 to-white/[0.02]' : 'from-gray-50 to-white'}`}
           >
-            <div className="max-w-2xl mx-auto">
-              <h2 className={`text-4xl font-bold mb-4 ${textColor}`}>
-                Ab 19€/Monat
-              </h2>
-              <p className={`text-lg ${mutedColor} mb-8`}>
-                Monatlich kündbar • Keine Setup-Gebühren • Unbegrenzte Tests
-              </p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-tropical-indigo/10 border border-tropical-indigo/20 rounded-full text-tropical-indigo text-sm font-medium mb-6">
+              Monatlich kündbar
+            </div>
+            <h2 className={`text-5xl font-black mb-3 ${textColor}`}>
+              Ab 19€<span className={`text-2xl font-normal ${mutedColor}`}>/Monat</span>
+            </h2>
+            <p className={`text-base ${mutedColor} mb-10`}>
+              Keine Setup-Gebühren • Unbegrenzte Tests • Sofort einsatzbereit
+            </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Link href="/kontakt">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-gradient-to-r from-tropical-indigo to-aquamarine text-oxford-blue font-bold rounded-full shadow-lg hover:shadow-tropical-indigo/50 transition-all duration-300 inline-flex items-center gap-2 w-full sm:w-auto justify-center"
-                  >
-                    Jetzt anfragen
-                    <HiArrowRight className="w-5 h-5" />
-                  </motion.button>
-                </Link>
-              </div>
+            <Link href="/kontakt">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-gradient-to-r from-tropical-indigo to-aquamarine text-oxford-blue font-bold rounded-full shadow-lg shadow-tropical-indigo/30 hover:shadow-tropical-indigo/50 transition-all duration-300 inline-flex items-center gap-2"
+              >
+                Jetzt anfragen
+                <HiArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
 
-              {/* Test Hint */}
-              <div className={`mt-6 pt-6 border-t ${borderColor}`}>
-                <div className="flex flex-col items-center gap-3">
-                  <div className="flex items-center gap-3">
-                    <HiEye className="w-6 h-6 text-tropical-indigo animate-pulse" />
-                    <p className={`font-bold text-lg ${textColor}`}>
-                      Jetzt kostenlos testen
-                    </p>
-                  </div>
-                  <p className={`text-center ${mutedColor}`}>
-                    Klicken Sie auf das <span className="font-semibold text-tropical-indigo">Accessibility-Icon</span> unten rechts
+            <div className={`mt-10 pt-6 border-t ${borderColor}`}>
+              <div className="flex flex-col items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <HiEye className="w-5 h-5 text-tropical-indigo animate-pulse" />
+                  <p className={`font-bold ${textColor}`}>
+                    Kostenlos testen
                   </p>
                 </div>
+                <p className={`text-sm ${mutedColor}`}>
+                  Klicken Sie auf das{' '}
+                  <span className="font-semibold text-tropical-indigo">Accessibility-Icon</span>
+                  {' '}unten rechts
+                </p>
               </div>
             </div>
           </motion.div>
+
         </section>
       </main>
     </>
