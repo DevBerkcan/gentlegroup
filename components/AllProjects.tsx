@@ -2,9 +2,10 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import React, { useRef, useState } from 'react'
-import { HiExternalLink, HiSearch, HiX, HiArrowRight, HiSparkles, HiFilter } from 'react-icons/hi'
+import { HiExternalLink, HiSearch, HiX, HiArrowRight, HiSparkles, HiFilter, HiArrowLeft } from 'react-icons/hi'
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
+import Link from 'next/link'
 
 type Category = 'Alle' | 'Full-Stack Development' | 'CRM System' | 'Web-App' | 'Group' | 'E-Commerce' | 'Booking System' | 'Tool' | 'Landing Page'
 
@@ -125,7 +126,7 @@ const projects: Project[] = [
     tags: ['React', 'Vite', 'Node.js', 'MySQL', 'Android', 'iOS', 'Cloudflare', 'cPanel'],
     color: 'from-aquamarine to-tropical-indigo',
     image: '/teretnjaci.png',
-    url: 'https://teretnjaci.ba',
+    url: null,
     imagePosition: 'object-top',
     highlights: ['Web-App mit React + Vite', 'Node.js Backend auf cPanel', 'MySQL Datenbank', 'Android-App live im Store', 'iOS-App live im Store', 'Admin-Portal für Beiträge', 'Frontend auf Cloudflare'],
     stats: { platform: 'Web + Android + iOS', backend: 'Node.js + MySQL', frontend: 'Cloudflare' },
@@ -444,6 +445,23 @@ const AllProjects = () => {
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
+          <Link href="/">
+            <motion.span
+              whileHover={{ x: -4 }}
+              className={`inline-flex items-center gap-2 ${subTextColor} hover:text-aquamarine transition-colors duration-300 text-sm cursor-pointer`}
+            >
+              <HiArrowLeft className="w-4 h-4" />
+              Zurück zur Startseite
+            </motion.span>
+          </Link>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
