@@ -46,7 +46,7 @@ const BLOG_POSTS = [
     excerpt: 'Fortgeschrittene TypeScript-Patterns für sichere und wartbare Enterprise-Anwendungen. Generics, Utility Types und mehr.',
     category: 'Web Development',
     categoryColor: 'from-tropical-indigo to-aquamarine',
-    author: { name: 'Team Gentle Group', role: 'Development Team' },
+    author: { name: 'Medin Turkes', role: 'Developer' },
     publishDate: '1. März 2024',
     readTime: '15 min',
     slug: 'typescript-best-practices-enterprise',

@@ -25,7 +25,7 @@ const content = {
       },
       {
         question: 'Was kostet eine professionelle Website?',
-        answer: 'Die Kosten variieren je nach Anforderungen. Eine einfache Landing Page startet ab 2.000€, während umfangreiche Web-Anwendungen mit Custom Features zwischen 10.000€ - 50.000€+ liegen können. Wir erstellen gerne ein individuelles Angebot nach einem kostenlosen Erstgespräch.',
+        answer: 'Die Kosten variieren je nach Anforderungen. Eine einfache Landing Page startet ab 500€, während umfangreiche Web-Anwendungen mit Custom Features zwischen 1.000€ - 5.000€+ liegen können. Wir erstellen gerne ein individuelles Angebot nach einem kostenlosen Erstgespräch.',
         number: '04',
       },
       {

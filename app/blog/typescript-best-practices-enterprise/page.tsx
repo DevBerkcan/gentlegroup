@@ -12,8 +12,8 @@ export default function BlogPost() {
       category="Web Development"
       categoryColor="from-tropical-indigo to-aquamarine"
       author={{
-        name: 'Team Gentle Group',
-        role: 'Development Team'
+        name: 'Medin Turkes',
+        role: 'Developer'
       }}
       publishDate="1. März 2024"
       readTime="15 min"
